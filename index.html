@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Proposal and implementation guide for a health-aware network of institutional OpenGeoMetadata API mirrors.">
+  <meta property="og:title" content="OpenGeoMetadata API Mirror Network">
+  <meta property="og:description" content="Shared geospatial discovery infrastructure that becomes stronger with every new member.">
+  <title>OpenGeoMetadata API Mirror Network</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/technical-implementation.css">
+</head>
+<body class="home-page">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-nav" aria-label="Site header">
+    <a class="site-brand" href="index.html" aria-current="page">OpenGeoMetadata</a>
+    <nav aria-label="Primary navigation">
+      <a href="output/html/opengeometadata-mirror-network-executive-summary.html">Executive summary</a>
+      <a href="output/html/opengeometadata-api-mirror-network-technical-implementation.html">Technical guide</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <p class="eyebrow">Foundational community infrastructure proposal</p>
+    <h1>OpenGeoMetadata API Mirror Network</h1>
+    <p class="lede">A protected, health-aware network of institutional OGM API mirrors - paired with customizable <code>abcdefgeo</code> discovery sites - that adds capacity, resilience, and maintenance freedom with every new member.</p>
+
+    <div class="hero-actions">
+      <a class="button primary" href="output/html/opengeometadata-mirror-network-executive-summary.html">Read the Executive Summary</a>
+      <a class="button" href="output/html/opengeometadata-api-mirror-network-technical-implementation.html">Explore the Technical Guide</a>
+    </div>
+
+    <img class="hero-architecture" src="proposal/opengeometadata-mirror-network-architecture.svg" alt="Diagram of a protected global endpoint routing users to multiple institutional OGM API mirrors, with metadata synchronized from GitHub">
+
+    <section aria-labelledby="documents-heading">
+      <h2 id="documents-heading">Two documents, two audiences</h2>
+      <div class="card-grid">
+        <article class="document-card">
+          <p class="eyebrow">For library leadership</p>
+          <h3>Executive Summary</h3>
+          <p>The institutional ask, community return, reference cost, operating safeguards, and recommended three-node pilot.</p>
+          <div class="card-actions">
+            <a href="output/html/opengeometadata-mirror-network-executive-summary.html">Read HTML</a>
+            <a href="output/pdf/opengeometadata-mirror-network-executive-brief.pdf">Download PDF</a>
+            <a href="proposal/opengeometadata-mirror-network-executive-summary.md">View Markdown</a>
+          </div>
+        </article>
+        <article class="document-card">
+          <p class="eyebrow">For IT staff and geography librarians</p>
+          <h3>Technical Implementation Guide</h3>
+          <p>GitHub synchronization, nightly indexing, webhook fan-out, layered caching, failover, security, recovery, monitoring, and institutional responsibilities.</p>
+          <div class="card-actions">
+            <a href="output/html/opengeometadata-api-mirror-network-technical-implementation.html">Read HTML</a>
+            <a href="proposal/opengeometadata-api-mirror-network-technical-implementation.md">View Markdown</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="principles-heading">
+      <h2 id="principles-heading">The implementation in three decisions</h2>
+      <ul class="principles">
+        <li><strong>GitHub stays authoritative</strong>Every mirror independently harvests the public Aardvark corpus and can rebuild its derived data.</li>
+        <li><strong>The edge protects and balances</strong>One stable endpoint applies caching, bot controls, readiness checks, weighted routing, and failover.</li>
+        <li><strong>Cache outcomes, not Redis</strong>Global edge caching and optional content-addressed assets share work without coupling campus failure domains.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p><strong>OpenGeoMetadata API Mirror Network</strong></p>
+    <p><a href="https://opengeometadata.org/">OpenGeoMetadata</a> · <a href="https://github.com/OpenGeoMetadata">GitHub repositories</a> · <a href="README.md">Repository README</a></p>
+  </footer>
+</body>
+</html>

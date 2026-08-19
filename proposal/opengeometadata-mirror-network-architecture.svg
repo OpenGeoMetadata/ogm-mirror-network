@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1040" viewBox="0 0 1600 1040" role="img" aria-labelledby="title desc">
+  <title id="title">OpenGeoMetadata API Mirror Network architecture</title>
+  <desc id="desc">Customizable, institution-branded static discovery sites and direct API consumers call a protected global OpenGeoMetadata endpoint. The endpoint applies bot controls, rate limits, health checks, and weighted routing across API mirrors at BTAA, UT Austin, Nevada Reno, and future institutions. Every mirror independently synchronizes canonical Aardvark metadata from OpenGeoMetadata GitHub repositories and receives versioned deployments through shared OGM operations.</desc>
+  <defs>
+    <linearGradient id="edge" x1="0" x2="1">
+      <stop offset="0" stop-color="#073b4c"/>
+      <stop offset="1" stop-color="#0b6e75"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="7" stdDeviation="10" flood-color="#10343d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#087f8c"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2a9d68"/>
+    </marker>
+    <marker id="arrowGold" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#d18b24"/>
+    </marker>
+    <style>
+      .title { font: 700 48px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #073b4c; }
+      .subtitle { font: 400 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #43636a; }
+      .card-title { font: 700 25px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #073b4c; }
+      .card-copy { font: 400 19px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #45636a; }
+      .edge-title { font: 700 31px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #ffffff; }
+      .edge-copy { font: 400 20px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #d8f1f0; }
+      .pill { font: 600 17px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #073b4c; }
+      .node-title { font: 700 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #073b4c; }
+      .node-copy { font: 400 17px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #45636a; }
+      .small { font: 600 16px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #5b7378; letter-spacing: .4px; }
+      .flywheel { font: 700 21px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #ffffff; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1040" fill="#f7faf9"/>
+
+  <text class="title" x="80" y="74">OpenGeoMetadata API Mirror Network</text>
+  <text class="subtitle" x="80" y="113">One network endpoint. Many institutional mirrors. Every adopter adds resilience.</text>
+
+  <rect x="82" y="155" width="590" height="142" rx="22" fill="#ffffff" filter="url(#shadow)"/>
+  <circle cx="131" cy="207" r="27" fill="#e2f3f1"/>
+  <path d="M119 207h24M131 195v24" stroke="#087f8c" stroke-width="4" stroke-linecap="round"/>
+  <text class="card-title" x="176" y="199">Customizable institutional discovery</text>
+  <text class="card-copy" x="176" y="232">abcdefgeo frontend on GitHub Pages</text>
+  <text class="card-copy" x="176" y="260">Static, configurable, and locally branded</text>
+
+  <rect x="928" y="155" width="590" height="142" rx="22" fill="#ffffff" filter="url(#shadow)"/>
+  <circle cx="977" cy="207" r="27" fill="#fff0d8"/>
+  <path d="M965 207h24M977 195v24" stroke="#d18b24" stroke-width="4" stroke-linecap="round"/>
+  <text class="card-title" x="1022" y="199">Direct API consumers</text>
+  <text class="card-copy" x="1022" y="232">GIS clients, researchers, AI tools, crawlers</text>
+  <text class="card-copy" x="1022" y="260">One stable public contract and hostname</text>
+
+  <path d="M377 298 C377 322 460 322 560 341" fill="none" stroke="#087f8c" stroke-width="4" marker-end="url(#arrowBlue)"/>
+  <path d="M1223 298 C1223 322 1140 322 1040 341" fill="none" stroke="#087f8c" stroke-width="4" marker-end="url(#arrowBlue)"/>
+
+  <rect x="80" y="345" width="1440" height="164" rx="24" fill="url(#edge)" filter="url(#shadow)"/>
+  <text class="edge-title" x="125" y="395">Protected OpenGeoMetadata network endpoint</text>
+  <text class="edge-copy" x="125" y="430">Stable public API hostname with global traffic management</text>
+
+  <g transform="translate(125 455)">
+    <rect width="205" height="37" rx="18" fill="#e3f5f4"/>
+    <text class="pill" x="102.5" y="25" text-anchor="middle">CDN cache</text>
+  </g>
+  <g transform="translate(349 455)">
+    <rect width="220" height="37" rx="18" fill="#e3f5f4"/>
+    <text class="pill" x="110" y="25" text-anchor="middle">WAF + bot controls</text>
+  </g>
+  <g transform="translate(588 455)">
+    <rect width="190" height="37" rx="18" fill="#e3f5f4"/>
+    <text class="pill" x="95" y="25" text-anchor="middle">Rate limits</text>
+  </g>
+  <g transform="translate(797 455)">
+    <rect width="210" height="37" rx="18" fill="#e3f5f4"/>
+    <text class="pill" x="105" y="25" text-anchor="middle">Health + freshness</text>
+  </g>
+  <g transform="translate(1026 455)">
+    <rect width="260" height="37" rx="18" fill="#e3f5f4"/>
+    <text class="pill" x="130" y="25" text-anchor="middle">Weighted routing</text>
+  </g>
+  <g transform="translate(1305 455)">
+    <rect width="170" height="37" rx="18" fill="#e3f5f4"/>
+    <text class="pill" x="85" y="25" text-anchor="middle">Failover + drain</text>
+  </g>
+
+  <path d="M250 510 L250 560" stroke="#087f8c" stroke-width="4" marker-end="url(#arrowBlue)"/>
+  <path d="M620 510 L620 560" stroke="#087f8c" stroke-width="4" marker-end="url(#arrowBlue)"/>
+  <path d="M990 510 L990 560" stroke="#087f8c" stroke-width="4" marker-end="url(#arrowBlue)"/>
+  <path d="M1360 510 L1360 560" stroke="#087f8c" stroke-width="4" marker-end="url(#arrowBlue)"/>
+
+  <g transform="translate(82 568)">
+    <rect width="336" height="171" rx="20" fill="#ffffff" filter="url(#shadow)"/>
+    <rect width="336" height="13" rx="7" fill="#087f8c"/>
+    <text class="node-title" x="28" y="56">BTAA mirror</text>
+    <text class="node-copy" x="28" y="91">OGM API + search index</text>
+    <text class="node-copy" x="28" y="119">database + cache + worker</text>
+    <text class="small" x="28" y="151">HEALTH-AWARE ORIGIN</text>
+  </g>
+  <g transform="translate(452 568)">
+    <rect width="336" height="171" rx="20" fill="#ffffff" filter="url(#shadow)"/>
+    <rect width="336" height="13" rx="7" fill="#2a9d68"/>
+    <text class="node-title" x="28" y="56">UT Austin mirror</text>
+    <text class="node-copy" x="28" y="91">Same API release and corpus</text>
+    <text class="node-copy" x="28" y="119">institution-hosted, OGM-operated</text>
+    <text class="small" x="28" y="151">WEIGHTED BY CAPACITY</text>
+  </g>
+  <g transform="translate(822 568)">
+    <rect width="336" height="171" rx="20" fill="#ffffff" filter="url(#shadow)"/>
+    <rect width="336" height="13" rx="7" fill="#2a9d68"/>
+    <text class="node-title" x="28" y="56">Nevada Reno mirror</text>
+    <text class="node-copy" x="28" y="91">Same API release and corpus</text>
+    <text class="node-copy" x="28" y="119">independent failure domain</text>
+    <text class="small" x="28" y="151">AUTOMATIC FAILOVER</text>
+  </g>
+  <g transform="translate(1192 568)">
+    <rect width="326" height="171" rx="20" fill="#ffffff" filter="url(#shadow)"/>
+    <rect width="326" height="13" rx="7" fill="#d18b24"/>
+    <text class="node-title" x="28" y="56">Future OGM mirrors</text>
+    <text class="node-copy" x="28" y="91">Each adopter adds a node</text>
+    <text class="node-copy" x="28" y="119">and expands shared capacity</text>
+    <text class="small" x="28" y="151">GROWTH STRENGTHENS SERVICE</text>
+  </g>
+
+  <rect x="82" y="795" width="940" height="136" rx="20" fill="#e5f5ec"/>
+  <text class="card-title" x="122" y="837">Canonical OGM Aardvark metadata</text>
+  <text class="card-copy" x="122" y="871">OpenGeoMetadata GitHub repositories remain the public source of truth.</text>
+  <text class="card-copy" x="122" y="902">Each mirror harvests independently by webhook + scheduled reconciliation.</text>
+
+  <rect x="1052" y="795" width="466" height="136" rx="20" fill="#fff0d8"/>
+  <text class="card-title" x="1092" y="837">Shared OGM operations</text>
+  <text class="card-copy" x="1092" y="871">Versioned container release</text>
+  <text class="card-copy" x="1092" y="902">Kamal deploy + drain + rollback</text>
+
+  <path d="M250 794 C250 772 250 766 250 741" fill="none" stroke="#2a9d68" stroke-width="3" stroke-dasharray="9 7" marker-end="url(#arrowGreen)"/>
+  <path d="M490 794 C490 770 620 767 620 741" fill="none" stroke="#2a9d68" stroke-width="3" stroke-dasharray="9 7" marker-end="url(#arrowGreen)"/>
+  <path d="M730 794 C730 770 990 767 990 741" fill="none" stroke="#2a9d68" stroke-width="3" stroke-dasharray="9 7" marker-end="url(#arrowGreen)"/>
+  <path d="M970 794 C970 770 1360 767 1360 741" fill="none" stroke="#2a9d68" stroke-width="3" stroke-dasharray="9 7" marker-end="url(#arrowGreen)"/>
+
+  <path d="M1110 794 C1110 770 250 770 250 741" fill="none" stroke="#d18b24" stroke-width="2.5" stroke-dasharray="5 8" opacity=".75" marker-end="url(#arrowGold)"/>
+  <path d="M1210 794 C1210 770 620 770 620 741" fill="none" stroke="#d18b24" stroke-width="2.5" stroke-dasharray="5 8" opacity=".75" marker-end="url(#arrowGold)"/>
+  <path d="M1310 794 C1310 770 990 770 990 741" fill="none" stroke="#d18b24" stroke-width="2.5" stroke-dasharray="5 8" opacity=".75" marker-end="url(#arrowGold)"/>
+  <path d="M1410 794 C1410 770 1360 770 1360 741" fill="none" stroke="#d18b24" stroke-width="2.5" stroke-dasharray="5 8" opacity=".75" marker-end="url(#arrowGold)"/>
+
+  <rect x="82" y="967" width="1436" height="52" rx="17" fill="#073b4c"/>
+  <text class="flywheel" x="800" y="1001" text-anchor="middle">NEW ADOPTER + ONE VM  ->  MORE CAPACITY + MORE RESILIENCE  ->  STRONGER SERVICE FOR EVERY MEMBER</text>
+</svg>

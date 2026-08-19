@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+  <title id="title">OpenGeoMetadata mirror network technical architecture</title>
+  <desc id="desc">A public read plane routes clients through a global edge to independent institutional mirrors. A separate control and data plane distributes releases, GitHub metadata updates, and health information.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f6faf9}.band{fill:#e5f3f2;stroke:#9fc4c1;stroke-width:2}.node{fill:#fff;stroke:#86aba8;stroke-width:2}.store{fill:#fff7e8;stroke:#d6a24b;stroke-width:2}.control{fill:#e8f4ec;stroke:#70a985;stroke-width:2}.title{font:700 25px Arial,sans-serif;fill:#073b4c}.label{font:700 16px Arial,sans-serif;fill:#073b4c}.body{font:13px Arial,sans-serif;fill:#35555c}.small{font:12px Arial,sans-serif;fill:#536e74}.arrow{stroke:#087f8c;stroke-width:3;fill:none;marker-end:url(#arrow)}.dataarrow{stroke:#2a9d68;stroke-width:3;fill:none;stroke-dasharray:8 6;marker-end:url(#greenarrow)}
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#087f8c"/></marker>
+    <marker id="greenarrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#2a9d68"/></marker>
+  </defs>
+  <rect class="bg" width="1200" height="650" rx="20"/>
+  <text class="title" x="45" y="48">Two planes, one stable public service</text>
+
+  <rect class="band" x="35" y="78" width="1130" height="245" rx="18"/>
+  <text class="label" x="58" y="110">PUBLIC READ PLANE</text>
+  <rect class="node" x="60" y="145" width="180" height="120" rx="14"/>
+  <text class="label" x="88" y="180">Clients</text>
+  <text class="body" x="88" y="208">abcdefgeo sites</text>
+  <text class="body" x="88" y="230">Direct API users</text>
+
+  <rect class="node" x="330" y="125" width="250" height="160" rx="14"/>
+  <text class="label" x="360" y="160">Protected global edge</text>
+  <text class="body" x="360" y="190">Stable hostname + TLS</text>
+  <text class="body" x="360" y="212">WAF, bot limits, CDN cache</text>
+  <text class="body" x="360" y="234">Health + weighted routing</text>
+  <text class="body" x="360" y="256">Automatic failover</text>
+
+  <rect class="node" x="675" y="115" width="210" height="180" rx="14"/>
+  <text class="label" x="700" y="150">Mirror A - BTAA</text>
+  <text class="body" x="700" y="178">API + worker</text>
+  <text class="body" x="700" y="200">PostgreSQL</text>
+  <text class="body" x="700" y="222">Elasticsearch</text>
+  <text class="body" x="700" y="244">Redis</text>
+  <text class="small" x="700" y="273">Independent failure domain</text>
+
+  <rect class="node" x="925" y="115" width="210" height="180" rx="14"/>
+  <text class="label" x="950" y="150">Mirror B - Campus</text>
+  <text class="body" x="950" y="178">Same pinned release</text>
+  <text class="body" x="950" y="200">Same public corpus</text>
+  <text class="body" x="950" y="222">Local data + cache</text>
+  <text class="body" x="950" y="244">Capacity-based weight</text>
+  <text class="small" x="950" y="273">Add more mirrors horizontally</text>
+
+  <path class="arrow" d="M240 205 H325"/>
+  <path class="arrow" d="M580 180 C625 180 630 180 670 180"/>
+  <path class="arrow" d="M580 235 C690 330 830 330 920 235"/>
+
+  <rect class="control" x="35" y="350" width="1130" height="265" rx="18"/>
+  <text class="label" x="58" y="382">CONTROL AND DATA PLANE</text>
+  <rect class="store" x="60" y="420" width="240" height="135" rx="14"/>
+  <text class="label" x="87" y="455">GitHub OGM repositories</text>
+  <text class="body" x="87" y="484">Canonical Aardvark files</text>
+  <text class="body" x="87" y="506">Commit history + review</text>
+  <text class="body" x="87" y="528">Nightly source of truth</text>
+
+  <rect class="node" x="385" y="410" width="260" height="155" rx="14"/>
+  <text class="label" x="412" y="445">OGM operations</text>
+  <text class="body" x="412" y="474">Kamal release orchestration</text>
+  <text class="body" x="412" y="496">Webhook verify + fan-out</text>
+  <text class="body" x="412" y="518">Health, traffic, alerts</text>
+  <text class="body" x="412" y="540">Corpus manifest comparison</text>
+
+  <rect class="node" x="730" y="410" width="385" height="155" rx="14"/>
+  <text class="label" x="757" y="445">Every mirror reconciles independently</text>
+  <text class="body" x="757" y="474">Fetch commit - validate - transactional upsert</text>
+  <text class="body" x="757" y="496">Build versioned index - verify - atomic alias swap</text>
+  <text class="body" x="757" y="518">Invalidate/warm caches - publish readiness</text>
+  <text class="body" x="757" y="540">Drain safely when release or corpus is stale</text>
+
+  <path class="dataarrow" d="M300 473 H380"/>
+  <path class="dataarrow" d="M645 473 H725"/>
+  <path class="dataarrow" d="M515 410 C515 350 780 350 780 300"/>
+  <text class="small" x="66" y="594">Privileged routes and data synchronization stay separate from the load-balanced public read path.</text>
+</svg>

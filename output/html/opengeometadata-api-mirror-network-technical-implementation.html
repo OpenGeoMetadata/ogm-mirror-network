@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>OpenGeoMetadata API Mirror Network - Technical Implementation Guide</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link href="data:text/css;charset=utf-8,%3Aroot%20%7B%0A%2D%2Dogm%2Dnavy%3A%20%23073b4c%3B%0A%2D%2Dogm%2Dteal%3A%20%23087f8c%3B%0A%2D%2Dogm%2Dgreen%3A%20%232a9d68%3B%0A%2D%2Dogm%2Dgold%3A%20%23d18b24%3B%0A%2D%2Dogm%2Dink%3A%20%2316363e%3B%0A%2D%2Dogm%2Dmuted%3A%20%23536e74%3B%0A%2D%2Dogm%2Dpale%3A%20%23f4f8f7%3B%0A%2D%2Dogm%2Dborder%3A%20%23d6e2e0%3B%0A%7D%0A%2A%20%7B%20box%2Dsizing%3A%20border%2Dbox%3B%20%7D%0Ahtml%20%7B%20background%3A%20%23eef4f3%3B%20scroll%2Dbehavior%3A%20smooth%3B%20%7D%0Abody%20%7B%0Amax%2Dwidth%3A%201080px%3B%0Amargin%3A%202rem%20auto%3B%0Apadding%3A%20clamp%281%2E5rem%2C%205vw%2C%204rem%29%3B%0Abackground%3A%20white%3B%0Acolor%3A%20var%28%2D%2Dogm%2Dink%29%3B%0Afont%3A%2017px%2F1%2E62%20%2Dapple%2Dsystem%2C%20BlinkMacSystemFont%2C%20%22Segoe%20UI%22%2C%20sans%2Dserif%3B%0Abox%2Dshadow%3A%200%2014px%2040px%20rgba%287%2C%2059%2C%2076%2C%200%2E09%29%3B%0A%7D%0A%2Eskip%2Dlink%20%7B%0Aposition%3A%20absolute%3B%0Aleft%3A%20%2D9999px%3B%0Atop%3A%200%3B%0Az%2Dindex%3A%2010%3B%0Apadding%3A%200%2E75rem%201rem%3B%0Acolor%3A%20white%3B%0Abackground%3A%20var%28%2D%2Dogm%2Dnavy%29%3B%0A%7D%0A%2Eskip%2Dlink%3Afocus%20%7B%20left%3A%201rem%3B%20top%3A%201rem%3B%20%7D%0A%2Esite%2Dnav%20%7B%0Adisplay%3A%20flex%3B%0Aalign%2Ditems%3A%20center%3B%0Ajustify%2Dcontent%3A%20space%2Dbetween%3B%0Agap%3A%201rem%3B%0Amargin%3A%20%2D1rem%200%203%2E5rem%3B%0Apadding%2Dbottom%3A%201rem%3B%0Aborder%2Dbottom%3A%201px%20solid%20var%28%2D%2Dogm%2Dborder%29%3B%0A%7D%0A%2Esite%2Dbrand%20%7B%0Acolor%3A%20var%28%2D%2Dogm%2Dnavy%29%3B%0Afont%2Dsize%3A%201%2E05rem%3B%0Afont%2Dweight%3A%20800%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0A%2Esite%2Dnav%20nav%20%7B%20display%3A%20flex%3B%20flex%2Dwrap%3A%20wrap%3B%20gap%3A%200%2E35rem%3B%20%7D%0A%2Esite%2Dnav%20nav%20a%20%7B%0Apadding%3A%200%2E45rem%200%2E7rem%3B%0Aborder%2Dradius%3A%20999px%3B%0Acolor%3A%20var%28%2D%2Dogm%2Dmuted%29%3B%0Afont%2Dsize%3A%200%2E88rem%3B%0Afont%2Dweight%3A%20700%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0A%2Esite%2Dnav%20nav%20a%3Ahover%2C%0A%2Esite%2Dnav%20nav%20a%3Afocus%2Dvisible%2C%0A%2Esite%2Dnav%20nav%20a%2Eactive%20%7B%20color%3A%20var%28%2D%2Dogm%2Dnavy%29%3B%20background%3A%20%23e5f3f2%3B%20%7D%0Ah1%2C%20h2%2C%20h3%20%7B%20color%3A%20var%28%2D%2Dogm%2Dnavy%29%3B%20line%2Dheight%3A%201%2E2%3B%20%7D%0Ah1%20%7B%20font%2Dsize%3A%20clamp%282%2E2rem%2C%206vw%2C%203%2E8rem%29%3B%20margin%2Dbottom%3A%200%2E15em%3B%20%7D%0Ah2%20%7B%20border%2Dtop%3A%201px%20solid%20var%28%2D%2Dogm%2Dborder%29%3B%20padding%2Dtop%3A%201%2E4em%3B%20margin%2Dtop%3A%202%2E4em%3B%20%7D%0Ah3%20%7B%20color%3A%20var%28%2D%2Dogm%2Dteal%29%3B%20margin%2Dtop%3A%201%2E8em%3B%20%7D%0Aa%20%7B%20color%3A%20var%28%2D%2Dogm%2Dteal%29%3B%20text%2Dunderline%2Doffset%3A%200%2E15em%3B%20%7D%0Aimg%20%7B%20display%3A%20block%3B%20max%2Dwidth%3A%20100%25%3B%20height%3A%20auto%3B%20margin%3A%201%2E75rem%20auto%3B%20%7D%0Ablockquote%20%7B%0Amargin%3A%201%2E5rem%200%3B%0Apadding%3A%200%2E8rem%201%2E2rem%3B%0Aborder%2Dleft%3A%205px%20solid%20var%28%2D%2Dogm%2Dgreen%29%3B%0Abackground%3A%20var%28%2D%2Dogm%2Dpale%29%3B%0A%7D%0Atable%20%7B%20width%3A%20100%25%3B%20border%2Dcollapse%3A%20collapse%3B%20margin%3A%201%2E3rem%200%202rem%3B%20font%2Dsize%3A%200%2E91rem%3B%20%7D%0Ath%20%7B%20background%3A%20var%28%2D%2Dogm%2Dnavy%29%3B%20color%3A%20white%3B%20text%2Dalign%3A%20left%3B%20%7D%0Ath%2C%20td%20%7B%20padding%3A%200%2E7rem%200%2E75rem%3B%20border%3A%201px%20solid%20var%28%2D%2Dogm%2Dborder%29%3B%20vertical%2Dalign%3A%20top%3B%20%7D%0Atbody%20tr%3Anth%2Dchild%28even%29%20%7B%20background%3A%20var%28%2D%2Dogm%2Dpale%29%3B%20%7D%0Acode%20%7B%20background%3A%20%23edf4f3%3B%20border%2Dradius%3A%204px%3B%20padding%3A%200%2E1em%200%2E28em%3B%20%7D%0Apre%20%7B%20overflow%2Dx%3A%20auto%3B%20padding%3A%201rem%3B%20color%3A%20%23eef8f7%3B%20background%3A%20var%28%2D%2Dogm%2Dnavy%29%3B%20border%2Dradius%3A%208px%3B%20%7D%0Apre%20code%20%7B%20background%3A%20transparent%3B%20padding%3A%200%3B%20%7D%0Astrong%20%7B%20color%3A%20var%28%2D%2Dogm%2Dnavy%29%3B%20%7D%0Ahr%20%7B%20border%3A%200%3B%20border%2Dtop%3A%201px%20solid%20var%28%2D%2Dogm%2Dborder%29%3B%20%7D%0A%2Esite%2Dfooter%20%7B%0Amargin%2Dtop%3A%204rem%3B%0Apadding%2Dtop%3A%201%2E5rem%3B%0Aborder%2Dtop%3A%201px%20solid%20var%28%2D%2Dogm%2Dborder%29%3B%0Acolor%3A%20var%28%2D%2Dogm%2Dmuted%29%3B%0Afont%2Dsize%3A%200%2E86rem%3B%0A%7D%0A%2Esite%2Dfooter%20p%20%7B%20margin%3A%200%2E25rem%200%3B%20%7D%0A%2Ehome%2Dpage%20%7B%20overflow%2Dx%3A%20hidden%3B%20%7D%0A%2Ehome%2Dpage%20h1%20%7B%20max%2Dwidth%3A%20900px%3B%20font%2Dsize%3A%20clamp%282%2E7rem%2C%207vw%2C%205%2E4rem%29%3B%20letter%2Dspacing%3A%20%2D0%2E04em%3B%20%7D%0A%2Ehome%2Dpage%20h2%20%7B%20margin%2Dtop%3A%203%2E5rem%3B%20%7D%0A%2Eeyebrow%20%7B%0Amargin%3A%200%200%200%2E8rem%3B%0Acolor%3A%20var%28%2D%2Dogm%2Dteal%29%3B%0Afont%2Dsize%3A%200%2E78rem%3B%0Afont%2Dweight%3A%20800%3B%0Aletter%2Dspacing%3A%200%2E12em%3B%0Atext%2Dtransform%3A%20uppercase%3B%0A%7D%0A%2Elede%20%7B%20max%2Dwidth%3A%20820px%3B%20color%3A%20var%28%2D%2Dogm%2Dmuted%29%3B%20font%2Dsize%3A%20clamp%281%2E12rem%2C%202%2E4vw%2C%201%2E42rem%29%3B%20%7D%0A%2Ehero%2Dactions%20%7B%20display%3A%20flex%3B%20flex%2Dwrap%3A%20wrap%3B%20gap%3A%200%2E75rem%3B%20margin%3A%201%2E8rem%200%202%2E5rem%3B%20%7D%0A%2Ebutton%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Apadding%3A%200%2E72rem%201rem%3B%0Aborder%3A%201px%20solid%20var%28%2D%2Dogm%2Dteal%29%3B%0Aborder%2Dradius%3A%208px%3B%0Acolor%3A%20var%28%2D%2Dogm%2Dteal%29%3B%0Afont%2Dweight%3A%20750%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0A%2Ebutton%2Eprimary%20%7B%20color%3A%20white%3B%20background%3A%20var%28%2D%2Dogm%2Dteal%29%3B%20%7D%0A%2Ebutton%3Ahover%2C%20%2Ebutton%3Afocus%2Dvisible%20%7B%20transform%3A%20translateY%28%2D1px%29%3B%20box%2Dshadow%3A%200%206px%2016px%20rgba%287%2C%2059%2C%2076%2C%200%2E12%29%3B%20%7D%0A%2Ehero%2Darchitecture%20%7B%0Awidth%3A%20100%25%3B%0Amargin%3A%202rem%200%3B%0Apadding%3A%201rem%3B%0Aborder%3A%201px%20solid%20var%28%2D%2Dogm%2Dborder%29%3B%0Aborder%2Dradius%3A%2018px%3B%0Abackground%3A%20var%28%2D%2Dogm%2Dpale%29%3B%0A%7D%0A%2Ecard%2Dgrid%20%7B%0Adisplay%3A%20grid%3B%0Agrid%2Dtemplate%2Dcolumns%3A%20repeat%282%2C%20minmax%280%2C%201fr%29%29%3B%0Agap%3A%201%2E25rem%3B%0Amargin%3A%201%2E5rem%200%3B%0A%7D%0A%2Edocument%2Dcard%20%7B%0Adisplay%3A%20flex%3B%0Aflex%2Ddirection%3A%20column%3B%0Amin%2Dheight%3A%20260px%3B%0Apadding%3A%201%2E4rem%3B%0Aborder%3A%201px%20solid%20var%28%2D%2Dogm%2Dborder%29%3B%0Aborder%2Dradius%3A%2014px%3B%0Abackground%3A%20var%28%2D%2Dogm%2Dpale%29%3B%0A%7D%0A%2Edocument%2Dcard%3Anth%2Dchild%282%29%20%7B%20background%3A%20%23e5f3f2%3B%20%7D%0A%2Edocument%2Dcard%20h3%20%7B%20margin%3A%200%2E4rem%200%200%2E7rem%3B%20font%2Dsize%3A%201%2E35rem%3B%20%7D%0A%2Edocument%2Dcard%20p%20%7B%20margin%2Dtop%3A%200%3B%20%7D%0A%2Edocument%2Dcard%20%2Ecard%2Dactions%20%7B%20display%3A%20flex%3B%20flex%2Dwrap%3A%20wrap%3B%20gap%3A%200%2E7rem%3B%20margin%2Dtop%3A%20auto%3B%20%7D%0A%2Edocument%2Dcard%20%2Ecard%2Dactions%20a%20%7B%20font%2Dweight%3A%20750%3B%20%7D%0A%2Eprinciples%20%7B%0Adisplay%3A%20grid%3B%0Agrid%2Dtemplate%2Dcolumns%3A%20repeat%283%2C%20minmax%280%2C%201fr%29%29%3B%0Agap%3A%201rem%3B%0Apadding%3A%200%3B%0Alist%2Dstyle%3A%20none%3B%0A%7D%0A%2Eprinciples%20li%20%7B%20padding%3A%201rem%3B%20border%2Dtop%3A%204px%20solid%20var%28%2D%2Dogm%2Dgreen%29%3B%20background%3A%20var%28%2D%2Dogm%2Dpale%29%3B%20%7D%0A%2Eprinciples%20strong%20%7B%20display%3A%20block%3B%20margin%2Dbottom%3A%200%2E35rem%3B%20%7D%0A%40media%20%28max%2Dwidth%3A%20720px%29%20%7B%0Ahtml%20%7B%20background%3A%20white%3B%20%7D%0Abody%20%7B%20margin%3A%200%3B%20padding%3A%201%2E2rem%3B%20box%2Dshadow%3A%20none%3B%20font%2Dsize%3A%2016px%3B%20%7D%0Atable%20%7B%20display%3A%20block%3B%20overflow%2Dx%3A%20auto%3B%20%7D%0A%2Esite%2Dnav%20%7B%20align%2Ditems%3A%20flex%2Dstart%3B%20flex%2Ddirection%3A%20column%3B%20margin%2Dtop%3A%200%3B%20%7D%0A%2Ecard%2Dgrid%2C%20%2Eprinciples%20%7B%20grid%2Dtemplate%2Dcolumns%3A%201fr%3B%20%7D%0A%7D%0A%40media%20print%20%7B%0A%40page%20%7B%20margin%3A%200%2E65in%3B%20%7D%0Ahtml%20%7B%20background%3A%20white%3B%20%7D%0Abody%20%7B%20max%2Dwidth%3A%20none%3B%20margin%3A%200%3B%20padding%3A%200%3B%20box%2Dshadow%3A%20none%3B%20font%2Dsize%3A%209%2E5pt%3B%20line%2Dheight%3A%201%2E35%3B%20%7D%0Ah1%20%7B%20font%2Dsize%3A%2026pt%3B%20%7D%0Ah2%20%7B%20break%2Dbefore%3A%20auto%3B%20break%2Dafter%3A%20avoid%3B%20margin%2Dtop%3A%201%2E5em%3B%20%7D%0Ah3%2C%20table%2C%20img%2C%20pre%20%7B%20break%2Dinside%3A%20avoid%3B%20%7D%0Aa%20%7B%20color%3A%20inherit%3B%20text%2Ddecoration%3A%20none%3B%20%7D%0A%2Esite%2Dnav%2C%20%2Eskip%2Dlink%2C%20%2Ehero%2Dactions%2C%20%2Esite%2Dfooter%20%7B%20display%3A%20none%3B%20%7D%0A%7D%0A" rel="stylesheet">
+  <meta name="description" content="Implementation details for institutional OGM API mirrors, GitHub metadata synchronization, indexing, caching, failover, security, and operations.">
+  <meta name="ogm-source-sha256" content="73d7baa836ae718c4632d6bf7e1d37241d43b0a931eb7b02bf070fed6237a809">
+  <meta property="og:title" content="OpenGeoMetadata API Mirror Network - Technical Implementation Guide">
+  <meta property="og:description" content="Implementation details for institutional OGM API mirrors, GitHub metadata synchronization, indexing, caching, failover, security, and operations.">
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJPcGVuR2VvTWV0YWRhdGEiPgogIDxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgcng9IjE0IiBmaWxsPSIjMDczYjRjIi8+CiAgPGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMTgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzdmZDFjOCIgc3Ryb2tlLXdpZHRoPSI4Ii8+CiAgPGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iNSIgZmlsbD0iI2Y2YzU2ZiIvPgo8L3N2Zz4K" type="image/svg+xml">
+</head>
+<body class="document-page">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-nav" aria-label="Site header">
+  <a class="site-brand" href="../../index.html">OpenGeoMetadata</a>
+  <nav aria-label="Primary navigation">
+    <a href="opengeometadata-mirror-network-executive-summary.html">Executive summary</a>
+    <a class="active" aria-current="page" href="opengeometadata-api-mirror-network-technical-implementation.html">Technical guide</a>
+  </nav>
+</header>
+<main id="main-content">
+<h1 id="opengeometadata-api-mirror-network">OpenGeoMetadata API Mirror Network</h1>
+<h2 id="technical-implementation-guide">Technical Implementation Guide</h2>
+<p><strong>Audience:</strong> campus IT staff, geography librarians, OGM service operators, and technical governance groups<br> <strong>Status:</strong> proposed pilot architecture<br> <strong>Companion document:</strong> <a href="opengeometadata-mirror-network-executive-summary.html">Executive summary</a></p>
+<h3 id="contents">Contents</h3>
+<ol type="1">
+<li><a href="#purpose-and-design-principles">Purpose and design principles</a></li>
+<li><a href="#runtime-architecture-at-each-institution">Runtime architecture at each institution</a></li>
+<li><a href="#metadata-synchronization-and-indexing">Metadata synchronization and indexing</a></li>
+<li><a href="#public-traffic-failover-and-maintenance">Public traffic, failover, and maintenance</a></li>
+<li><a href="#cache-architecture-and-cross-institution-sharing">Cache architecture and cross-institution sharing</a></li>
+<li><a href="#network-and-security-requirements">Network and security requirements</a></li>
+<li><a href="#monitoring-recovery-and-operating-responsibilities">Monitoring, recovery, and operating responsibilities</a></li>
+<li><a href="#pilot-implementation-and-acceptance-tests">Pilot implementation and acceptance tests</a></li>
+<li><a href="#implementation-decisions-to-ratify">Implementation decisions to ratify</a></li>
+</ol>
+<h2 id="purpose-and-design-principles">1. Purpose and design principles</h2>
+<p>The OpenGeoMetadata API Mirror Network turns the existing OGM software and metadata-sharing practices into a resilient community service. Participating institutions contribute a modest Linux virtual machine. The OGM service operator deploys the same versioned API stack to each machine with Kamal. A protected global endpoint sends public read traffic only to mirrors that are healthy, compatible, sufficiently current, and within their assigned capacity.</p>
+<p>An adopting institution separately customizes <code>abcdefgeo</code> - its theme, institutional branding, explanatory content, and default search filters - and publishes the static site through GitHub Pages. The frontend points to one stable OGM network API hostname, not to the institution's individual mirror. This keeps the public site available when its local node is drained, upgraded, reindexed, or temporarily unavailable.</p>
+<p>The implementation rests on six principles:</p>
+<ol type="1">
+<li><strong>GitHub is authoritative.</strong> Public Aardvark files in OGM repositories are the source of truth. Databases, indexes, and caches on every mirror are derived and rebuildable.</li>
+<li><strong>Mirrors are operationally independent.</strong> Each node has its own PostgreSQL, Elasticsearch, Redis, worker, and filesystem. A database or cache failure at one institution must not become a network-wide failure.</li>
+<li><strong>The public edge is the stable service.</strong> DNS, TLS, web application firewall rules, bot controls, response caching, health checks, and weighted routing sit in front of the institutional nodes.</li>
+<li><strong>Data freshness is measured, not assumed.</strong> A node is ready only when its application, search index, corpus manifest, and dependencies pass checks.</li>
+<li><strong>Nightly reconciliation is mandatory; webhooks are acceleration.</strong> A missed webhook can delay a change, but it cannot permanently cause divergence.</li>
+<li><strong>Operations are shared and repeatable.</strong> Institutions host and maintain the VM and campus network. The OGM operator manages the application release, data pipeline, traffic pool, and service runbooks.</li>
+</ol>
+<h3 id="scope-and-non-goals">Scope and non-goals</h3>
+<p>The mirror network serves the public, read-oriented OGM API. It does not make privileged administration, deployment, harvest controls, or internal database ports public through the shared hostname. It also does not create a cross-campus PostgreSQL cluster, Elasticsearch cluster, or Redis cluster.</p>
+<figure>
+<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY1MCIgdmlld0JveD0iMCAwIDEyMDAgNjUwIiByb2xlPSJpbWciIGFyaWEtbGFiZWxsZWRieT0idGl0bGUgZGVzYyI+CiAgPHRpdGxlIGlkPSJ0aXRsZSI+T3Blbkdlb01ldGFkYXRhIG1pcnJvciBuZXR3b3JrIHRlY2huaWNhbCBhcmNoaXRlY3R1cmU8L3RpdGxlPgogIDxkZXNjIGlkPSJkZXNjIj5BIHB1YmxpYyByZWFkIHBsYW5lIHJvdXRlcyBjbGllbnRzIHRocm91Z2ggYSBnbG9iYWwgZWRnZSB0byBpbmRlcGVuZGVudCBpbnN0aXR1dGlvbmFsIG1pcnJvcnMuIEEgc2VwYXJhdGUgY29udHJvbCBhbmQgZGF0YSBwbGFuZSBkaXN0cmlidXRlcyByZWxlYXNlcywgR2l0SHViIG1ldGFkYXRhIHVwZGF0ZXMsIGFuZCBoZWFsdGggaW5mb3JtYXRpb24uPC9kZXNjPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuYmd7ZmlsbDojZjZmYWY5fS5iYW5ke2ZpbGw6I2U1ZjNmMjtzdHJva2U6IzlmYzRjMTtzdHJva2Utd2lkdGg6Mn0ubm9kZXtmaWxsOiNmZmY7c3Ryb2tlOiM4NmFiYTg7c3Ryb2tlLXdpZHRoOjJ9LnN0b3Jle2ZpbGw6I2ZmZjdlODtzdHJva2U6I2Q2YTI0YjtzdHJva2Utd2lkdGg6Mn0uY29udHJvbHtmaWxsOiNlOGY0ZWM7c3Ryb2tlOiM3MGE5ODU7c3Ryb2tlLXdpZHRoOjJ9LnRpdGxle2ZvbnQ6NzAwIDI1cHggQXJpYWwsc2Fucy1zZXJpZjtmaWxsOiMwNzNiNGN9LmxhYmVse2ZvbnQ6NzAwIDE2cHggQXJpYWwsc2Fucy1zZXJpZjtmaWxsOiMwNzNiNGN9LmJvZHl7Zm9udDoxM3B4IEFyaWFsLHNhbnMtc2VyaWY7ZmlsbDojMzU1NTVjfS5zbWFsbHtmb250OjEycHggQXJpYWwsc2Fucy1zZXJpZjtmaWxsOiM1MzZlNzR9LmFycm93e3N0cm9rZTojMDg3ZjhjO3N0cm9rZS13aWR0aDozO2ZpbGw6bm9uZTttYXJrZXItZW5kOnVybCgjYXJyb3cpfS5kYXRhYXJyb3d7c3Ryb2tlOiMyYTlkNjg7c3Ryb2tlLXdpZHRoOjM7ZmlsbDpub25lO3N0cm9rZS1kYXNoYXJyYXk6OCA2O21hcmtlci1lbmQ6dXJsKCNncmVlbmFycm93KX0KICAgIDwvc3R5bGU+CiAgICA8bWFya2VyIGlkPSJhcnJvdyIgbWFya2VyV2lkdGg9IjEwIiBtYXJrZXJIZWlnaHQ9IjEwIiByZWZYPSI4IiByZWZZPSIzIiBvcmllbnQ9ImF1dG8iPjxwYXRoIGQ9Ik0wLDAgTDAsNiBMOSwzIHoiIGZpbGw9IiMwODdmOGMiLz48L21hcmtlcj4KICAgIDxtYXJrZXIgaWQ9ImdyZWVuYXJyb3ciIG1hcmtlcldpZHRoPSIxMCIgbWFya2VySGVpZ2h0PSIxMCIgcmVmWD0iOCIgcmVmWT0iMyIgb3JpZW50PSJhdXRvIj48cGF0aCBkPSJNMCwwIEwwLDYgTDksMyB6IiBmaWxsPSIjMmE5ZDY4Ii8+PC9tYXJrZXI+CiAgPC9kZWZzPgogIDxyZWN0IGNsYXNzPSJiZyIgd2lkdGg9IjEyMDAiIGhlaWdodD0iNjUwIiByeD0iMjAiLz4KICA8dGV4dCBjbGFzcz0idGl0bGUiIHg9IjQ1IiB5PSI0OCI+VHdvIHBsYW5lcywgb25lIHN0YWJsZSBwdWJsaWMgc2VydmljZTwvdGV4dD4KCiAgPHJlY3QgY2xhc3M9ImJhbmQiIHg9IjM1IiB5PSI3OCIgd2lkdGg9IjExMzAiIGhlaWdodD0iMjQ1IiByeD0iMTgiLz4KICA8dGV4dCBjbGFzcz0ibGFiZWwiIHg9IjU4IiB5PSIxMTAiPlBVQkxJQyBSRUFEIFBMQU5FPC90ZXh0PgogIDxyZWN0IGNsYXNzPSJub2RlIiB4PSI2MCIgeT0iMTQ1IiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjEyMCIgcng9IjE0Ii8+CiAgPHRleHQgY2xhc3M9ImxhYmVsIiB4PSI4OCIgeT0iMTgwIj5DbGllbnRzPC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJib2R5IiB4PSI4OCIgeT0iMjA4Ij5hYmNkZWZnZW8gc2l0ZXM8L3RleHQ+CiAgPHRleHQgY2xhc3M9ImJvZHkiIHg9Ijg4IiB5PSIyMzAiPkRpcmVjdCBBUEkgdXNlcnM8L3RleHQ+CgogIDxyZWN0IGNsYXNzPSJub2RlIiB4PSIzMzAiIHk9IjEyNSIgd2lkdGg9IjI1MCIgaGVpZ2h0PSIxNjAiIHJ4PSIxNCIvPgogIDx0ZXh0IGNsYXNzPSJsYWJlbCIgeD0iMzYwIiB5PSIxNjAiPlByb3RlY3RlZCBnbG9iYWwgZWRnZTwvdGV4dD4KICA8dGV4dCBjbGFzcz0iYm9keSIgeD0iMzYwIiB5PSIxOTAiPlN0YWJsZSBob3N0bmFtZSArIFRMUzwvdGV4dD4KICA8dGV4dCBjbGFzcz0iYm9keSIgeD0iMzYwIiB5PSIyMTIiPldBRiwgYm90IGxpbWl0cywgQ0ROIGNhY2hlPC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJib2R5IiB4PSIzNjAiIHk9IjIzNCI+SGVhbHRoICsgd2VpZ2h0ZWQgcm91dGluZzwvdGV4dD4KICA8dGV4dCBjbGFzcz0iYm9keSIgeD0iMzYwIiB5PSIyNTYiPkF1dG9tYXRpYyBmYWlsb3ZlcjwvdGV4dD4KCiAgPHJlY3QgY2xhc3M9Im5vZGUiIHg9IjY3NSIgeT0iMTE1IiB3aWR0aD0iMjEwIiBoZWlnaHQ9IjE4MCIgcng9IjE0Ii8+CiAgPHRleHQgY2xhc3M9ImxhYmVsIiB4PSI3MDAiIHk9IjE1MCI+TWlycm9yIEEgLSBCVEFBPC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJib2R5IiB4PSI3MDAiIHk9IjE3OCI+QVBJICsgd29ya2VyPC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJib2R5IiB4PSI3MDAiIHk9IjIwMCI+UG9zdGdyZVNRTDwvdGV4dD4KICA8dGV4dCBjbGFzcz0iYm9keSIgeD0iNzAwIiB5PSIyMjIiPkVsYXN0aWNzZWFyY2g8L3RleHQ+CiAgPHRleHQgY2xhc3M9ImJvZHkiIHg9IjcwMCIgeT0iMjQ0Ij5SZWRpczwvdGV4dD4KICA8dGV4dCBjbGFzcz0ic21hbGwiIHg9IjcwMCIgeT0iMjczIj5JbmRlcGVuZGVudCBmYWlsdXJlIGRvbWFpbjwvdGV4dD4KCiAgPHJlY3QgY2xhc3M9Im5vZGUiIHg9IjkyNSIgeT0iMTE1IiB3aWR0aD0iMjEwIiBoZWlnaHQ9IjE4MCIgcng9IjE0Ii8+CiAgPHRleHQgY2xhc3M9ImxhYmVsIiB4PSI5NTAiIHk9IjE1MCI+TWlycm9yIEIgLSBDYW1wdXM8L3RleHQ+CiAgPHRleHQgY2xhc3M9ImJvZHkiIHg9Ijk1MCIgeT0iMTc4Ij5TYW1lIHBpbm5lZCByZWxlYXNlPC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJib2R5IiB4PSI5NTAiIHk9IjIwMCI+U2FtZSBwdWJsaWMgY29ycHVzPC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJib2R5IiB4PSI5NTAiIHk9IjIyMiI+TG9jYWwgZGF0YSArIGNhY2hlPC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJib2R5IiB4PSI5NTAiIHk9IjI0NCI+Q2FwYWNpdHktYmFzZWQgd2VpZ2h0PC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJzbWFsbCIgeD0iOTUwIiB5PSIyNzMiPkFkZCBtb3JlIG1pcnJvcnMgaG9yaXpvbnRhbGx5PC90ZXh0PgoKICA8cGF0aCBjbGFzcz0iYXJyb3ciIGQ9Ik0yNDAgMjA1IEgzMjUiLz4KICA8cGF0aCBjbGFzcz0iYXJyb3ciIGQ9Ik01ODAgMTgwIEM2MjUgMTgwIDYzMCAxODAgNjcwIDE4MCIvPgogIDxwYXRoIGNsYXNzPSJhcnJvdyIgZD0iTTU4MCAyMzUgQzY5MCAzMzAgODMwIDMzMCA5MjAgMjM1Ii8+CgogIDxyZWN0IGNsYXNzPSJjb250cm9sIiB4PSIzNSIgeT0iMzUwIiB3aWR0aD0iMTEzMCIgaGVpZ2h0PSIyNjUiIHJ4PSIxOCIvPgogIDx0ZXh0IGNsYXNzPSJsYWJlbCIgeD0iNTgiIHk9IjM4MiI+Q09OVFJPTCBBTkQgREFUQSBQTEFORTwvdGV4dD4KICA8cmVjdCBjbGFzcz0ic3RvcmUiIHg9IjYwIiB5PSI0MjAiIHdpZHRoPSIyNDAiIGhlaWdodD0iMTM1IiByeD0iMTQiLz4KICA8dGV4dCBjbGFzcz0ibGFiZWwiIHg9Ijg3IiB5PSI0NTUiPkdpdEh1YiBPR00gcmVwb3NpdG9yaWVzPC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJib2R5IiB4PSI4NyIgeT0iNDg0Ij5DYW5vbmljYWwgQWFyZHZhcmsgZmlsZXM8L3RleHQ+CiAgPHRleHQgY2xhc3M9ImJvZHkiIHg9Ijg3IiB5PSI1MDYiPkNvbW1pdCBoaXN0b3J5ICsgcmV2aWV3PC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJib2R5IiB4PSI4NyIgeT0iNTI4Ij5OaWdodGx5IHNvdXJjZSBvZiB0cnV0aDwvdGV4dD4KCiAgPHJlY3QgY2xhc3M9Im5vZGUiIHg9IjM4NSIgeT0iNDEwIiB3aWR0aD0iMjYwIiBoZWlnaHQ9IjE1NSIgcng9IjE0Ii8+CiAgPHRleHQgY2xhc3M9ImxhYmVsIiB4PSI0MTIiIHk9IjQ0NSI+T0dNIG9wZXJhdGlvbnM8L3RleHQ+CiAgPHRleHQgY2xhc3M9ImJvZHkiIHg9IjQxMiIgeT0iNDc0Ij5LYW1hbCByZWxlYXNlIG9yY2hlc3RyYXRpb248L3RleHQ+CiAgPHRleHQgY2xhc3M9ImJvZHkiIHg9IjQxMiIgeT0iNDk2Ij5XZWJob29rIHZlcmlmeSArIGZhbi1vdXQ8L3RleHQ+CiAgPHRleHQgY2xhc3M9ImJvZHkiIHg9IjQxMiIgeT0iNTE4Ij5IZWFsdGgsIHRyYWZmaWMsIGFsZXJ0czwvdGV4dD4KICA8dGV4dCBjbGFzcz0iYm9keSIgeD0iNDEyIiB5PSI1NDAiPkNvcnB1cyBtYW5pZmVzdCBjb21wYXJpc29uPC90ZXh0PgoKICA8cmVjdCBjbGFzcz0ibm9kZSIgeD0iNzMwIiB5PSI0MTAiIHdpZHRoPSIzODUiIGhlaWdodD0iMTU1IiByeD0iMTQiLz4KICA8dGV4dCBjbGFzcz0ibGFiZWwiIHg9Ijc1NyIgeT0iNDQ1Ij5FdmVyeSBtaXJyb3IgcmVjb25jaWxlcyBpbmRlcGVuZGVudGx5PC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJib2R5IiB4PSI3NTciIHk9IjQ3NCI+RmV0Y2ggY29tbWl0IC0gdmFsaWRhdGUgLSB0cmFuc2FjdGlvbmFsIHVwc2VydDwvdGV4dD4KICA8dGV4dCBjbGFzcz0iYm9keSIgeD0iNzU3IiB5PSI0OTYiPkJ1aWxkIHZlcnNpb25lZCBpbmRleCAtIHZlcmlmeSAtIGF0b21pYyBhbGlhcyBzd2FwPC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJib2R5IiB4PSI3NTciIHk9IjUxOCI+SW52YWxpZGF0ZS93YXJtIGNhY2hlcyAtIHB1Ymxpc2ggcmVhZGluZXNzPC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJib2R5IiB4PSI3NTciIHk9IjU0MCI+RHJhaW4gc2FmZWx5IHdoZW4gcmVsZWFzZSBvciBjb3JwdXMgaXMgc3RhbGU8L3RleHQ+CgogIDxwYXRoIGNsYXNzPSJkYXRhYXJyb3ciIGQ9Ik0zMDAgNDczIEgzODAiLz4KICA8cGF0aCBjbGFzcz0iZGF0YWFycm93IiBkPSJNNjQ1IDQ3MyBINzI1Ii8+CiAgPHBhdGggY2xhc3M9ImRhdGFhcnJvdyIgZD0iTTUxNSA0MTAgQzUxNSAzNTAgNzgwIDM1MCA3ODAgMzAwIi8+CiAgPHRleHQgY2xhc3M9InNtYWxsIiB4PSI2NiIgeT0iNTk0Ij5Qcml2aWxlZ2VkIHJvdXRlcyBhbmQgZGF0YSBzeW5jaHJvbml6YXRpb24gc3RheSBzZXBhcmF0ZSBmcm9tIHRoZSBsb2FkLWJhbGFuY2VkIHB1YmxpYyByZWFkIHBhdGguPC90ZXh0Pgo8L3N2Zz4KCg==" alt="Technical architecture: public read plane and metadata control plane" /><figcaption>Technical architecture: public read plane and metadata control plane</figcaption>
+</figure>
+<p>The architecture has two deliberately separate paths:</p>
+<ul>
+<li>The <strong>read plane</strong> carries browser and API traffic from <code>abcdefgeo</code> and other clients through the protected edge to eligible mirrors.</li>
+<li>The <strong>control and data plane</strong> distributes releases and synchronization work, records node state, and never depends on a public request being routed to a particular mirror.</li>
+</ul>
+<h2 id="runtime-architecture-at-each-institution">2. Runtime architecture at each institution</h2>
+<p>Every mirror runs the same pinned OGM API release and the same service topology. Kamal deploys the application containers and provides a repeatable upgrade and rollback path. A typical single-host node contains:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Component</th>
+<th style="text-align: left;">Responsibility</th>
+<th style="text-align: left;">Persistence</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">API/web containers</td>
+<td style="text-align: left;">Public OGM API, request validation, serialization, cache headers, health endpoints</td>
+<td style="text-align: left;">Stateless; replaced on deploy</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Worker</td>
+<td style="text-align: left;">Repository harvests, record processing, thumbnails, static maps, cache warming, and maintenance jobs</td>
+<td style="text-align: left;">Job state in Redis/PostgreSQL</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Scheduler</td>
+<td style="text-align: left;">Nightly synchronization, cleanup, health verification, and other periodic work</td>
+<td style="text-align: left;">Configuration only</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PostgreSQL</td>
+<td style="text-align: left;">Normalized Aardvark records, repository and harvest state, durable response and representation caches</td>
+<td style="text-align: left;">Required local volume and backup</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Elasticsearch</td>
+<td style="text-align: left;">Versioned search indexes used by public discovery queries</td>
+<td style="text-align: left;">Rebuildable local volume; snapshot optional</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Redis</td>
+<td style="text-align: left;">Hot response cache, job broker, locks, rate-limit counters, and small aliases</td>
+<td style="text-align: left;">Rebuildable local volume</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Kamal proxy</td>
+<td style="text-align: left;">Origin TLS termination, container routing, and deploy health checks</td>
+<td style="text-align: left;">Configuration only</td>
+</tr>
+</tbody>
+</table>
+<p>The services communicate on a private Docker network. PostgreSQL, Elasticsearch, and Redis are not exposed to the public internet. A host can run all components on one VM because the system is read-heavy and because the fleet supplies redundancy. If later load tests justify it, the same container roles can be split across machines without changing the network contract.</p>
+<h3 id="reference-capacity-and-cost">Reference capacity and cost</h3>
+<p>The current BTAA production design reserves up to 8 CPUs and roughly 5 GB for the web role, 1.75 CPUs and 2 GB for the worker, a 4 GB Elasticsearch heap, and a Redis ceiling of 12 GB, plus PostgreSQL, filesystem cache, and the operating system. The reference mirror specification is therefore:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Resource</th>
+<th style="text-align: left;">Planning specification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">CPU</td>
+<td style="text-align: left;">16 vCPU, or 8 current physical cores with simultaneous multithreading</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Memory</td>
+<td style="text-align: left;">64 GB RAM; 32 GB is a pilot minimum subject to load testing</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Storage</td>
+<td style="text-align: left;">500 GB usable SSD/NVMe with monitoring and at least 20% free-space headroom</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Network</td>
+<td style="text-align: left;">1 Gbps interface, stable HTTPS origin path, outbound HTTPS access</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Operating system</td>
+<td style="text-align: left;">Current Ubuntu LTS or equivalent, Docker, time synchronization, SSH key access</td>
+</tr>
+</tbody>
+</table>
+<p>Use <strong>$1,500 per year per mirror</strong> as an external infrastructure planning target, not as a procurement quote. <strong>A campus VM from existing capacity may have little or no incremental cost.</strong> One-time campus effort should be about 4-8 hours for provisioning, firewall/DNS work, access, and contacts. Routine application work is centralized; local staff continue to own normal VM, OS, storage, and network support.</p>
+<h2 id="metadata-synchronization-and-indexing">3. Metadata synchronization and indexing</h2>
+<h3 id="canonical-data-and-provenance">3.1 Canonical data and provenance</h3>
+<p>Institutions continue to create, review, and publish OGM Aardvark records in GitHub. The conventional <code>metadata-aardvark/</code> directory identifies the records to harvest. Repository history provides human-readable change review and a durable source trail; the mirror database is not a replacement editorial system.</p>
+<p>Every imported record should retain enough provenance to answer four questions:</p>
+<ul>
+<li>Which GitHub organization and repository supplied it?</li>
+<li>Which branch and commit SHA was harvested?</li>
+<li>When did this mirror last observe and validate it?</li>
+<li>Which Aardvark schema/profile and importer version processed it?</li>
+</ul>
+<p>Each mirror also builds a <strong>corpus manifest</strong> after synchronization. The manifest lists every enabled repository, its harvested commit SHA, record count, validation outcome, and completed time. A deterministic hash of that manifest becomes the node's <code>corpus_generation</code>. This is more reliable than comparing timestamps because the corpus spans many independently updated repositories.</p>
+<h3 id="nightly-reconciliation">3.2 Nightly reconciliation</h3>
+<p>Nightly reconciliation is the correctness mechanism and should run on every node. Start times should be staggered so the mirrors do not all clone, fetch, or reindex at once.</p>
+<ol type="1">
+<li>Acquire a node-local lock so two reconciliations cannot overlap.</li>
+<li>Refresh the catalog of enabled OGM repositories and verify that each still contains <code>metadata-aardvark/</code>.</li>
+<li>Fetch each repository and resolve its configured default branch to a commit SHA. A mirror always records exactly which revision it processed.</li>
+<li>Parse and validate changed Aardvark files. Invalid records are quarantined with actionable repository/file/error information; they do not replace the last known valid public version silently.</li>
+<li>Upsert valid records, distributions, and relationships into PostgreSQL in bounded transactions. Track each resource as observed in this run.</li>
+<li>Mark previously imported but unseen resources as missing. Apply the agreed deletion policy - normally a grace period followed by a tombstone/removal - so a transient checkout problem cannot erase records.</li>
+<li>Build a new versioned Elasticsearch index from the resulting database. Validate mappings, document counts, representative searches, facets, and index health before activation.</li>
+<li>Atomically move the stable Elasticsearch alias from the prior index to the new index. Retain at least one previous index for rapid rollback.</li>
+<li>Publish the new corpus manifest, invalidate generation-dependent caches, and warm the small set of high-value endpoints.</li>
+<li>Mark the node ready only after the API, database, index, corpus freshness, and cache dependencies pass. Report success or a repository-specific error to the shared dashboard.</li>
+</ol>
+<p>The active index continues serving searches while the new version is built. This means a full nightly reindex does not require a public outage. If a build or validation fails, the alias remains on the last good index and the node can continue serving temporarily, subject to the network freshness threshold.</p>
+<h3 id="optional-github-webhooks">3.3 Optional GitHub webhooks</h3>
+<p>Webhooks reduce the interval between a metadata commit and discovery, but they do not replace nightly reconciliation. The recommended production pattern is a single <strong>OGM webhook ingress</strong> rather than registering every repository against every mirror.</p>
+<p>The ingress verifies GitHub's HMAC signature, allows only expected events and repositories, records the GitHub delivery ID, and acknowledges quickly. It then coalesces repeated pushes for the same repository and sends an idempotent job containing the repository name and target commit SHA to every mirror. Each mirror fetches the commit from GitHub itself; metadata does not transit through the ingress.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Webhook pattern</th>
+<th style="text-align: left;">Advantages</th>
+<th style="text-align: left;">Tradeoffs</th>
+<th style="text-align: left;">Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Shared ingress with fan-out</td>
+<td style="text-align: left;">One GitHub configuration, central deduplication, visible delivery state, consistent retry policy</td>
+<td style="text-align: left;">Requires a small control-plane service or queue</td>
+<td style="text-align: left;">Production target</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Direct GitHub webhook to every mirror</td>
+<td style="text-align: left;">Simple for a two- or three-node pilot</td>
+<td style="text-align: left;">Webhook count and secrets grow with repositories x mirrors; harder to audit and retry</td>
+<td style="text-align: left;">Acceptable pilot bridge</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Scheduled-only</td>
+<td style="text-align: left;">Fewest moving parts</td>
+<td style="text-align: left;">Changes can remain undiscoverable until the next run</td>
+<td style="text-align: left;">Required fallback, not ideal alone</td>
+</tr>
+</tbody>
+</table>
+<p>Webhook work is idempotent. A node records the delivery ID and repository/commit pair, ignores duplicates, retries transient errors with exponential backoff, and exposes the last successful commit. Multiple pushes may be collapsed into one harvest of the newest commit.</p>
+<p>After a webhook harvest updates PostgreSQL, a coalesced indexing job makes the change searchable. Where safe targeted document indexing exists, it may update only affected records. Otherwise the node runs the same validated, alias-swapped index build used nightly. The implementation must never report a new <code>corpus_generation</code> until PostgreSQL and the active search index represent the same accepted corpus.</p>
+<h3 id="consistency-and-readiness-contract">3.4 Consistency and readiness contract</h3>
+<p>The mirror network is eventually consistent, but the edge should not send traffic to an unknowably stale node. Every origin should expose a machine- readable readiness response similar to:</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="st">&quot;ready&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;api_release&quot;</span><span class="fu">:</span> <span class="st">&quot;2026.08.2&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;api_contract&quot;</span><span class="fu">:</span> <span class="st">&quot;v1&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;aardvark_profile&quot;</span><span class="fu">:</span> <span class="st">&quot;current&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;corpus_generation&quot;</span><span class="fu">:</span> <span class="st">&quot;sha256:...&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;last_successful_sync&quot;</span><span class="fu">:</span> <span class="st">&quot;2026-08-19T07:18:42Z&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;repository_count&quot;</span><span class="fu">:</span> <span class="dv">87</span><span class="fu">,</span>
+  <span class="dt">&quot;database_record_count&quot;</span><span class="fu">:</span> <span class="dv">412830</span><span class="fu">,</span>
+  <span class="dt">&quot;search_record_count&quot;</span><span class="fu">:</span> <span class="dv">412830</span><span class="fu">,</span>
+  <span class="dt">&quot;dependencies&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;postgres&quot;</span><span class="fu">:</span> <span class="st">&quot;ok&quot;</span><span class="fu">,</span> <span class="dt">&quot;elasticsearch&quot;</span><span class="fu">:</span> <span class="st">&quot;ok&quot;</span><span class="fu">,</span> <span class="dt">&quot;redis&quot;</span><span class="fu">:</span> <span class="st">&quot;ok&quot;</span><span class="fu">}</span>
+<span class="fu">}</span></code></pre></div>
+<p>The exact fields are part of the network contract and contain no secrets. The edge or a small health controller admits a node only when:</p>
+<ul>
+<li>its API contract is compatible with the public endpoint;</li>
+<li>its database and search index counts pass configured reconciliation rules;</li>
+<li>its last successful synchronization is within the freshness objective;</li>
+<li>its corpus generation is accepted for the current rollout window;</li>
+<li>required dependencies respond within limits; and</li>
+<li>local capacity checks do not indicate overload or unsafe disk pressure.</li>
+</ul>
+<p>During a rolling nightly build, compatible adjacent corpus generations can both serve. A node outside the maximum lag is automatically drained even if its HTTP process still returns <code>200 OK</code>.</p>
+<h2 id="public-traffic-failover-and-maintenance">4. Public traffic, failover, and maintenance</h2>
+<p><code>abcdefgeo</code>, institutional GitHub Pages sites, and direct API clients use one network hostname. The global edge provides TLS, web application firewall rules, bot management, request-size limits, rate limits, response caching, and health-aware origin selection. Public origin addresses are not promoted as user-facing endpoints.</p>
+<p>Only safe public <code>GET</code> and <code>HEAD</code> routes are placed in the shared pool. Webhook, admin, reindex, harvest, deployment, and diagnostic routes use a separate restricted path or management hostname. They require strong authentication and must not depend on random load-balancer routing.</p>
+<h3 id="routing-behavior">Routing behavior</h3>
+<ul>
+<li>Assign each mirror a weight based on measured capacity and the institution's agreed contribution. Equal participation does not require equal hardware.</li>
+<li>Route only to nodes passing readiness. Simple process uptime is insufficient.</li>
+<li>Avoid session affinity for public reads. Any compatible node should answer the same request from the same accepted corpus.</li>
+<li>Apply per-client and aggregate limits at the edge, with a local node-level backstop. Edge limits prevent abusive traffic from consuming campus links.</li>
+<li>Retry only idempotent requests and only when no response body has been sent. A retry budget prevents one request from cascading across every origin.</li>
+<li>Use circuit breakers so a slow node is temporarily removed before queues and timeouts spread through the fleet.</li>
+</ul>
+<h3 id="planned-maintenance-and-application-upgrades">Planned maintenance and application upgrades</h3>
+<p>The mirror network creates a maintenance window for every institution:</p>
+<ol type="1">
+<li>Set the node's traffic weight to zero and confirm that active connections have drained.</li>
+<li>Take an application and dependency snapshot appropriate to the change.</li>
+<li>Deploy the pinned container release with Kamal. Database migrations must be backward-compatible with the version still running on other mirrors.</li>
+<li>Run migrations, local smoke tests, synchronization, any required atomic reindex, and cache warming.</li>
+<li>Verify API contract, corpus freshness, representative query checksums, latency, disk headroom, and error rate.</li>
+<li>Restore a small traffic weight, observe the canary, then ramp to the node's normal share. Roll back while it remains drained if checks fail.</li>
+</ol>
+<p>The public API URL and institution's <code>abcdefgeo</code> site do not change during this process. The same drain workflow applies to campus OS patching. Network-level failover handles an unexpected host or campus outage by removing the failed origin and using the remaining healthy mirrors.</p>
+<h2 id="cache-architecture-and-cross-institution-sharing">5. Cache architecture and cross-institution sharing</h2>
+<h3 id="can-caches-be-replicated-across-institutions">Can caches be replicated across institutions?</h3>
+<p><strong>Yes, but the network should share cache results rather than form a cross-campus Redis cluster.</strong> Redis replication and clustering assume a low-latency, tightly controlled network. Stretching them across campuses would couple failures, create difficult partition and security behavior, and make a cache outage capable of affecting the entire federation.</p>
+<p>Use a layered model instead:</p>
+<figure>
+<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjU2MCIgdmlld0JveD0iMCAwIDEyMDAgNTYwIiByb2xlPSJpbWciIGFyaWEtbGFiZWxsZWRieT0idGl0bGUgZGVzYyI+CiAgPHRpdGxlIGlkPSJ0aXRsZSI+T3Blbkdlb01ldGFkYXRhIG1pcnJvciBjYWNoZSBzdHJhdGVneTwvdGl0bGU+CiAgPGRlc2MgaWQ9ImRlc2MiPkEgc2hhcmVkIGVkZ2UgY2FjaGUgc2l0cyBhYm92ZSBpbmRlcGVuZGVudCBub2RlLWxvY2FsIFJlZGlzIGFuZCBQb3N0Z3JlU1FMIGNhY2hlcywgd2l0aCBvcHRpb25hbCBzaGFyZWQgY29udGVudC1hZGRyZXNzZWQgb2JqZWN0IHN0b3JhZ2UgZm9yIGltbXV0YWJsZSBnZW5lcmF0ZWQgYXNzZXRzLjwvZGVzYz4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmJne2ZpbGw6I2Y2ZmFmOX0uZWRnZXtmaWxsOiNkY2VmZWQ7c3Ryb2tlOiMwODdmOGM7c3Ryb2tlLXdpZHRoOjJ9LmxvY2Fse2ZpbGw6I2ZmZjtzdHJva2U6Izg2YWJhODtzdHJva2Utd2lkdGg6Mn0uZHVyYWJsZXtmaWxsOiNmZmYwZDg7c3Ryb2tlOiNkMThiMjQ7c3Ryb2tlLXdpZHRoOjJ9LnNoYXJlZHtmaWxsOiNlNWY1ZWM7c3Ryb2tlOiMyYTlkNjg7c3Ryb2tlLXdpZHRoOjJ9LnRpdGxle2ZvbnQ6NzAwIDI1cHggQXJpYWwsc2Fucy1zZXJpZjtmaWxsOiMwNzNiNGN9LmxhYmVse2ZvbnQ6NzAwIDE2cHggQXJpYWwsc2Fucy1zZXJpZjtmaWxsOiMwNzNiNGN9LmJvZHl7Zm9udDoxM3B4IEFyaWFsLHNhbnMtc2VyaWY7ZmlsbDojMzU1NTVjfS5zbWFsbHtmb250OjEycHggQXJpYWwsc2Fucy1zZXJpZjtmaWxsOiM1MzZlNzR9LmFycm93e3N0cm9rZTojMDg3ZjhjO3N0cm9rZS13aWR0aDozO2ZpbGw6bm9uZTttYXJrZXItZW5kOnVybCgjYXJyb3cpfS5hc3NldHtzdHJva2U6IzJhOWQ2ODtzdHJva2Utd2lkdGg6MztmaWxsOm5vbmU7c3Ryb2tlLWRhc2hhcnJheTo4IDY7bWFya2VyLWVuZDp1cmwoI2dyZWVuYXJyb3cpfQogICAgPC9zdHlsZT4KICAgIDxtYXJrZXIgaWQ9ImFycm93IiBtYXJrZXJXaWR0aD0iMTAiIG1hcmtlckhlaWdodD0iMTAiIHJlZlg9IjgiIHJlZlk9IjMiIG9yaWVudD0iYXV0byI+PHBhdGggZD0iTTAsMCBMMCw2IEw5LDMgeiIgZmlsbD0iIzA4N2Y4YyIvPjwvbWFya2VyPgogICAgPG1hcmtlciBpZD0iZ3JlZW5hcnJvdyIgbWFya2VyV2lkdGg9IjEwIiBtYXJrZXJIZWlnaHQ9IjEwIiByZWZYPSI4IiByZWZZPSIzIiBvcmllbnQ9ImF1dG8iPjxwYXRoIGQ9Ik0wLDAgTDAsNiBMOSwzIHoiIGZpbGw9IiMyYTlkNjgiLz48L21hcmtlcj4KICA8L2RlZnM+CiAgPHJlY3QgY2xhc3M9ImJnIiB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI1NjAiIHJ4PSIyMCIvPgogIDx0ZXh0IGNsYXNzPSJ0aXRsZSIgeD0iNDUiIHk9IjUwIj5SZXBsaWNhdGUgY2FjaGUgb3V0Y29tZXMsIG5vdCBjcm9zcy1jYW1wdXMgUmVkaXM8L3RleHQ+CgogIDxyZWN0IGNsYXNzPSJlZGdlIiB4PSIyNzAiIHk9IjgyIiB3aWR0aD0iNjYwIiBoZWlnaHQ9IjEwMCIgcng9IjE2Ii8+CiAgPHRleHQgY2xhc3M9ImxhYmVsIiB4PSIzMDAiIHk9IjExOCI+TDAgLSBTaGFyZWQgZ2xvYmFsIGVkZ2UgY2FjaGU8L3RleHQ+CiAgPHRleHQgY2xhc3M9ImJvZHkiIHg9IjMwMCIgeT0iMTQ1Ij5Qb3B1bGFyIHB1YmxpYyBHRVQgcmVzcG9uc2VzLCBib3QgY29udHJvbHMsIGNvbmRpdGlvbmFsIHJlcXVlc3RzLCBhbmQgaW1tdXRhYmxlIGFzc2V0IGRlbGl2ZXJ5PC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJzbWFsbCIgeD0iMzAwIiB5PSIxNjYiPk9uZSBjYWNoZSBoaXQgY2FuIHByZXZlbnQgd29yayBhdCBldmVyeSBpbnN0aXR1dGlvbmFsIG9yaWdpbi48L3RleHQ+CgogIDxyZWN0IGNsYXNzPSJsb2NhbCIgeD0iNzUiIHk9IjI0NSIgd2lkdGg9IjQ1MCIgaGVpZ2h0PSIxNzUiIHJ4PSIxNiIvPgogIDx0ZXh0IGNsYXNzPSJsYWJlbCIgeD0iMTA1IiB5PSIyODAiPk1pcnJvciBBIC0gaW5kZXBlbmRlbnQgbG9jYWwgdGllcnM8L3RleHQ+CiAgPHJlY3QgY2xhc3M9ImVkZ2UiIHg9IjEwNSIgeT0iMzA1IiB3aWR0aD0iMTgwIiBoZWlnaHQ9Ijg1IiByeD0iMTIiLz4KICA8dGV4dCBjbGFzcz0ibGFiZWwiIHg9IjEzMCIgeT0iMzM3Ij5MMSAtIFJlZGlzPC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJzbWFsbCIgeD0iMTMwIiB5PSIzNjAiPkhvdCwgYm91bmRlZCwgZGlzcG9zYWJsZTwvdGV4dD4KICA8dGV4dCBjbGFzcz0ic21hbGwiIHg9IjEzMCIgeT0iMzc4Ij5OZXZlciBXQU4tcmVwbGljYXRlZDwvdGV4dD4KICA8cmVjdCBjbGFzcz0iZHVyYWJsZSIgeD0iMzE1IiB5PSIzMDUiIHdpZHRoPSIxODAiIGhlaWdodD0iODUiIHJ4PSIxMiIvPgogIDx0ZXh0IGNsYXNzPSJsYWJlbCIgeD0iMzQwIiB5PSIzMzciPkwyIC0gUG9zdGdyZVNRTDwvdGV4dD4KICA8dGV4dCBjbGFzcz0ic21hbGwiIHg9IjM0MCIgeT0iMzYwIj5EdXJhYmxlIGdlbmVyYXRlZCByZXN1bHRzPC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJzbWFsbCIgeD0iMzQwIiB5PSIzNzgiPlJlaHlkcmF0ZXMgUmVkaXM8L3RleHQ+CgogIDxyZWN0IGNsYXNzPSJsb2NhbCIgeD0iNjc1IiB5PSIyNDUiIHdpZHRoPSI0NTAiIGhlaWdodD0iMTc1IiByeD0iMTYiLz4KICA8dGV4dCBjbGFzcz0ibGFiZWwiIHg9IjcwNSIgeT0iMjgwIj5NaXJyb3IgQiAtIGluZGVwZW5kZW50IGxvY2FsIHRpZXJzPC90ZXh0PgogIDxyZWN0IGNsYXNzPSJlZGdlIiB4PSI3MDUiIHk9IjMwNSIgd2lkdGg9IjE4MCIgaGVpZ2h0PSI4NSIgcng9IjEyIi8+CiAgPHRleHQgY2xhc3M9ImxhYmVsIiB4PSI3MzAiIHk9IjMzNyI+TDEgLSBSZWRpczwvdGV4dD4KICA8dGV4dCBjbGFzcz0ic21hbGwiIHg9IjczMCIgeT0iMzYwIj5Mb2NhbCBsb2NrcyBhbmQgaG90IGRhdGE8L3RleHQ+CiAgPHRleHQgY2xhc3M9InNtYWxsIiB4PSI3MzAiIHk9IjM3OCI+RmFpbHVyZSBzdGF5cyBsb2NhbDwvdGV4dD4KICA8cmVjdCBjbGFzcz0iZHVyYWJsZSIgeD0iOTE1IiB5PSIzMDUiIHdpZHRoPSIxODAiIGhlaWdodD0iODUiIHJ4PSIxMiIvPgogIDx0ZXh0IGNsYXNzPSJsYWJlbCIgeD0iOTQwIiB5PSIzMzciPkwyIC0gUG9zdGdyZVNRTDwvdGV4dD4KICA8dGV4dCBjbGFzcz0ic21hbGwiIHg9Ijk0MCIgeT0iMzYwIj5WZXJzaW9uZWQgcmVwcmVzZW50YXRpb25zPC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJzbWFsbCIgeD0iOTQwIiB5PSIzNzgiPlJlYnVpbGRhYmxlIGZyb20gc291cmNlPC90ZXh0PgoKICA8cmVjdCBjbGFzcz0ic2hhcmVkIiB4PSIyNzAiIHk9IjQ3MCIgd2lkdGg9IjY2MCIgaGVpZ2h0PSI2NSIgcng9IjE2Ii8+CiAgPHRleHQgY2xhc3M9ImxhYmVsIiB4PSIzMDAiIHk9IjUwMCI+T3B0aW9uYWwgc2hhcmVkIGFzc2V0IHRpZXIgLSBjb250ZW50LWFkZHJlc3NlZCBvYmplY3Qgc3RvcmFnZSArIENETjwvdGV4dD4KICA8dGV4dCBjbGFzcz0ic21hbGwiIHg9IjMwMCIgeT0iNTIyIj5UaHVtYm5haWxzIGFuZCBzdGF0aWMgbWFwcyBzaGFyZSBpbW11dGFibGUgaGFzaGVzOyBzbWFsbCBhbGlhc2VzIHJlbWFpbiBub2RlLWxvY2FsLjwvdGV4dD4KCiAgPHBhdGggY2xhc3M9ImFycm93IiBkPSJNNDMwIDE4MiBDMzUwIDIwNSAzMDAgMjE1IDMwMCAyNDAiLz4KICA8cGF0aCBjbGFzcz0iYXJyb3ciIGQ9Ik03NzAgMTgyIEM4NTAgMjA1IDkwMCAyMTUgOTAwIDI0MCIvPgogIDxwYXRoIGNsYXNzPSJhcnJvdyIgZD0iTTI4NSAzNDggSDMxMCIvPgogIDxwYXRoIGNsYXNzPSJhcnJvdyIgZD0iTTg4NSAzNDggSDkxMCIvPgogIDxwYXRoIGNsYXNzPSJhc3NldCIgZD0iTTQwNSA0MjAgQzQzMCA0NTIgNDkwIDQ2MCA1MTAgNDY4Ii8+CiAgPHBhdGggY2xhc3M9ImFzc2V0IiBkPSJNMTAxMCA0MjAgQzk4MCA0NTIgOTE1IDQ2MCA4OTAgNDY4Ii8+Cjwvc3ZnPgoK" alt="Cache strategy: shared edge, local hot and durable caches, optional shared assets" /><figcaption>Cache strategy: shared edge, local hot and durable caches, optional shared assets</figcaption>
+</figure>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Layer</th>
+<th style="text-align: left;">Location</th>
+<th style="text-align: left;">Stores</th>
+<th style="text-align: left;">Replication approach</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">L0: edge cache</td>
+<td style="text-align: left;">Global edge/CDN</td>
+<td style="text-align: left;">Cacheable public <code>GET</code> responses and immutable assets</td>
+<td style="text-align: left;">Provider replicates content geographically; all mirrors benefit</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">L1: hot cache</td>
+<td style="text-align: left;">Redis on each mirror</td>
+<td style="text-align: left;">Search/facet responses, resource representations, aliases, locks, rate counters</td>
+<td style="text-align: left;">Never replicated across campuses; rebuilt locally</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">L2: durable generated cache</td>
+<td style="text-align: left;">PostgreSQL on each mirror</td>
+<td style="text-align: left;">API responses, generated record representations, and visual assets that are expensive to regenerate</td>
+<td style="text-align: left;">Rehydrates local Redis; rebuildable or backed up locally</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Optional shared asset tier</td>
+<td style="text-align: left;">S3/R2-compatible object storage behind CDN</td>
+<td style="text-align: left;">Content-addressed thumbnails, static maps, and other immutable generated files</td>
+<td style="text-align: left;">Shared by object key, not by database or Redis replication</td>
+</tr>
+</tbody>
+</table>
+<p>This design preserves independent failure domains while avoiding repeated work. A popular query is answered from the edge before it reaches any campus. An expensive thumbnail generated by one node can later be stored under a content hash in shared object storage and reused by every node. A restarted Redis can rehydrate important entries from that node's durable PostgreSQL cache.</p>
+<h3 id="cache-keys-and-coherence">Cache keys and coherence</h3>
+<p>Cache correctness depends on versioned, deterministic keys. Keys should include the API contract, cache schema version, normalized route/query parameters, and the accepted corpus generation when the response depends on corpus-wide state. Generated assets should use a content or source hash so identical work produces the same immutable key at every institution.</p>
+<p>Use these invalidation rules:</p>
+<ul>
+<li>A changed record invalidates tags such as <code>resource:&lt;id&gt;</code> on the node that harvested it, including detail responses, representations, relationships, and aliases.</li>
+<li>A completed full reindex advances the corpus/cache generation and invalidates search, suggestion, facet, map-aggregation, and sitemap namespaces.</li>
+<li>A deploy that changes serialization or generation logic advances an explicit cache version. Old entries expire naturally and cannot be read under the new namespace.</li>
+<li>The edge uses short TTLs or surrogate-key purges for mutable search responses. It uses very long TTLs plus <code>immutable</code> for content-hashed visual assets.</li>
+<li><code>ETag</code> and conditional requests reduce transfer when an object has not changed. <code>stale-while-revalidate</code> and <code>stale-if-error</code> preserve service during brief origin or upstream trouble where the content policy permits.</li>
+</ul>
+<p>Suggested starting policies, to be tuned from pilot measurements:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Response class</th>
+<th style="text-align: left;">Edge policy</th>
+<th style="text-align: left;">Mirror policy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Search, suggest, and facets</td>
+<td style="text-align: left;">1-5 minute TTL; brief stale-while-revalidate</td>
+<td style="text-align: left;">Redis 5-30 minutes; durable copy where valuable</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Resource detail</td>
+<td style="text-align: left;">10-15 minute TTL; purge by resource tag when available</td>
+<td style="text-align: left;">Versioned Redis plus durable PostgreSQL representation</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Content-hashed thumbnail/static map</td>
+<td style="text-align: left;">1 year, <code>immutable</code></td>
+<td style="text-align: left;">Durable asset plus bounded Redis hot copy</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OpenAPI/schema/configuration</td>
+<td style="text-align: left;">1 hour, purged on release</td>
+<td style="text-align: left;">Local memory/Redis as appropriate</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Readiness, admin, personalized, or privileged response</td>
+<td style="text-align: left;">No shared caching</td>
+<td style="text-align: left;">No cache or explicitly private cache</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Errors</td>
+<td style="text-align: left;">Do not cache <code>5xx</code>; use only a very short negative cache for stable <code>404</code> results</td>
+<td style="text-align: left;">Same principle</td>
+</tr>
+</tbody>
+</table>
+<p>Cache keys must account for every response-changing header or parameter. Responses that vary by authorization, institution, language, or content type must either include that dimension in the key and <code>Vary</code> headers or bypass the shared edge. Static frontend credentials are visible to browsers; they are identifiers with narrow quotas, never secrets.</p>
+<h3 id="warming-without-filling-redis-with-the-world">Warming without filling Redis with the world</h3>
+<p>After a deploy or reindex, warm a bounded list: health and configuration, homepage/default searches, facets, common map aggregations, featured resources, and recently popular records. Durable visual assets and aliases can be prepared in batch, but the full image corpus should not be loaded into Redis. Redis is for the hot working set; PostgreSQL/object storage is the durable tier.</p>
+<p>Use distributed locks local to each node, request coalescing, TTL jitter, and background refresh to avoid cache stampedes. Upstream image providers should have concurrency limits, timeouts, cooldowns, and failure backoff so a cold cache does not become an accidental denial-of-service against another library.</p>
+<h2 id="network-and-security-requirements">6. Network and security requirements</h2>
+<p>The minimum campus network contract is intentionally small:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Direction</th>
+<th style="text-align: left;">Access</th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Inbound</td>
+<td style="text-align: left;">HTTPS from the approved global-edge address ranges</td>
+<td style="text-align: left;">Prefer origin firewall allowlisting; no direct public database/cache access</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Inbound management</td>
+<td style="text-align: left;">SSH from named campus/OGM operator networks or VPN</td>
+<td style="text-align: left;">Key-based access, least privilege, audited changes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Outbound</td>
+<td style="text-align: left;">HTTPS to GitHub, container registry, monitoring, and optional object/backup storage</td>
+<td style="text-align: left;">DNS and time synchronization also required</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Internal only</td>
+<td style="text-align: left;">PostgreSQL, Elasticsearch, Redis, worker monitoring</td>
+<td style="text-align: left;">Bind to private host/container networks</td>
+</tr>
+</tbody>
+</table>
+<p>Secrets live in the deployment secret store and are injected at runtime. They are not committed to OGM metadata repositories, the application repository, or an <code>abcdefgeo</code> theme. GitHub webhook requests require <code>X-Hub-Signature-256</code> verification, replay/delivery-ID handling, event allowlisting, and body-size limits before any job is enqueued.</p>
+<p>The container image should be pinned to an immutable release or digest and scanned in the common build pipeline. Campus IT patches the host OS and Docker; the OGM operator patches and deploys application containers. All components follow an agreed support window so a security release can be staged quickly without forcing every campus into the same maintenance hour.</p>
+<p>Logs should be structured and centralized enough for incident response, but must not retain unnecessary patron identifiers or complete sensitive query strings. Public error bodies return stable, generic messages rather than stack traces, SQL, search internals, filesystem paths, or credentials.</p>
+<h2 id="monitoring-recovery-and-operating-responsibilities">7. Monitoring, recovery, and operating responsibilities</h2>
+<h3 id="shared-observability">Shared observability</h3>
+<p>The network dashboard should expose both technical health and metadata health:</p>
+<ul>
+<li>origin availability, request rate, latency percentiles, error rate, active connections, and traffic weight;</li>
+<li>CPU, memory, disk use and growth, inode use, container restarts, Redis evictions, database connection pressure, and Elasticsearch cluster/index state;</li>
+<li>API release and contract, corpus generation, last successful nightly run, last webhook delivery, repository/record counts, invalid records, missing records, and database-to-index count variance;</li>
+<li>cache hit ratios at the edge and at each mirror, asset-generation failures, upstream provider cooldowns, and background queue age;</li>
+<li>a small set of synthetic searches run through the global endpoint and directly against every origin, with normalized response checksums to detect silent divergence.</li>
+</ul>
+<p>Alerts should be actionable. A librarian needs the repository and file causing a validation failure. Campus IT needs disk, host, or network evidence. The OGM operator needs the failing release, dependency, job, or corpus generation.</p>
+<h3 id="backup-and-rebuild">Backup and rebuild</h3>
+<p>GitHub Aardvark repositories are the canonical metadata backup. A mirror can be rebuilt by provisioning a host, deploying the pinned release, harvesting the repositories, rebuilding the search alias, warming caches, and passing readiness. This should be tested, not merely documented.</p>
+<p>Back up the smaller state that is not conveniently reproduced: deployment configuration and secret recovery material, the repository catalog and harvest audit state, user-submitted feedback or analytics if retained, and any generated assets not stored in shared object storage. PostgreSQL backups and Elasticsearch snapshots shorten recovery time but do not become the authoritative metadata source. Backup credentials and copies must be outside the failed host.</p>
+<p>A restoring node remains out of the traffic pool until its corpus, search index, and release pass the same readiness checks as a new node.</p>
+<h3 id="responsibility-matrix">Responsibility matrix</h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Activity</th>
+<th style="text-align: left;">Geography librarians</th>
+<th style="text-align: left;">Campus IT</th>
+<th style="text-align: left;">OGM service operator</th>
+<th style="text-align: left;">OGM governance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Aardvark creation, review, and repository quality</td>
+<td style="text-align: left;">Responsible</td>
+<td style="text-align: left;">Informed</td>
+<td style="text-align: left;">Supports tooling</td>
+<td style="text-align: left;">Sets shared profile/policy</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>abcdefgeo</code> branding, content, and default filters</td>
+<td style="text-align: left;">Responsible</td>
+<td style="text-align: left;">Supports domain/Pages policy</td>
+<td style="text-align: left;">Provides releases and examples</td>
+<td style="text-align: left;">Sets accessibility baseline</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">VM, OS, storage, firewall, DNS, and SSH</td>
+<td style="text-align: left;">Informed</td>
+<td style="text-align: left;">Responsible</td>
+<td style="text-align: left;">Consulted/operator access</td>
+<td style="text-align: left;">Defines minimum host contract</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Kamal deploys, application secrets, workers, indexes, and caches</td>
+<td style="text-align: left;">Informed</td>
+<td style="text-align: left;">Consulted</td>
+<td style="text-align: left;">Responsible</td>
+<td style="text-align: left;">Approves release policy</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Edge routing, WAF, bot controls, health, and drain/rejoin</td>
+<td style="text-align: left;">Informed</td>
+<td style="text-align: left;">Consulted</td>
+<td style="text-align: left;">Responsible</td>
+<td style="text-align: left;">Approves service objectives</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Metadata freshness and validation response</td>
+<td style="text-align: left;">Responsible for source fixes</td>
+<td style="text-align: left;">Informed</td>
+<td style="text-align: left;">Responsible for pipeline</td>
+<td style="text-align: left;">Resolves policy exceptions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Security incident coordination</td>
+<td style="text-align: left;">Consulted</td>
+<td style="text-align: left;">Responsible for host/network</td>
+<td style="text-align: left;">Responsible for app/service</td>
+<td style="text-align: left;">Accountable for the operating compact</td>
+</tr>
+</tbody>
+</table>
+<p>The intended boundary remains: <strong>the institution hosts the machine; the OGM network operates the application; librarians steward the discovery experience and metadata.</strong></p>
+<h2 id="pilot-implementation-and-acceptance-tests">8. Pilot implementation and acceptance tests</h2>
+<p>A 90-day pilot should use the current BTAA node plus two adopting institutions. Implement in this order:</p>
+<ol type="1">
+<li>Ratify the API/readiness contract, supported release policy, corpus manifest, responsibility matrix, security baseline, and pilot service objectives.</li>
+<li>Provision the shared edge, origin certificates, WAF/rate-limit policy, monitoring, and a staging hostname.</li>
+<li>Provision two campus VMs from the reference profile. Confirm disk and network performance, firewall paths, SSH access, backups, and contacts.</li>
+<li>Deploy the same pinned OGM API release with Kamal. Perform the first full harvest, atomic index build, and bounded cache warm before adding traffic.</li>
+<li>Point pilot <code>abcdefgeo</code> builds to the shared staging API. Complete local branding, content, accessibility review, and institutional default filters.</li>
+<li>Exercise routine sync, webhook acceleration, a failed webhook, invalid metadata, record removal, stale-node drain, and index rollback.</li>
+<li>Load test legitimate traffic and controlled bot-like traffic. Confirm the edge absorbs/rate-limits it and that adding a mirror increases measured aggregate capacity.</li>
+<li>Drain each node in turn for a Kamal and OS maintenance rehearsal. Rebuild one node from documented backups and GitHub source.</li>
+<li>Publish the measured onboarding time, operating effort, cost, cache hit ratios, freshness, failover behavior, and remaining risks.</li>
+</ol>
+<p>Recommended pilot acceptance criteria are:</p>
+<ul>
+<li>all mirrors pass the same API contract and representative response tests;</li>
+<li>nightly synchronization completes and the dashboard proves corpus/index agreement; webhook-triggered changes meet the pilot freshness target;</li>
+<li>loss or planned drain of any one node causes no public URL change and no manual client action;</li>
+<li>a stale, incompatible, overloaded, or low-disk node is removed automatically;</li>
+<li>a release can be canaried, rolled back, and later completed across the fleet;</li>
+<li>edge plus node-local cache hit ratios materially reduce origin and upstream work; shared immutable assets are evaluated with measured costs;</li>
+<li>the VM and ongoing campus support burden remain within the planning target; and</li>
+<li>a geography librarian can trace a rejected or stale record back to the exact repository/file and understand the required correction.</li>
+</ul>
+<p>Initial pilot objectives should be treated as measurements rather than promises: webhook changes discoverable within 15 minutes when the pipeline is healthy, nightly reconciliation completing within its maintenance window, a maximum 24-hour freshness threshold for traffic eligibility, and automatic origin removal within approximately one minute of a failed readiness check. Production service levels should be adopted only after the pilot establishes real load, failure, and staffing data.</p>
+<h2 id="implementation-decisions-to-ratify">9. Implementation decisions to ratify</h2>
+<p>The pilot group can begin once it makes these bounded decisions:</p>
+<ol type="1">
+<li>Select the global edge provider and decide who owns its account, billing, DNS, certificates, WAF policy, and emergency access.</li>
+<li>Define the public API contract and which routes are cacheable and load-balanced.</li>
+<li>Adopt the corpus manifest, freshness threshold, validation/deletion policy, and node readiness schema.</li>
+<li>Choose the pilot webhook pattern and the long-term shared fan-out mechanism.</li>
+<li>Decide whether shared content-addressed object storage is in the initial pilot or a measured second phase.</li>
+<li>Ratify host/app security ownership, incident contacts, maintenance notice, release cadence, and rollback authority.</li>
+<li>Approve a small set of user-facing and operational service objectives to measure during the pilot.</li>
+</ol>
+<p>None of these decisions requires a new institutional software project. They turn the existing OGM schema, GitHub repositories, OGM API, Kamal deployment, and customizable <code>abcdefgeo</code> frontend into a governed, observable, and rehearsable shared service.</p>
+<h2 id="technical-foundations">Technical foundations</h2>
+<ul>
+<li><a href="https://opengeometadata.org/">OpenGeoMetadata</a></li>
+<li><a href="https://github.com/OpenGeoMetadata">OpenGeoMetadata repositories</a></li>
+<li><a href="https://github.com/geobtaa/api">BTAA Geospatial API</a></li>
+<li><a href="https://github.com/ewlarson/ogm-api">OGM API</a></li>
+<li><a href="https://github.com/ewlarson/abcdefgeo"><code>abcdefgeo</code></a></li>
+<li><a href="https://github.com/geobtaa/api/blob/develop/docs/README.md">BTAA API architecture and cache model</a></li>
+<li><a href="https://github.com/geobtaa/api/blob/develop/docs/make_tasks.md">BTAA atomic reindex and maintenance tasks</a></li>
+<li><a href="https://github.com/geobtaa/api/blob/develop/docs/backend/ogm_harvesting.md">BTAA OGM harvesting design</a></li>
+<li><a href="https://github.com/geobtaa/api/blob/develop/config/deploy.prd.yml">BTAA production Kamal configuration</a></li>
+<li><a href="https://kamal-deploy.org/">Kamal</a></li>
+<li><a href="https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries">GitHub webhook validation</a></li>
+</ul>
+</main>
+<footer class="site-footer">
+  <p><strong>OpenGeoMetadata API Mirror Network</strong></p>
+  <p><a href="../../proposal/opengeometadata-api-mirror-network-technical-implementation.md">View Markdown source</a> · <a href="https://opengeometadata.org/">OpenGeoMetadata</a> · <a href="https://github.com/OpenGeoMetadata">GitHub repositories</a></p>
+</footer>
+</body>
+</html>

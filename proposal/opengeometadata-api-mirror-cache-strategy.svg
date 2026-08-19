@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">OpenGeoMetadata mirror cache strategy</title>
+  <desc id="desc">A shared edge cache sits above independent node-local Redis and PostgreSQL caches, with optional shared content-addressed object storage for immutable generated assets.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f6faf9}.edge{fill:#dcefed;stroke:#087f8c;stroke-width:2}.local{fill:#fff;stroke:#86aba8;stroke-width:2}.durable{fill:#fff0d8;stroke:#d18b24;stroke-width:2}.shared{fill:#e5f5ec;stroke:#2a9d68;stroke-width:2}.title{font:700 25px Arial,sans-serif;fill:#073b4c}.label{font:700 16px Arial,sans-serif;fill:#073b4c}.body{font:13px Arial,sans-serif;fill:#35555c}.small{font:12px Arial,sans-serif;fill:#536e74}.arrow{stroke:#087f8c;stroke-width:3;fill:none;marker-end:url(#arrow)}.asset{stroke:#2a9d68;stroke-width:3;fill:none;stroke-dasharray:8 6;marker-end:url(#greenarrow)}
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#087f8c"/></marker>
+    <marker id="greenarrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#2a9d68"/></marker>
+  </defs>
+  <rect class="bg" width="1200" height="560" rx="20"/>
+  <text class="title" x="45" y="50">Replicate cache outcomes, not cross-campus Redis</text>
+
+  <rect class="edge" x="270" y="82" width="660" height="100" rx="16"/>
+  <text class="label" x="300" y="118">L0 - Shared global edge cache</text>
+  <text class="body" x="300" y="145">Popular public GET responses, bot controls, conditional requests, and immutable asset delivery</text>
+  <text class="small" x="300" y="166">One cache hit can prevent work at every institutional origin.</text>
+
+  <rect class="local" x="75" y="245" width="450" height="175" rx="16"/>
+  <text class="label" x="105" y="280">Mirror A - independent local tiers</text>
+  <rect class="edge" x="105" y="305" width="180" height="85" rx="12"/>
+  <text class="label" x="130" y="337">L1 - Redis</text>
+  <text class="small" x="130" y="360">Hot, bounded, disposable</text>
+  <text class="small" x="130" y="378">Never WAN-replicated</text>
+  <rect class="durable" x="315" y="305" width="180" height="85" rx="12"/>
+  <text class="label" x="340" y="337">L2 - PostgreSQL</text>
+  <text class="small" x="340" y="360">Durable generated results</text>
+  <text class="small" x="340" y="378">Rehydrates Redis</text>
+
+  <rect class="local" x="675" y="245" width="450" height="175" rx="16"/>
+  <text class="label" x="705" y="280">Mirror B - independent local tiers</text>
+  <rect class="edge" x="705" y="305" width="180" height="85" rx="12"/>
+  <text class="label" x="730" y="337">L1 - Redis</text>
+  <text class="small" x="730" y="360">Local locks and hot data</text>
+  <text class="small" x="730" y="378">Failure stays local</text>
+  <rect class="durable" x="915" y="305" width="180" height="85" rx="12"/>
+  <text class="label" x="940" y="337">L2 - PostgreSQL</text>
+  <text class="small" x="940" y="360">Versioned representations</text>
+  <text class="small" x="940" y="378">Rebuildable from source</text>
+
+  <rect class="shared" x="270" y="470" width="660" height="65" rx="16"/>
+  <text class="label" x="300" y="500">Optional shared asset tier - content-addressed object storage + CDN</text>
+  <text class="small" x="300" y="522">Thumbnails and static maps share immutable hashes; small aliases remain node-local.</text>
+
+  <path class="arrow" d="M430 182 C350 205 300 215 300 240"/>
+  <path class="arrow" d="M770 182 C850 205 900 215 900 240"/>
+  <path class="arrow" d="M285 348 H310"/>
+  <path class="arrow" d="M885 348 H910"/>
+  <path class="asset" d="M405 420 C430 452 490 460 510 468"/>
+  <path class="asset" d="M1010 420 C980 452 915 460 890 468"/>
+</svg>
