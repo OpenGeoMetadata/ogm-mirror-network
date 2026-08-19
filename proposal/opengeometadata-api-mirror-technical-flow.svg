@@ -15,7 +15,7 @@
   <text class="label" x="58" y="110">PUBLIC READ PLANE</text>
   <rect class="node" x="60" y="145" width="180" height="120" rx="14"/>
   <text class="label" x="88" y="180">Clients</text>
-  <text class="body" x="88" y="208">abcdefgeo sites</text>
+  <text class="body" x="88" y="208">OGM Discovery sites</text>
   <text class="body" x="88" y="230">Direct API users</text>
 
   <rect class="node" x="330" y="125" width="250" height="160" rx="14"/>

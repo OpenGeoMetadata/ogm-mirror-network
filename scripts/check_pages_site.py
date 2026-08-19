@@ -97,8 +97,8 @@ def main() -> None:
                 f"{', '.join(parser.external_scripts)}"
             )
         expected_notice = (
-            "DRAFT/DISCUSSION — This is an OpenGeoMetadata Community discussion topic "
-            "of interest. This is not a OGM approved roadmap."
+            "DRAFT FOR COMMUNITY DISCUSSION — This proposal is under consideration by "
+            "the OpenGeoMetadata community. It is not an approved OGM roadmap."
         )
         actual_notice = " ".join("".join(parser.draft_banner_text).split())
         if parser.draft_banner_count != 1 or actual_notice != expected_notice:

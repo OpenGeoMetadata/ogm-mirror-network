@@ -11,10 +11,10 @@
 }
 
 * { box-sizing: border-box; }
-html { background: #eef4f3; scroll-behavior: smooth; }
+html { overflow-x: clip; scroll-padding-top: 6rem; background: #eef4f3; scroll-behavior: smooth; }
 body {
   max-width: 1080px;
-  margin: 2rem auto;
+  margin: 0 auto 2rem;
   padding: var(--page-pad);
   background: white;
   color: var(--ogm-ink);
@@ -25,14 +25,18 @@ body {
   position: absolute;
   left: -9999px;
   top: 0;
-  z-index: 10;
+  z-index: 1100;
   padding: 0.75rem 1rem;
   color: white;
   background: var(--ogm-navy);
 }
 .skip-link:focus { left: 1rem; top: 1rem; }
 .draft-banner {
-  margin: calc(-1 * var(--page-pad)) calc(-1 * var(--page-pad)) 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100vw;
+  margin: calc(-1 * var(--page-pad)) 0 2rem calc(50% - 50vw);
   padding: 1rem var(--page-pad);
   border-bottom: 5px solid #f6c56f;
   color: white;
@@ -100,7 +104,6 @@ hr { border: 0; border-top: 1px solid var(--ogm-border); }
 }
 .site-footer p { margin: 0.25rem 0; }
 
-.home-page { overflow-x: hidden; }
 .home-page h1 { max-width: 900px; font-size: clamp(2.7rem, 7vw, 5.4rem); letter-spacing: -0.04em; }
 .home-page h2 { margin-top: 3.5rem; }
 .eyebrow {
@@ -163,9 +166,9 @@ hr { border: 0; border-top: 1px solid var(--ogm-border); }
 .principles strong { display: block; margin-bottom: 0.35rem; }
 
 @media (max-width: 720px) {
-  html { background: white; }
+  html { scroll-padding-top: 8rem; background: white; }
   body { margin: 0; padding: 1.2rem; box-shadow: none; font-size: 16px; }
-  .draft-banner { margin: -1.2rem -1.2rem 1.5rem; padding: 0.9rem 1.2rem; text-align: left; }
+  .draft-banner { margin: -1.2rem 0 1.5rem calc(50% - 50vw); padding: 0.9rem 1.2rem; text-align: left; }
   table { display: block; overflow-x: auto; }
   .site-nav { align-items: flex-start; flex-direction: column; margin-top: 0; }
   .card-grid, .principles { grid-template-columns: 1fr; }
@@ -180,6 +183,6 @@ hr { border: 0; border-top: 1px solid var(--ogm-border); }
   h3, table, img, pre { break-inside: avoid; }
   a { color: inherit; text-decoration: none; }
   .site-nav, .skip-link, .hero-actions, .site-footer { display: none; }
-  .draft-banner { margin: 0 0 1rem; padding: 0.65rem; border: 2px solid #000; color: #000; background: #fff; }
+  .draft-banner { position: static; width: auto; margin: 0 0 1rem; padding: 0.65rem; border: 2px solid #000; color: #000; background: #fff; }
   .draft-banner strong { color: #000; }
 }

@@ -104,17 +104,17 @@ def draw_page_one(c):
     summary = (
         "OpenGeoMetadata already has the essential building blocks: the OGM "
         "Aardvark schema, public GitHub metadata repositories, a proven API, and "
-        "the configurable <b>abcdefgeo</b> frontend for GitHub Pages.<br/><br/>"
+        "the configurable <b>OGM Discovery</b> (<b>ogm-discovery</b>) frontend for GitHub Pages.<br/><br/>"
         "The proposed mirror network adds a protected global endpoint in front "
-        "of compatible institutional OGM API nodes. Each participating library "
-        "contributes one ordinary Linux VM. The OGM operator deploys and updates "
-        "the application with Kamal, synchronizes the public corpus, monitors "
-        "readiness, and routes traffic by health and capacity.<br/><br/>"
-        "The strategic advantage is simple: every new adopter gains the foundation "
-        "for a customizable, institution-branded discovery platform <i>and</i> adds "
-        "capacity, geographic diversity, and resilience for the entire community. "
-        "A campus can drain its node for upgrades while users continue through "
-        "the remaining mirrors."
+        "of compatible institutional OGM API nodes. Mirror hosts contribute an "
+        "ordinary Linux VM; the OGM operator deploys and updates the application "
+        "with Kamal, synchronizes the corpus, monitors readiness, and routes "
+        "traffic by health and capacity.<br/><br/>"
+        "Capacity is pooled, not an admission requirement. Smaller libraries can "
+        "publish metadata and launch a customizable, institution-branded discovery "
+        "site against the shared API <i>without operating a local backend</i>. Mirror "
+        "hosts add resilience for everyone; service-only adopters add collections, "
+        "expertise, and public value."
     )
     paragraph(c, summary, left_x, 447, left_w, BODY, 330)
 
@@ -129,10 +129,9 @@ def draw_page_one(c):
     c.roundRect(36, 53, 720, 76, 14, fill=1, stroke=0)
     paragraph(
         c,
-        "<b>An institution contributes the equivalent of one modest server and "
-        "gains the foundation for a customizable, institution-branded discovery "
-        "platform backed by the combined capacity and resilience of the "
-        "OpenGeoMetadata community.</b>",
+        "<b>One contributed mirror becomes a community multiplier: it supports "
+        "its host, strengthens the shared service, and opens a no-backend path for "
+        "smaller institutions to join OpenGeoMetadata discovery.</b>",
         58,
         112,
         676,
@@ -152,7 +151,7 @@ def draw_page_two(c):
     c.drawString(36, 531, "The smallest possible institutional ask; network-wide return")
     c.setFillColor(MUTED)
     c.setFont("Helvetica", 10.5)
-    c.drawString(36, 510, "Institution hosts the machine. OGM operates the application. Every member benefits from the fleet.")
+    c.drawString(36, 510, "Mirror hosts supply capacity. Service-only adopters need no backend. Every member benefits.")
 
     # Cost card
     rounded_card(c, 36, 328, 362, 162, PALE_TEAL)
@@ -178,12 +177,13 @@ def draw_page_two(c):
     c.line(54, 349, 379, 349)
     paragraph(
         c,
-        "<b>A campus VM from existing capacity may have little or no incremental cost.</b>",
+        "<b>Campus VM: little or no incremental cost.</b><br/>"
+        "<b>Service-only adopter: $0 API hosting.</b>",
         54,
-        342,
+        346,
         325,
-        style(8.6, 10.2, NAVY, "Helvetica-Bold"),
-        14,
+        style(7.8, 8.6, NAVY, "Helvetica-Bold"),
+        20,
     )
 
     # Value card
@@ -208,7 +208,7 @@ def draw_page_two(c):
     cards = [
         (
             36,
-            "INSTITUTION PROVIDES",
+            "MIRROR HOST PROVIDES",
             PALE,
             "One production VM<br/>Firewall, DNS, SSH, and OS coordination<br/>One service sponsor + one technical contact",
         ),
@@ -220,9 +220,9 @@ def draw_page_two(c):
         ),
         (
             524,
-            "EVERY MEMBER GAINS",
+            "COMMUNITY-WIDE RETURN",
             PALE_TEAL,
-            "Customizable, institution-branded discovery<br/>Failover during outages + maintenance<br/>More aggregate capacity with every adopter",
+            "Service-only adoption with no backend<br/>Customizable, institution-branded discovery<br/>More metadata, capacity, and resilience",
         ),
     ]
     for x, heading, fill, copy in cards:
@@ -238,11 +238,11 @@ def draw_page_two(c):
     c.drawString(55, 129, "DECISION REQUESTED")
     paragraph(
         c,
-        "Approve a <b>90-day, three-node pilot</b>: the current BTAA node plus two "
-        "adopters such as UT Austin and the University of Nevada, Reno. Measure "
-        "onboarding, cost, API compatibility, corpus freshness, traffic distribution, "
-        "bot protection, and failover. Return with a production governance and "
-        "service-level proposal.",
+        "Approve a <b>90-day pilot</b>: the current BTAA node plus two additional "
+        "institutional mirrors and one service-only adopter. Measure onboarding, "
+        "cost, API compatibility, corpus freshness, traffic distribution, bot "
+        "protection, failover, and infrastructure-free adoption. Return with a "
+        "production governance and service-level proposal.",
         55,
         114,
         680,
@@ -253,7 +253,7 @@ def draw_page_two(c):
     # Source line stays above the standard footer.
     source_text = (
         "Planning sources: opengeometadata.org; github.com/opengeometadata; "
-        "github.com/geobtaa/api; github.com/ewlarson/ogm-api; github.com/ewlarson/abcdefgeo; "
+        "github.com/geobtaa/api; github.com/ewlarson/ogm-api; github.com/ewlarson/ogm-discovery; "
         "Hetzner price adjustment (2026-06-15); Cloudflare Load Balancing docs."
     )
     paragraph(c, source_text, 36, 46, 720, BODY_TINY, 18)
@@ -265,7 +265,7 @@ def add_metadata(c):
     c.setTitle("OpenGeoMetadata API Mirror Network - Executive Brief")
     c.setAuthor("OpenGeoMetadata community proposal")
     c.setSubject("A federated network of institution-hosted OGM API mirrors")
-    c.setKeywords("OpenGeoMetadata, Aardvark, OGM API, abcdefgeo, mirror network")
+    c.setKeywords("OpenGeoMetadata, Aardvark, OGM API, OGM Discovery, ogm-discovery, mirror network")
 
 
 def main():

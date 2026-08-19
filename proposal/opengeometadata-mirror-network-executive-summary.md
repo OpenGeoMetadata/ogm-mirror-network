@@ -9,20 +9,20 @@
 OpenGeoMetadata has already solved the hardest community problems: a shared
 discovery schema in OGM Aardvark, a distributed and transparent way to steward
 metadata in GitHub, a proven API platform for harvesting and serving those
-records, and a configurable `abcdefgeo` frontend that can be branded for an
-institution and hosted as a static site on GitHub Pages.
+records, and the configurable OGM Discovery (`ogm-discovery`) frontend that can
+be branded for an institution and hosted as a static site on GitHub Pages.
 
 The next step is to make delivery as collaborative as the metadata.
 
 The OpenGeoMetadata API Mirror Network would place a protected, health-aware global
 endpoint in front of multiple institutional deployments of the OGM API. A
-participating institution would contribute one ordinary Linux virtual machine
+mirror-host institution would contribute one ordinary Linux virtual machine
 and a technical contact. The OGM service operator would deploy and maintain the
 containerized API stack with Kamal, keep the mirror synchronized with the public
 OGM Aardvark repositories, monitor its readiness, and add it to the shared
 traffic pool.
 
-Every `abcdefgeo` site would use the same stable network API endpoint. Its theme
+Every OGM Discovery site would use the same stable network API endpoint. Its theme
 would present the adopting institution's brand and, when desired, scope search
 results to that institution by default. The underlying API would still expose
 the shared OGM corpus, enabling broader discovery and reuse.
@@ -34,12 +34,28 @@ This produces an unusually favorable exchange:
 > platform backed by the combined capacity and resilience of the
 > OpenGeoMetadata community.
 
+Crucially, capacity contribution and service adoption do not have to be
+one-to-one. Institutions able to contribute a VM create shared headroom not
+only for their own discovery sites, but also for smaller libraries that cannot
+provide server infrastructure. A service-only adopter can publish Aardvark
+metadata in GitHub, customize and brand OGM Discovery, and use the shared OGM API
+endpoint without provisioning, securing, patching, or monitoring a local
+backend. Its participation requires metadata stewardship and site
+customization, not a campus application-hosting project.
+
+That makes each contributed mirror a community multiplier. It expands service
+capacity for current members, opens a nearly infrastructure-free path for new
+members, and brings more institutions and collections into shared discovery.
+The institutions with capacity lift the operating burden; the institutions
+without capacity enrich the network's metadata, reach, and public value.
+
 Growth no longer concentrates traffic and risk on one campus. Each new adopter
-also becomes a capacity contributor. The network becomes harder to overwhelm,
-less dependent on any single institution, and more useful to every member as it
-grows. It also gives every institution a safe maintenance window: a local
-mirror can be drained for operating-system or application upgrades while the
-institution's discovery site continues using the remaining network.
+can strengthen the network through infrastructure, metadata, community reach,
+or some combination of the three. Each new mirror makes the network harder to
+overwhelm, less dependent on any single institution, and more useful to every
+member. It also gives every mirror host a safe maintenance window: a local node
+can be drained for operating-system or application upgrades while its discovery
+site continues using the remaining network.
 
 ![OpenGeoMetadata API Mirror Network architecture](opengeometadata-mirror-network-architecture.svg)
 
@@ -60,10 +76,10 @@ compatible API mirrors hosted by participating institutions.
    health and data freshness, and routes requests by capacity and availability.
    A node can be taken out of rotation for planned maintenance without changing
    the public URL.
-4. **`abcdefgeo` provides the institutional experience.** The static frontend
+4. **OGM Discovery provides the institutional experience.** The static frontend
    runs on GitHub Pages, carries local branding and content in configuration,
    and queries the shared network endpoint. The frontend requires no local
-   application server.
+   application server or mirror VM.
 5. **Kamal makes operations repeatable.** The OGM operator deploys the same
    versioned container release to every mirror, stages upgrades, checks
    compatibility, and can roll back quickly.
@@ -75,11 +91,15 @@ version, search services, record freshness, and capacity checks pass.
 
 ## Why directors should support it
 
-### One contribution produces five returns
+### One contribution produces six returns
 
 - **A public service without a local software project.** The institution gains a
   production-grade discovery backend and the foundation for a customizable,
   institution-branded frontend without assembling its own development team.
+- **An inclusive path for institutions without infrastructure.** Mirror
+  capacity is a pooled community contribution, not a condition of membership.
+  A small library can adopt the shared backend, publish its metadata, and launch
+  a branded discovery site without operating a VM or maintaining an API stack.
 - **Protection against traffic spikes and abusive automation.** Edge controls
   absorb or reject unwanted traffic before it reaches campus systems, while
   healthy origins share legitimate requests.
@@ -90,28 +110,44 @@ version, search services, record freshness, and capacity checks pass.
 - **Shared improvements without repeated procurement.** New API capabilities,
   accessibility work, performance improvements, and frontend features can move
   through one common release path.
-- **Visible participation in community infrastructure.** A member does not
-  merely consume a shared service; it contributes durable capacity that benefits
-  researchers and libraries across the network.
+- **Visible participation in community infrastructure.** Mirror sponsors
+  contribute durable capacity; service-only adopters contribute metadata,
+  expertise, and reach. Both forms of participation benefit researchers and
+  libraries across the network.
 
 ### The scaling model is the strategic advantage
 
 A centralized service becomes more expensive and more fragile as adoption
 grows. The mirror network reverses that relationship:
 
-**new institution -> branded discovery site + mirror node -> more shared
-capacity -> stronger service for every member -> easier next adoption**
+**new mirror host -> more shared capacity -> room for both mirror hosts and
+service-only adopters -> broader discovery and stronger service -> easier next
+adoption**
 
 The result is cooperative infrastructure with horizontal capacity, geographic
 diversity, and organizational redundancy. No single library has to provision
 for the whole community's peak traffic, and no single campus becomes the
 permanent point of failure.
 
-## What each institution contributes and gains
+## Two participation paths, one community service
+
+Hardware is a valuable contribution, not an admission requirement.
+
+| Participation path | Institution provides | Institution and community gain |
+| --- | --- | --- |
+| Mirror host | A production VM, campus network path, and technical contact | A branded discovery foundation, shared failover, maintenance freedom, and more capacity for the whole community |
+| Service-only adopter | Public Aardvark metadata, frontend customization, and a service contact | A shared OGM API backend and branded discovery foundation with no local server or backend application operations |
+
+An institution may begin as a service-only adopter and contribute a mirror
+later, or host capacity before launching its own frontend. Governance should
+recognize both as meaningful participation: one supplies shared infrastructure;
+the other broadens the corpus, community, and impact that infrastructure serves.
+
+### What a mirror host contributes and gains
 
 | Participating institution provides | OGM service operator provides | Institution and community gain |
 | --- | --- | --- |
-| One production Linux VM | Kamal-based installation and upgrades | Foundation for a customizable, institution-branded `abcdefgeo` site |
+| One production Linux VM | Kamal-based installation and upgrades | Foundation for a customizable, institution-branded OGM Discovery site |
 | Public HTTPS connectivity from the network edge | API, database, search, cache, and worker configuration | Shared full-corpus OGM API |
 | Firewall, DNS, SSH, and OS coordination | Metadata harvesting and indexing | Automatic failover and maintenance windows |
 | A named technical and service contact | Health monitoring, traffic weights, rollback, and runbooks | Edge bot controls and rate limiting |
@@ -148,6 +184,11 @@ year**. Limited inventory can be lower.
 
 **A campus VM from existing capacity may have little or no incremental cost.**
 
+**A service-only adopter has no OGM API server cost.** It uses capacity already
+contributed to the network and needs no campus VM or local backend deployment.
+Its effort is focused on metadata, OGM Discovery customization, and community
+participation.
+
 For budgeting, use **$1,500 per year per mirror node** as the target
 infrastructure contribution, with local chargeback replacing the external
 benchmark when applicable. This is not a procurement quote. A mainstream
@@ -157,15 +198,20 @@ The global edge, DNS, and shared monitoring are network-level costs rather than
 per-institution costs. At pilot scale they should be budgeted centrally and are
 expected to be small compared with even one local software implementation.
 
-### Target institutional effort
+### Target mirror-host effort
 
 - **One time:** 4-8 staff hours to provision the VM, establish DNS/firewall
   rules, confirm SSH access, and name contacts.
 - **Ongoing:** at most a few host-support hours per quarter for OS maintenance,
   capacity changes, and campus networking. Application releases and routine
   data operations are handled centrally.
-- **No local frontend server:** `abcdefgeo` builds and publishes through GitHub
+- **No local frontend server:** OGM Discovery builds and publishes through GitHub
   Pages.
+
+For a service-only adopter, the VM, firewall, SSH, operating-system, and backend
+support tasks disappear. The institution can participate without a local IT
+deployment; only optional campus policies such as a custom domain may call for
+local coordination.
 
 These are pilot targets to validate, not contractual service levels.
 
@@ -192,16 +238,18 @@ The network should launch with a short operating compact:
   rebuilt, reducing backup complexity and vendor lock-in.
 - **Transparent status:** members can see mirror health, software version,
   corpus freshness, and current traffic weight.
-- **Clear responsibility:** OGM owns application operations and routing;
-  institutions own VM, OS, and campus network availability; the community owns
-  schema and service policy.
+- **Clear responsibility:** OGM owns application operations and routing; mirror
+  hosts own VM, OS, and campus network availability; service-only adopters have
+  no backend host responsibility; the community owns schema and service policy.
 
 ## Recommended pilot
 
 Authorize a 90-day, three-node pilot using the current BTAA node plus two
-adopting institutions such as UT Austin and the University of Nevada, Reno.
+additional institutional mirror hosts. The pilot should also onboard at least
+one service-only adopter that contributes no VM, proving that shared capacity
+can remove the local backend IT requirement.
 
-The pilot should prove five things:
+The pilot should prove six things:
 
 1. A new institution can be provisioned with no local application development.
 2. All mirrors serve a compatible API and sufficiently fresh corpus.
@@ -211,6 +259,8 @@ The pilot should prove five things:
    distributed by health and capacity.
 5. Aggregate tested capacity increases when a mirror joins the pool, while the
    measured institutional support burden remains within the target.
+6. A service-only adopter can publish metadata and launch a customized discovery
+   experience without provisioning or operating backend infrastructure.
 
 At the end of the pilot, publish the measured onboarding time, operating effort,
 cost, traffic distribution, failover result, and metadata freshness. Those
@@ -219,10 +269,10 @@ results become the evidence and onboarding package for the next institution.
 ## Decision requested
 
 Approve the OpenGeoMetadata API Mirror Network as a shared-infrastructure pilot;
-authorize a three-node implementation; designate one service sponsor and one
-technical contact at each participating institution; and charge the OGM working
-group with returning a production governance and service-level proposal based
-on measured results.
+authorize a three-node implementation and a service-only adoption path;
+designate appropriate service and technical contacts for each participation
+mode; and charge the OGM working group with returning a production governance
+and service-level proposal based on measured results.
 
 The community has already created the schema, the metadata network, the API,
 and the low-maintenance frontend. The mirror network is the piece that turns
@@ -234,7 +284,7 @@ those assets into durable, community-scale infrastructure.
 - [OpenGeoMetadata repositories on GitHub](https://github.com/opengeometadata)
 - [BTAA Geospatial API](https://github.com/geobtaa/api)
 - [OpenGeoMetadata API](https://github.com/ewlarson/ogm-api)
-- [`abcdefgeo`](https://github.com/ewlarson/abcdefgeo)
+- [OGM Discovery (`ogm-discovery`)](https://github.com/ewlarson/ogm-discovery)
 - [BTAA production Kamal configuration](https://github.com/geobtaa/api/blob/develop/config/deploy.prd.yml)
 - [Hetzner AX42 hardware and June 2026 pricing](https://docs.hetzner.com/general/infrastructure-and-availability/price-adjustment/)
 - [Cloudflare load balancing and health-aware routing](https://developers.cloudflare.com/load-balancing/)

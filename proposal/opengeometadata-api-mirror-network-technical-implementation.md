@@ -27,13 +27,22 @@ technical governance groups<br>
 ## 1. Purpose and design principles
 
 The OpenGeoMetadata API Mirror Network turns the existing OGM software and
-metadata-sharing practices into a resilient community service. Participating
+metadata-sharing practices into a resilient community service. Mirror-host
 institutions contribute a modest Linux virtual machine. The OGM service
 operator deploys the same versioned API stack to each machine with Kamal. A
 protected global endpoint sends public read traffic only to mirrors that are
 healthy, compatible, sufficiently current, and within their assigned capacity.
 
-An adopting institution separately customizes `abcdefgeo` - its theme,
+Hardware contribution is intentionally separate from service eligibility.
+Service-only adopters can publish Aardvark metadata, configure an institutional
+OGM Discovery (`ogm-discovery`) site, and point it to the shared endpoint without
+running an OGM API node. This removes the local VM, firewall, patching,
+application deployment, monitoring, and backend on-call requirements. At the
+architecture layer, a small institution can therefore participate without a
+local IT deployment while still adding collections, expertise, and community
+reach.
+
+An adopting institution separately customizes OGM Discovery - its theme,
 institutional branding, explanatory content, and default search filters - and
 publishes the static site through GitHub Pages. The frontend points to one
 stable OGM network API hostname, not to the institution's individual mirror.
@@ -55,9 +64,34 @@ The implementation rests on six principles:
    application, search index, corpus manifest, and dependencies pass checks.
 5. **Nightly reconciliation is mandatory; webhooks are acceleration.** A missed
    webhook can delay a change, but it cannot permanently cause divergence.
-6. **Operations are shared and repeatable.** Institutions host and maintain the
-   VM and campus network. The OGM operator manages the application release,
-   data pipeline, traffic pool, and service runbooks.
+6. **Operations are shared and repeatable.** Mirror hosts maintain the VM and
+   campus network. The OGM operator manages the application release, data
+   pipeline, traffic pool, and service runbooks. Service-only adopters have no
+   backend host responsibility.
+
+### Participation modes and pooled capacity
+
+The network supports three valid relationships:
+
+| Mode | Local infrastructure | Primary contribution | Backend used by the frontend |
+| --- | --- | --- | --- |
+| Mirror host and adopter | One mirror VM | Capacity, metadata, and a discovery site | Shared network endpoint, including but not pinned to its own node |
+| Mirror host only | One mirror VM | Capacity for the whole community | No local frontend required |
+| Service-only adopter | None | Metadata, local knowledge, and a discovery site | Shared network endpoint |
+
+The edge treats all eligible mirror capacity as a common pool. It does not
+reserve a host's node exclusively for that host's frontend, and it does not
+require a frontend's institution to supply an origin. A contributed VM can
+therefore serve many small adopters, while those adopters make the shared corpus
+and discovery ecosystem more valuable. Capacity sponsors multiply the impact of
+their infrastructure; service-only members expand the community without adding
+fragile one-off deployments.
+
+This model needs transparent capacity and fair-use policy. The OGM operator
+should monitor aggregate demand, assign origin weights from measured headroom,
+apply edge quotas that protect the shared service, and publish thresholds for
+when the fleet needs another mirror. Admission of a service-only adopter should
+be a governance and metadata-readiness decision, not a server-procurement test.
 
 ### Scope and non-goals
 
@@ -70,7 +104,7 @@ cross-campus PostgreSQL cluster, Elasticsearch cluster, or Redis cluster.
 
 The architecture has two deliberately separate paths:
 
-- The **read plane** carries browser and API traffic from `abcdefgeo` and other
+- The **read plane** carries browser and API traffic from OGM Discovery and other
   clients through the protected edge to eligible mirrors.
 - The **control and data plane** distributes releases and synchronization work,
   records node state, and never depends on a public request being routed to a
@@ -119,6 +153,12 @@ have little or no incremental cost.** One-time campus effort should be about
 4-8 hours for provisioning, firewall/DNS work, access, and contacts. Routine
 application work is centralized; local staff continue to own normal VM, OS,
 storage, and network support.
+
+For a service-only adopter, the OGM API infrastructure target is **$0 and zero
+campus backend hosts**. The institution uses pooled network capacity and takes
+on no VM, operating-system, firewall, SSH, container, database, search, or cache
+operations. Its implementation work is metadata publication and frontend
+customization; optional custom-domain policy may still involve campus IT.
 
 ## 3. Metadata synchronization and indexing
 
@@ -248,7 +288,7 @@ process still returns `200 OK`.
 
 ## 4. Public traffic, failover, and maintenance
 
-`abcdefgeo`, institutional GitHub Pages sites, and direct API clients use one
+OGM Discovery, institutional GitHub Pages sites, and direct API clients use one
 network hostname. The global edge provides TLS, web application firewall rules,
 bot management, request-size limits, rate limits, response caching, and
 health-aware origin selection. Public origin addresses are not promoted as
@@ -263,6 +303,12 @@ must not depend on random load-balancer routing.
 
 - Assign each mirror a weight based on measured capacity and the institution's
   agreed contribution. Equal participation does not require equal hardware.
+- Pool mirror headroom across all adopters. Frontends are not pinned to origins
+  at their own institutions, and service-only adopters do not require a local
+  origin.
+- Track traffic by site/client identifier at the edge so fair-use limits,
+  anomaly response, and aggregate capacity forecasts remain transparent without
+  treating the identifier as a browser secret.
 - Route only to nodes passing readiness. Simple process uptime is insufficient.
 - Avoid session affinity for public reads. Any compatible node should answer the
   same request from the same accepted corpus.
@@ -289,7 +335,7 @@ The mirror network creates a maintenance window for every institution:
 6. Restore a small traffic weight, observe the canary, then ramp to the node's
    normal share. Roll back while it remains drained if checks fail.
 
-The public API URL and institution's `abcdefgeo` site do not change during this
+The public API URL and institution's OGM Discovery site do not change during this
 process. The same drain workflow applies to campus OS patching. Network-level
 failover handles an unexpected host or campus outage by removing the failed
 origin and using the remaining healthy mirrors.
@@ -388,7 +434,7 @@ The minimum campus network contract is intentionally small:
 
 Secrets live in the deployment secret store and are injected at runtime. They
 are not committed to OGM metadata repositories, the application repository, or
-an `abcdefgeo` theme. GitHub webhook requests require `X-Hub-Signature-256`
+an OGM Discovery theme. GitHub webhook requests require `X-Hub-Signature-256`
 verification, replay/delivery-ID handling, event allowlisting, and body-size
 limits before any job is enqueued.
 
@@ -449,21 +495,22 @@ and release pass the same readiness checks as a new node.
 | Activity | Geography librarians | Campus IT | OGM service operator | OGM governance |
 | --- | --- | --- | --- | --- |
 | Aardvark creation, review, and repository quality | Responsible | Informed | Supports tooling | Sets shared profile/policy |
-| `abcdefgeo` branding, content, and default filters | Responsible | Supports domain/Pages policy | Provides releases and examples | Sets accessibility baseline |
+| OGM Discovery branding, content, and default filters | Responsible | Supports domain/Pages policy | Provides releases and examples | Sets accessibility baseline |
+| Service-only adopter onboarding | Responsible for metadata and site configuration | Not required for backend; supports optional domain policy | Provides shared endpoint, onboarding, quotas, and operations | Sets eligibility and fair-use policy |
 | VM, OS, storage, firewall, DNS, and SSH | Informed | Responsible | Consulted/operator access | Defines minimum host contract |
 | Kamal deploys, application secrets, workers, indexes, and caches | Informed | Consulted | Responsible | Approves release policy |
 | Edge routing, WAF, bot controls, health, and drain/rejoin | Informed | Consulted | Responsible | Approves service objectives |
 | Metadata freshness and validation response | Responsible for source fixes | Informed | Responsible for pipeline | Resolves policy exceptions |
 | Security incident coordination | Consulted | Responsible for host/network | Responsible for app/service | Accountable for the operating compact |
 
-The intended boundary remains: **the institution hosts the machine; the OGM
-network operates the application; librarians steward the discovery experience
-and metadata.**
+The intended boundary is: **mirror hosts supply machines; the OGM network
+operates the application; librarians steward metadata and the discovery
+experience; service-only adopters participate without backend infrastructure.**
 
 ## 8. Pilot implementation and acceptance tests
 
-A 90-day pilot should use the current BTAA node plus two adopting institutions.
-Implement in this order:
+A 90-day pilot should use the current BTAA node plus two mirror-host
+institutions and at least one service-only adopter. Implement in this order:
 
 1. Ratify the API/readiness contract, supported release policy, corpus manifest,
    responsibility matrix, security baseline, and pilot service objectives.
@@ -473,8 +520,9 @@ Implement in this order:
    performance, firewall paths, SSH access, backups, and contacts.
 4. Deploy the same pinned OGM API release with Kamal. Perform the first full
    harvest, atomic index build, and bounded cache warm before adding traffic.
-5. Point pilot `abcdefgeo` builds to the shared staging API. Complete local
+5. Point pilot OGM Discovery builds to the shared staging API. Complete local
    branding, content, accessibility review, and institutional default filters.
+   Include a service-only institution with no campus VM or backend deployment.
 6. Exercise routine sync, webhook acceleration, a failed webhook, invalid
    metadata, record removal, stale-node drain, and index rollback.
 7. Load test legitimate traffic and controlled bot-like traffic. Confirm the
@@ -497,6 +545,8 @@ Recommended pilot acceptance criteria are:
 - edge plus node-local cache hit ratios materially reduce origin and upstream
   work; shared immutable assets are evaluated with measured costs;
 - the VM and ongoing campus support burden remain within the planning target;
+- a service-only adopter launches against pooled capacity without provisioning
+  a backend host or requiring campus application operations;
   and
 - a geography librarian can trace a rejected or stale record back to the exact
   repository/file and understand the required correction.
@@ -526,11 +576,15 @@ The pilot group can begin once it makes these bounded decisions:
    release cadence, and rollback authority.
 7. Approve a small set of user-facing and operational service objectives to
    measure during the pilot.
+8. Ratify service-only admission, fair-use limits, capacity reporting, and the
+   threshold for requesting additional mirror sponsors.
 
-None of these decisions requires a new institutional software project. They
+None of these decisions requires a new institutional software project. For a
+service-only adopter, none requires local backend infrastructure at all. They
 turn the existing OGM schema, GitHub repositories, OGM API, Kamal deployment,
-and customizable `abcdefgeo` frontend into a governed, observable, and
-rehearsable shared service.
+and customizable OGM Discovery frontend into a governed, observable, and
+rehearsable shared service that institutions can strengthen with capacity,
+metadata, or both.
 
 ## Technical foundations
 
@@ -538,7 +592,7 @@ rehearsable shared service.
 - [OpenGeoMetadata repositories](https://github.com/OpenGeoMetadata)
 - [BTAA Geospatial API](https://github.com/geobtaa/api)
 - [OGM API](https://github.com/ewlarson/ogm-api)
-- [`abcdefgeo`](https://github.com/ewlarson/abcdefgeo)
+- [OGM Discovery (`ogm-discovery`)](https://github.com/ewlarson/ogm-discovery)
 - [BTAA API architecture and cache model](https://github.com/geobtaa/api/blob/develop/docs/README.md)
 - [BTAA atomic reindex and maintenance tasks](https://github.com/geobtaa/api/blob/develop/docs/make_tasks.md)
 - [BTAA OGM harvesting design](https://github.com/geobtaa/api/blob/develop/docs/backend/ogm_harvesting.md)
