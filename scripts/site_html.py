@@ -21,13 +21,21 @@ LEGACY_HTML5_SHIM = (
     '    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>\n'
     '  <![endif]-->\n'
 )
+DRAFT_NOTICE = (
+    "DRAFT/DISCUSSION — This is an OpenGeoMetadata Community discussion topic of interest. "
+    "This is not a OGM approved roadmap."
+)
 
 
 def _site_navigation(active: str) -> str:
     executive_class = ' class="active" aria-current="page"' if active == "executive" else ""
     technical_class = ' class="active" aria-current="page"' if active == "technical" else ""
+    banner_label, banner_detail = DRAFT_NOTICE.split(" — ", 1)
     return (
         '<a class="skip-link" href="#main-content">Skip to content</a>\n'
+        '<div class="draft-banner" role="note" aria-label="Draft status">\n'
+        f'  <strong>{escape(banner_label)}</strong> — {escape(banner_detail)}\n'
+        '</div>\n'
         '<header class="site-nav" aria-label="Site header">\n'
         '  <a class="site-brand" href="../../index.html">OpenGeoMetadata</a>\n'
         '  <nav aria-label="Primary navigation">\n'
