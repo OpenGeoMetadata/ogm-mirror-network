@@ -8,6 +8,23 @@ Discovery (`ogm-discovery`) frontends on GitHub Pages.
 Open [the site landing page](index.html) to browse the complete proposal as a
 static website.
 
+## Document status
+
+| Field | Value |
+| --- | --- |
+| Status | **Draft for Community Discussion** |
+| Document ID | `OGM-DISCUSSION-2026-01` |
+| Version | `0.1.0` |
+| Proposal lead | Eric Larson ([ewlarson@gmail.com](mailto:ewlarson@gmail.com)) |
+| Date | August 19, 2026 |
+| Discussion | [Repository issue tracker](https://github.com/OpenGeoMetadata/ogm-mirror-network/issues) |
+| Approval | None; this is not an approved OGM roadmap or standard |
+
+The proposed lifecycle is **Community Discussion Draft -> Pilot Candidate ->
+Approved Pilot -> Production Proposal -> Accepted, Rejected, Withdrawn, or
+Superseded**. Sponsorship, the formal review window, and decision authority
+remain to be designated by OGM governance.
+
 ## Director-ready materials
 
 - [Executive summary](proposal/opengeometadata-mirror-network-executive-summary.md)
