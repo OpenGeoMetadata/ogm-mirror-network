@@ -2,6 +2,25 @@
 
 ## Shared infrastructure that becomes stronger with every new member
 
+### Document control
+
+| Field | Value |
+| --- | --- |
+| Status | **Draft for Community Discussion** |
+| Document ID | `OGM-DISCUSSION-2026-01` |
+| Version | `0.1.0` |
+| Proposal lead | Eric Larson ([ewlarson@gmail.com](mailto:ewlarson@gmail.com)) |
+| First published | August 19, 2026 |
+| Last updated | August 19, 2026 |
+| Sponsoring group | Seeking an OpenGeoMetadata community sponsor |
+| Review period | Open; a closing date will be established by the sponsoring group |
+| Discussion | [GitHub issue tracker](https://github.com/OpenGeoMetadata/ogm-mirror-network/issues); a dedicated review thread should be designated before formal review opens |
+| Decision authority | To be designated by OGM governance before pilot authorization |
+| Canonical source | [OpenGeoMetadata/ogm-mirror-network](https://github.com/OpenGeoMetadata/ogm-mirror-network) |
+| Supersedes | None |
+| Approval record | None; this document is not approved or normative |
+| Document license | Proposed CC BY 4.0, subject to OGM community approval |
+
 ### Executive summary
 
 **Companion document:** [Technical Implementation Guide](opengeometadata-api-mirror-network-technical-implementation.md)<br>
@@ -215,6 +234,62 @@ deployment; only optional campus policies such as a custom domain may call for
 local coordination.
 
 These are pilot targets to validate, not contractual service levels.
+
+## Alternatives considered
+
+| Model | Principal advantage | Principal limitation |
+| --- | --- | --- |
+| One centrally hosted OGM API | Simplest initial operations and accountability | Concentrates cost, traffic, and service risk at one institution |
+| Independent institution-specific stacks | Maximum local autonomy | Repeats deployment and operations work and preserves a high barrier for small institutions |
+| CDN and web application firewall in front of one origin | Adds caching and bot protection | Leaves one origin as the capacity ceiling and operational failure domain |
+| Federated OGM API mirror network **(recommended)** | Pools capacity, provides failover and maintenance freedom, and supports service-only adoption | Requires common releases, readiness standards, shared operations, and governance |
+
+The recommended model is the only option considered that simultaneously grows
+capacity with participation, preserves institutional hosting, and removes the
+backend infrastructure requirement for smaller adopters.
+
+## Open questions for community review
+
+The draft deliberately leaves policy choices open where community authority is
+required:
+
+- Which OGM group will sponsor the proposal, and which body can authorize the
+  pilot and any later production service?
+- Who will fund and operate the global edge, DNS, shared monitoring, and incident
+  coordination?
+- What fair-use policy, capacity threshold, and onboarding criteria should apply
+  to mirror hosts and service-only adopters?
+- What service objectives, support boundaries, security expectations, and
+  incident authority should the operating compact define?
+- How should a mirror be retired, replaced, or temporarily removed from the
+  network?
+- Should the community adopt the proposed CC BY 4.0 document license?
+
+## Draft review and decision process
+
+Comments should be recorded in the repository's
+[GitHub issue tracker](https://github.com/OpenGeoMetadata/ogm-mirror-network/issues).
+Before a formal review period begins, the sponsoring group should designate one
+issue or discussion as the canonical review thread, name the decision authority,
+and publish a closing date. The proposal lead will publish numbered `0.x`
+revisions and summarize material changes there. A pilot decision and its
+rationale should be recorded publicly in this repository.
+
+Proposed lifecycle:
+
+**Community Discussion Draft -> Pilot Candidate -> Approved Pilot -> Production
+Proposal -> Accepted, Rejected, Withdrawn, or Superseded**
+
+### Revision history
+
+| Version | Date | Editor | Summary |
+| --- | --- | --- | --- |
+| `0.1.0` | August 19, 2026 | Eric Larson | Initial formally controlled community discussion draft |
+
+### Approval record
+
+No approval has been recorded. Version `0.1.0` is a discussion document and does
+not establish an OGM roadmap, service commitment, or technical standard.
 
 ## Operating safeguards
 

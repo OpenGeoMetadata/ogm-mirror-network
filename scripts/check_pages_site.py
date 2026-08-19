@@ -36,6 +36,7 @@ class PageParser(HTMLParser):
         self.external_scripts: list[str] = []
         self.draft_banner_count = 0
         self.draft_banner_text: list[str] = []
+        self.all_text: list[str] = []
         self._inside_draft_banner = False
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
@@ -61,6 +62,7 @@ class PageParser(HTMLParser):
             self._inside_draft_banner = False
 
     def handle_data(self, data: str) -> None:
+        self.all_text.append(data)
         if self._inside_draft_banner:
             self.draft_banner_text.append(data)
 
@@ -105,6 +107,13 @@ def main() -> None:
             errors.append(
                 f"{page.relative_to(ROOT)}: missing or incorrect public draft banner"
             )
+        page_text = " ".join("".join(parser.all_text).split())
+        for required_text in ("OGM-DISCUSSION-2026-01", "0.1.0"):
+            if required_text not in page_text:
+                errors.append(
+                    f"{page.relative_to(ROOT)}: missing document control value "
+                    f"{required_text}"
+                )
 
     for page, source in SOURCE_BY_PAGE.items():
         parser = parsed.get(page)

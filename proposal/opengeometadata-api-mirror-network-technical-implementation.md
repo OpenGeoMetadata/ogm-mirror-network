@@ -7,9 +7,28 @@ description: Proposed implementation for a health-aware network of institutional
 
 ## Technical Implementation Guide
 
+### Document control
+
+| Field | Value |
+| --- | --- |
+| Status | **Draft for Community Discussion** |
+| Document ID | `OGM-DISCUSSION-2026-01` |
+| Version | `0.1.0` |
+| Proposal lead | Eric Larson ([ewlarson@gmail.com](mailto:ewlarson@gmail.com)) |
+| First published | August 19, 2026 |
+| Last updated | August 19, 2026 |
+| Sponsoring group | Seeking an OpenGeoMetadata community sponsor |
+| Review period | Open; a closing date will be established by the sponsoring group |
+| Discussion | [GitHub issue tracker](https://github.com/OpenGeoMetadata/ogm-mirror-network/issues); a dedicated review thread should be designated before formal review opens |
+| Decision authority | To be designated by OGM governance before pilot authorization |
+| Canonical source | [OpenGeoMetadata/ogm-mirror-network](https://github.com/OpenGeoMetadata/ogm-mirror-network) |
+| Supersedes | None |
+| Approval record | None; this document is not approved or normative |
+| Document license | Proposed CC BY 4.0, subject to OGM community approval |
+
 **Audience:** campus IT staff, geography librarians, OGM service operators, and
 technical governance groups<br>
-**Status:** proposed pilot architecture<br>
+**Architecture maturity:** proposed pilot architecture<br>
 **Companion document:** [Executive summary](opengeometadata-mirror-network-executive-summary.md)<br>
 **Download:** [Two-page Executive Brief (PDF)](../output/pdf/opengeometadata-mirror-network-executive-brief.pdf)
 
@@ -587,7 +606,76 @@ and customizable OGM Discovery frontend into a governed, observable, and
 rehearsable shared service that institutions can strengthen with capacity,
 metadata, or both.
 
+### Alternatives considered
+
+| Model | Operational benefit | Technical and community tradeoff |
+| --- | --- | --- |
+| One centrally hosted OGM API | One deployment target and one operations team | One origin remains the capacity ceiling, maintenance constraint, and failure domain |
+| Independent institution-specific stacks | Local control over release and infrastructure choices | Configuration drift, duplicated monitoring and indexing, inconsistent APIs, and no shared path for institutions without backend capacity |
+| CDN and web application firewall in front of one origin | Edge caching, TLS termination, and bot controls | Improves the read path but does not provide origin redundancy or distributed operating capacity |
+| Federated OGM API mirror network **(recommended)** | Independent derived-data nodes, weighted failover, pooled capacity, staged upgrades, and service-only adoption | Requires a compatibility contract, shared release discipline, edge governance, observability, and incident coordination |
+
+### Open questions before pilot authorization
+
+The pilot charter should resolve or assign owners for these questions:
+
+1. Which OGM group sponsors the work, and which body can authorize the pilot and
+   approve a later production service?
+2. Which organization or vendor operates the global edge, authoritative service
+   DNS, shared monitoring, and status communications, and how are those costs
+   funded?
+3. What minimum and preferred mirror capacity, origin-connectivity pattern, and
+   host-security baseline must a participant meet?
+4. What service objectives govern API availability, metadata freshness,
+   recovery, support response, and planned maintenance?
+5. What fair-use, rate-limit, and capacity-reservation policy protects the
+   shared service while keeping service-only adoption genuinely accessible?
+6. Who may drain a node, block a release, rotate credentials, declare an
+   incident, and return a mirror to traffic?
+7. What is the supported process for retiring or replacing a mirror, removing
+   an institution's records, or ending the pilot?
+8. Should the community adopt the proposed CC BY 4.0 document license?
+
+### Draft lifecycle and decision record
+
+Review comments should be recorded in the
+[GitHub issue tracker](https://github.com/OpenGeoMetadata/ogm-mirror-network/issues).
+Before formal review opens, the sponsoring group should designate one canonical
+review thread, name the decision authority, publish a closing date, and state
+the criteria for advancing the proposal. The editor will publish numbered
+`0.x` drafts and summarize material changes. Pilot authorization, rejection, or
+requests for revision should be recorded publicly with a date, responsible body,
+and rationale.
+
+Proposed lifecycle:
+
+**Community Discussion Draft -> Pilot Candidate -> Approved Pilot -> Production
+Proposal -> Accepted, Rejected, Withdrawn, or Superseded**
+
+#### Revision history
+
+| Version | Date | Editor | Summary |
+| --- | --- | --- | --- |
+| `0.1.0` | August 19, 2026 | Eric Larson | Initial formally controlled community discussion draft |
+
+#### Approval record
+
+No approval has been recorded. Version `0.1.0` is a discussion document and does
+not establish an OGM roadmap, production commitment, service-level agreement,
+or technical standard.
+
 ## Technical foundations
+
+The document-control pattern follows established proposal practices while
+remaining deliberately non-normative for OGM: Python's
+[PEP 1](https://peps.python.org/pep-0001/) defines proposal headers and status;
+the [Kubernetes Enhancement Proposal template](https://github.com/kubernetes/enhancements/blob/master/keps/NNNN-kep-template/README.md?plain=1)
+records reviewers, milestones, risks, and alternatives; the
+[IETF Internet-Draft guidance](https://authors.ietf.org/submitting-your-internet-draft)
+distinguishes works in progress from approved standards; and the
+[W3C Process Document](https://www.w3.org/policies/process/) models explicit
+review stages and decision records. These references are process precedents,
+not OGM governance rules.
 
 - [OpenGeoMetadata](https://opengeometadata.org/)
 - [OpenGeoMetadata repositories](https://github.com/OpenGeoMetadata)

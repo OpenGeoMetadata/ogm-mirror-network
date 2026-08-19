@@ -18,6 +18,12 @@ SVG_PATH = ROOT / "proposal" / "opengeometadata-mirror-network-architecture.svg"
 PNG_PATH = ROOT / "tmp" / "pdfs" / "opengeometadata-mirror-network-architecture.png"
 PDF_PATH = ROOT / "output" / "pdf" / "opengeometadata-mirror-network-executive-brief.pdf"
 
+DOCUMENT_ID = "OGM-DISCUSSION-2026-01"
+DOCUMENT_VERSION = "0.1.0"
+PROPOSAL_LEAD = "ERIC LARSON"
+PROPOSAL_EMAIL = "EWLARSON@GMAIL.COM"
+PUBLISHED_DATE = "AUGUST 19, 2026"
+
 PAGE_W, PAGE_H = landscape(letter)
 
 NAVY = HexColor("#073B4C")
@@ -85,9 +91,17 @@ def page_header(c, section, page_number):
     c.drawCentredString(PAGE_W / 2, PAGE_H - 17, DRAFT_NOTICE)
     c.setFillColor(MUTED)
     c.setFont("Helvetica-Bold", 7.5)
-    c.drawString(36, PAGE_H - 43, section.upper())
+    c.drawString(
+        36,
+        PAGE_H - 43,
+        f"{DOCUMENT_ID}  |  VERSION {DOCUMENT_VERSION}  |  {section.upper()}",
+    )
     c.setFont("Helvetica", 7.5)
-    c.drawRightString(PAGE_W - 36, PAGE_H - 43, f"AUGUST 2026  |  {page_number} / 2")
+    c.drawRightString(
+        PAGE_W - 36,
+        PAGE_H - 43,
+        f"{PUBLISHED_DATE}  |  {page_number} / 2",
+    )
 
 
 def footer(c):
@@ -96,7 +110,11 @@ def footer(c):
     c.line(36, 27, PAGE_W - 36, 27)
     c.setFillColor(MUTED)
     c.setFont("Helvetica", 6.8)
-    c.drawString(36, 16, "OPEN GEOSPATIAL DISCOVERY INFRASTRUCTURE  |  OPEN SOURCE  |  COMMUNITY OPERATED")
+    c.drawString(
+        36,
+        16,
+        f"PROPOSAL LEAD: {PROPOSAL_LEAD}  |  {PROPOSAL_EMAIL}  |  VERSION {DOCUMENT_VERSION}",
+    )
     c.drawRightString(PAGE_W - 36, 16, "opengeometadata.org")
 
 
@@ -275,8 +293,14 @@ def draw_page_two(c):
 def add_metadata(c):
     c.setTitle("OpenGeoMetadata API Mirror Network - Executive Brief")
     c.setAuthor("OpenGeoMetadata community proposal")
-    c.setSubject("A federated network of institution-hosted OGM API mirrors")
-    c.setKeywords("OpenGeoMetadata, Aardvark, OGM API, OGM Discovery, ogm-discovery, mirror network")
+    c.setSubject(
+        f"{DOCUMENT_ID} version {DOCUMENT_VERSION}: a federated network of "
+        "institution-hosted OGM API mirrors"
+    )
+    c.setKeywords(
+        f"{DOCUMENT_ID}, version {DOCUMENT_VERSION}, OpenGeoMetadata, Aardvark, "
+        "OGM API, OGM Discovery, ogm-discovery, mirror network"
+    )
 
 
 def main():

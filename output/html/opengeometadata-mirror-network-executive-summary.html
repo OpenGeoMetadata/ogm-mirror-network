@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>OpenGeoMetadata API Mirror Network - Executive Summary</title>
   <style type="text/css">code{white-space: pre;}</style>
-  <link href="data:text/css;charset=utf-8,%3Aroot%20%7B%0A%2D%2Dogm%2Dnavy%3A%20%23073b4c%3B%0A%2D%2Dogm%2Dteal%3A%20%23087f8c%3B%0A%2D%2Dogm%2Dgreen%3A%20%232a9d68%3B%0A%2D%2Dogm%2Dgold%3A%20%23d18b24%3B%0A%2D%2Dogm%2Dink%3A%20%2316363e%3B%0A%2D%2Dogm%2Dmuted%3A%20%23536e74%3B%0A%2D%2Dogm%2Dpale%3A%20%23f4f8f7%3B%0A%2D%2Dogm%2Dborder%3A%20%23d6e2e0%3B%0A%2D%2Dpage%2Dpad%3A%20clamp%281%2E5rem%2C%205vw%2C%204rem%29%3B%0A%7D%0A%2A%20%7B%20box%2Dsizing%3A%20border%2Dbox%3B%20%7D%0Ahtml%20%7B%20overflow%2Dx%3A%20clip%3B%20scroll%2Dpadding%2Dtop%3A%206rem%3B%20background%3A%20%23eef4f3%3B%20scroll%2Dbehavior%3A%20smooth%3B%20%7D%0Abody%20%7B%0Amax%2Dwidth%3A%201080px%3B%0Amargin%3A%200%20auto%202rem%3B%0Apadding%3A%20var%28%2D%2Dpage%2Dpad%29%3B%0Abackground%3A%20white%3B%0Acolor%3A%20var%28%2D%2Dogm%2Dink%29%3B%0Afont%3A%2017px%2F1%2E62%20%2Dapple%2Dsystem%2C%20BlinkMacSystemFont%2C%20%22Segoe%20UI%22%2C%20sans%2Dserif%3B%0Abox%2Dshadow%3A%200%2014px%2040px%20rgba%287%2C%2059%2C%2076%2C%200%2E09%29%3B%0A%7D%0A%2Eskip%2Dlink%20%7B%0Aposition%3A%20absolute%3B%0Aleft%3A%20%2D9999px%3B%0Atop%3A%200%3B%0Az%2Dindex%3A%201100%3B%0Apadding%3A%200%2E75rem%201rem%3B%0Acolor%3A%20white%3B%0Abackground%3A%20var%28%2D%2Dogm%2Dnavy%29%3B%0A%7D%0A%2Eskip%2Dlink%3Afocus%20%7B%20left%3A%201rem%3B%20top%3A%201rem%3B%20%7D%0A%2Edraft%2Dbanner%20%7B%0Aposition%3A%20sticky%3B%0Atop%3A%200%3B%0Az%2Dindex%3A%201000%3B%0Awidth%3A%20100vw%3B%0Amargin%3A%20calc%28%2D1%20%2A%20var%28%2D%2Dpage%2Dpad%29%29%200%202rem%20calc%2850%25%20%2D%2050vw%29%3B%0Apadding%3A%201rem%20var%28%2D%2Dpage%2Dpad%29%3B%0Aborder%2Dbottom%3A%205px%20solid%20%23f6c56f%3B%0Acolor%3A%20white%3B%0Abackground%3A%20%237a271a%3B%0Afont%2Dsize%3A%200%2E98rem%3B%0Afont%2Dweight%3A%20650%3B%0Aline%2Dheight%3A%201%2E45%3B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%2Edraft%2Dbanner%20strong%20%7B%20color%3A%20white%3B%20letter%2Dspacing%3A%200%2E055em%3B%20%7D%0A%2Esite%2Dnav%20%7B%0Adisplay%3A%20flex%3B%0Aalign%2Ditems%3A%20center%3B%0Ajustify%2Dcontent%3A%20space%2Dbetween%3B%0Agap%3A%201rem%3B%0Amargin%3A%200%200%203%2E5rem%3B%0Apadding%2Dbottom%3A%201rem%3B%0Aborder%2Dbottom%3A%201px%20solid%20var%28%2D%2Dogm%2Dborder%29%3B%0A%7D%0A%2Esite%2Dbrand%20%7B%0Acolor%3A%20var%28%2D%2Dogm%2Dnavy%29%3B%0Afont%2Dsize%3A%201%2E05rem%3B%0Afont%2Dweight%3A%20800%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0A%2Esite%2Dnav%20nav%20%7B%20display%3A%20flex%3B%20flex%2Dwrap%3A%20wrap%3B%20gap%3A%200%2E35rem%3B%20%7D%0A%2Esite%2Dnav%20nav%20a%20%7B%0Apadding%3A%200%2E45rem%200%2E7rem%3B%0Aborder%2Dradius%3A%20999px%3B%0Acolor%3A%20var%28%2D%2Dogm%2Dmuted%29%3B%0Afont%2Dsize%3A%200%2E88rem%3B%0Afont%2Dweight%3A%20700%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0A%2Esite%2Dnav%20nav%20a%3Ahover%2C%0A%2Esite%2Dnav%20nav%20a%3Afocus%2Dvisible%2C%0A%2Esite%2Dnav%20nav%20a%2Eactive%20%7B%20color%3A%20var%28%2D%2Dogm%2Dnavy%29%3B%20background%3A%20%23e5f3f2%3B%20%7D%0Ah1%2C%20h2%2C%20h3%20%7B%20color%3A%20var%28%2D%2Dogm%2Dnavy%29%3B%20line%2Dheight%3A%201%2E2%3B%20%7D%0Ah1%20%7B%20font%2Dsize%3A%20clamp%282%2E2rem%2C%206vw%2C%203%2E8rem%29%3B%20margin%2Dbottom%3A%200%2E15em%3B%20%7D%0Ah2%20%7B%20border%2Dtop%3A%201px%20solid%20var%28%2D%2Dogm%2Dborder%29%3B%20padding%2Dtop%3A%201%2E4em%3B%20margin%2Dtop%3A%202%2E4em%3B%20%7D%0Ah3%20%7B%20color%3A%20var%28%2D%2Dogm%2Dteal%29%3B%20margin%2Dtop%3A%201%2E8em%3B%20%7D%0Aa%20%7B%20color%3A%20var%28%2D%2Dogm%2Dteal%29%3B%20text%2Dunderline%2Doffset%3A%200%2E15em%3B%20%7D%0Aimg%20%7B%20display%3A%20block%3B%20max%2Dwidth%3A%20100%25%3B%20height%3A%20auto%3B%20margin%3A%201%2E75rem%20auto%3B%20%7D%0Ablockquote%20%7B%0Amargin%3A%201%2E5rem%200%3B%0Apadding%3A%200%2E8rem%201%2E2rem%3B%0Aborder%2Dleft%3A%205px%20solid%20var%28%2D%2Dogm%2Dgreen%29%3B%0Abackground%3A%20var%28%2D%2Dogm%2Dpale%29%3B%0A%7D%0Atable%20%7B%20width%3A%20100%25%3B%20border%2Dcollapse%3A%20collapse%3B%20margin%3A%201%2E3rem%200%202rem%3B%20font%2Dsize%3A%200%2E91rem%3B%20%7D%0Ath%20%7B%20background%3A%20var%28%2D%2Dogm%2Dnavy%29%3B%20color%3A%20white%3B%20text%2Dalign%3A%20left%3B%20%7D%0Ath%2C%20td%20%7B%20padding%3A%200%2E7rem%200%2E75rem%3B%20border%3A%201px%20solid%20var%28%2D%2Dogm%2Dborder%29%3B%20vertical%2Dalign%3A%20top%3B%20%7D%0Atbody%20tr%3Anth%2Dchild%28even%29%20%7B%20background%3A%20var%28%2D%2Dogm%2Dpale%29%3B%20%7D%0Acode%20%7B%20background%3A%20%23edf4f3%3B%20border%2Dradius%3A%204px%3B%20padding%3A%200%2E1em%200%2E28em%3B%20%7D%0Apre%20%7B%20overflow%2Dx%3A%20auto%3B%20padding%3A%201rem%3B%20color%3A%20%23eef8f7%3B%20background%3A%20var%28%2D%2Dogm%2Dnavy%29%3B%20border%2Dradius%3A%208px%3B%20%7D%0Apre%20code%20%7B%20background%3A%20transparent%3B%20padding%3A%200%3B%20%7D%0Astrong%20%7B%20color%3A%20var%28%2D%2Dogm%2Dnavy%29%3B%20%7D%0Ahr%20%7B%20border%3A%200%3B%20border%2Dtop%3A%201px%20solid%20var%28%2D%2Dogm%2Dborder%29%3B%20%7D%0A%2Esite%2Dfooter%20%7B%0Amargin%2Dtop%3A%204rem%3B%0Apadding%2Dtop%3A%201%2E5rem%3B%0Aborder%2Dtop%3A%201px%20solid%20var%28%2D%2Dogm%2Dborder%29%3B%0Acolor%3A%20var%28%2D%2Dogm%2Dmuted%29%3B%0Afont%2Dsize%3A%200%2E86rem%3B%0A%7D%0A%2Esite%2Dfooter%20p%20%7B%20margin%3A%200%2E25rem%200%3B%20%7D%0A%2Ehome%2Dpage%20h1%20%7B%20max%2Dwidth%3A%20900px%3B%20font%2Dsize%3A%20clamp%282%2E7rem%2C%207vw%2C%205%2E4rem%29%3B%20letter%2Dspacing%3A%20%2D0%2E04em%3B%20%7D%0A%2Ehome%2Dpage%20h2%20%7B%20margin%2Dtop%3A%203%2E5rem%3B%20%7D%0A%2Eeyebrow%20%7B%0Amargin%3A%200%200%200%2E8rem%3B%0Acolor%3A%20var%28%2D%2Dogm%2Dteal%29%3B%0Afont%2Dsize%3A%200%2E78rem%3B%0Afont%2Dweight%3A%20800%3B%0Aletter%2Dspacing%3A%200%2E12em%3B%0Atext%2Dtransform%3A%20uppercase%3B%0A%7D%0A%2Elede%20%7B%20max%2Dwidth%3A%20820px%3B%20color%3A%20var%28%2D%2Dogm%2Dmuted%29%3B%20font%2Dsize%3A%20clamp%281%2E12rem%2C%202%2E4vw%2C%201%2E42rem%29%3B%20%7D%0A%2Ehero%2Dactions%20%7B%20display%3A%20flex%3B%20flex%2Dwrap%3A%20wrap%3B%20gap%3A%200%2E75rem%3B%20margin%3A%201%2E8rem%200%202%2E5rem%3B%20%7D%0A%2Ebutton%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Apadding%3A%200%2E72rem%201rem%3B%0Aborder%3A%201px%20solid%20var%28%2D%2Dogm%2Dteal%29%3B%0Aborder%2Dradius%3A%208px%3B%0Acolor%3A%20var%28%2D%2Dogm%2Dteal%29%3B%0Afont%2Dweight%3A%20750%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0A%2Ebutton%2Eprimary%20%7B%20color%3A%20white%3B%20background%3A%20var%28%2D%2Dogm%2Dteal%29%3B%20%7D%0A%2Ebutton%3Ahover%2C%20%2Ebutton%3Afocus%2Dvisible%20%7B%20transform%3A%20translateY%28%2D1px%29%3B%20box%2Dshadow%3A%200%206px%2016px%20rgba%287%2C%2059%2C%2076%2C%200%2E12%29%3B%20%7D%0A%2Ehero%2Darchitecture%20%7B%0Awidth%3A%20100%25%3B%0Amargin%3A%202rem%200%3B%0Apadding%3A%201rem%3B%0Aborder%3A%201px%20solid%20var%28%2D%2Dogm%2Dborder%29%3B%0Aborder%2Dradius%3A%2018px%3B%0Abackground%3A%20var%28%2D%2Dogm%2Dpale%29%3B%0A%7D%0A%2Ecard%2Dgrid%20%7B%0Adisplay%3A%20grid%3B%0Agrid%2Dtemplate%2Dcolumns%3A%20repeat%282%2C%20minmax%280%2C%201fr%29%29%3B%0Agap%3A%201%2E25rem%3B%0Amargin%3A%201%2E5rem%200%3B%0A%7D%0A%2Edocument%2Dcard%20%7B%0Adisplay%3A%20flex%3B%0Aflex%2Ddirection%3A%20column%3B%0Amin%2Dheight%3A%20260px%3B%0Apadding%3A%201%2E4rem%3B%0Aborder%3A%201px%20solid%20var%28%2D%2Dogm%2Dborder%29%3B%0Aborder%2Dradius%3A%2014px%3B%0Abackground%3A%20var%28%2D%2Dogm%2Dpale%29%3B%0A%7D%0A%2Edocument%2Dcard%3Anth%2Dchild%282%29%20%7B%20background%3A%20%23e5f3f2%3B%20%7D%0A%2Edocument%2Dcard%20h3%20%7B%20margin%3A%200%2E4rem%200%200%2E7rem%3B%20font%2Dsize%3A%201%2E35rem%3B%20%7D%0A%2Edocument%2Dcard%20p%20%7B%20margin%2Dtop%3A%200%3B%20%7D%0A%2Edocument%2Dcard%20%2Ecard%2Dactions%20%7B%20display%3A%20flex%3B%20flex%2Dwrap%3A%20wrap%3B%20gap%3A%200%2E7rem%3B%20margin%2Dtop%3A%20auto%3B%20%7D%0A%2Edocument%2Dcard%20%2Ecard%2Dactions%20a%20%7B%20font%2Dweight%3A%20750%3B%20%7D%0A%2Eprinciples%20%7B%0Adisplay%3A%20grid%3B%0Agrid%2Dtemplate%2Dcolumns%3A%20repeat%283%2C%20minmax%280%2C%201fr%29%29%3B%0Agap%3A%201rem%3B%0Apadding%3A%200%3B%0Alist%2Dstyle%3A%20none%3B%0A%7D%0A%2Eprinciples%20li%20%7B%20padding%3A%201rem%3B%20border%2Dtop%3A%204px%20solid%20var%28%2D%2Dogm%2Dgreen%29%3B%20background%3A%20var%28%2D%2Dogm%2Dpale%29%3B%20%7D%0A%2Eprinciples%20strong%20%7B%20display%3A%20block%3B%20margin%2Dbottom%3A%200%2E35rem%3B%20%7D%0A%40media%20%28max%2Dwidth%3A%20720px%29%20%7B%0Ahtml%20%7B%20scroll%2Dpadding%2Dtop%3A%208rem%3B%20background%3A%20white%3B%20%7D%0Abody%20%7B%20margin%3A%200%3B%20padding%3A%201%2E2rem%3B%20box%2Dshadow%3A%20none%3B%20font%2Dsize%3A%2016px%3B%20%7D%0A%2Edraft%2Dbanner%20%7B%20margin%3A%20%2D1%2E2rem%200%201%2E5rem%20calc%2850%25%20%2D%2050vw%29%3B%20padding%3A%200%2E9rem%201%2E2rem%3B%20text%2Dalign%3A%20left%3B%20%7D%0Atable%20%7B%20display%3A%20block%3B%20overflow%2Dx%3A%20auto%3B%20%7D%0A%2Esite%2Dnav%20%7B%20align%2Ditems%3A%20flex%2Dstart%3B%20flex%2Ddirection%3A%20column%3B%20margin%2Dtop%3A%200%3B%20%7D%0A%2Ecard%2Dgrid%2C%20%2Eprinciples%20%7B%20grid%2Dtemplate%2Dcolumns%3A%201fr%3B%20%7D%0A%7D%0A%40media%20print%20%7B%0A%40page%20%7B%20margin%3A%200%2E65in%3B%20%7D%0Ahtml%20%7B%20background%3A%20white%3B%20%7D%0Abody%20%7B%20max%2Dwidth%3A%20none%3B%20margin%3A%200%3B%20padding%3A%200%3B%20box%2Dshadow%3A%20none%3B%20font%2Dsize%3A%209%2E5pt%3B%20line%2Dheight%3A%201%2E35%3B%20%7D%0Ah1%20%7B%20font%2Dsize%3A%2026pt%3B%20%7D%0Ah2%20%7B%20break%2Dbefore%3A%20auto%3B%20break%2Dafter%3A%20avoid%3B%20margin%2Dtop%3A%201%2E5em%3B%20%7D%0Ah3%2C%20table%2C%20img%2C%20pre%20%7B%20break%2Dinside%3A%20avoid%3B%20%7D%0Aa%20%7B%20color%3A%20inherit%3B%20text%2Ddecoration%3A%20none%3B%20%7D%0A%2Esite%2Dnav%2C%20%2Eskip%2Dlink%2C%20%2Ehero%2Dactions%2C%20%2Esite%2Dfooter%20%7B%20display%3A%20none%3B%20%7D%0A%2Edraft%2Dbanner%20%7B%20position%3A%20static%3B%20width%3A%20auto%3B%20margin%3A%200%200%201rem%3B%20padding%3A%200%2E65rem%3B%20border%3A%202px%20solid%20%23000%3B%20color%3A%20%23000%3B%20background%3A%20%23fff%3B%20%7D%0A%2Edraft%2Dbanner%20strong%20%7B%20color%3A%20%23000%3B%20%7D%0A%7D%0A" rel="stylesheet">
+  <link href="data:text/css;charset=utf-8,%3Aroot%20%7B%0A%2D%2Dogm%2Dnavy%3A%20%23073b4c%3B%0A%2D%2Dogm%2Dteal%3A%20%23087f8c%3B%0A%2D%2Dogm%2Dgreen%3A%20%232a9d68%3B%0A%2D%2Dogm%2Dgold%3A%20%23d18b24%3B%0A%2D%2Dogm%2Dink%3A%20%2316363e%3B%0A%2D%2Dogm%2Dmuted%3A%20%23536e74%3B%0A%2D%2Dogm%2Dpale%3A%20%23f4f8f7%3B%0A%2D%2Dogm%2Dborder%3A%20%23d6e2e0%3B%0A%2D%2Dpage%2Dpad%3A%20clamp%281%2E5rem%2C%205vw%2C%204rem%29%3B%0A%7D%0A%2A%20%7B%20box%2Dsizing%3A%20border%2Dbox%3B%20%7D%0Ahtml%20%7B%20overflow%2Dx%3A%20clip%3B%20scroll%2Dpadding%2Dtop%3A%206rem%3B%20background%3A%20%23eef4f3%3B%20scroll%2Dbehavior%3A%20smooth%3B%20%7D%0Abody%20%7B%0Amax%2Dwidth%3A%201080px%3B%0Amargin%3A%200%20auto%202rem%3B%0Apadding%3A%20var%28%2D%2Dpage%2Dpad%29%3B%0Abackground%3A%20white%3B%0Acolor%3A%20var%28%2D%2Dogm%2Dink%29%3B%0Afont%3A%2017px%2F1%2E62%20%2Dapple%2Dsystem%2C%20BlinkMacSystemFont%2C%20%22Segoe%20UI%22%2C%20sans%2Dserif%3B%0Abox%2Dshadow%3A%200%2014px%2040px%20rgba%287%2C%2059%2C%2076%2C%200%2E09%29%3B%0A%7D%0A%2Eskip%2Dlink%20%7B%0Aposition%3A%20absolute%3B%0Aleft%3A%20%2D9999px%3B%0Atop%3A%200%3B%0Az%2Dindex%3A%201100%3B%0Apadding%3A%200%2E75rem%201rem%3B%0Acolor%3A%20white%3B%0Abackground%3A%20var%28%2D%2Dogm%2Dnavy%29%3B%0A%7D%0A%2Eskip%2Dlink%3Afocus%20%7B%20left%3A%201rem%3B%20top%3A%201rem%3B%20%7D%0A%2Edraft%2Dbanner%20%7B%0Aposition%3A%20sticky%3B%0Atop%3A%200%3B%0Az%2Dindex%3A%201000%3B%0Awidth%3A%20100vw%3B%0Amargin%3A%20calc%28%2D1%20%2A%20var%28%2D%2Dpage%2Dpad%29%29%200%202rem%20calc%2850%25%20%2D%2050vw%29%3B%0Apadding%3A%201rem%20var%28%2D%2Dpage%2Dpad%29%3B%0Aborder%2Dbottom%3A%205px%20solid%20%23f6c56f%3B%0Acolor%3A%20white%3B%0Abackground%3A%20%237a271a%3B%0Afont%2Dsize%3A%200%2E98rem%3B%0Afont%2Dweight%3A%20650%3B%0Aline%2Dheight%3A%201%2E45%3B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%2Edraft%2Dbanner%20strong%20%7B%20color%3A%20white%3B%20letter%2Dspacing%3A%200%2E055em%3B%20%7D%0A%2Esite%2Dnav%20%7B%0Adisplay%3A%20flex%3B%0Aalign%2Ditems%3A%20center%3B%0Ajustify%2Dcontent%3A%20space%2Dbetween%3B%0Agap%3A%201rem%3B%0Amargin%3A%200%200%203%2E5rem%3B%0Apadding%2Dbottom%3A%201rem%3B%0Aborder%2Dbottom%3A%201px%20solid%20var%28%2D%2Dogm%2Dborder%29%3B%0A%7D%0A%2Esite%2Dbrand%20%7B%0Acolor%3A%20var%28%2D%2Dogm%2Dnavy%29%3B%0Afont%2Dsize%3A%201%2E05rem%3B%0Afont%2Dweight%3A%20800%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0A%2Esite%2Dnav%20nav%20%7B%20display%3A%20flex%3B%20flex%2Dwrap%3A%20wrap%3B%20gap%3A%200%2E35rem%3B%20%7D%0A%2Esite%2Dnav%20nav%20a%20%7B%0Apadding%3A%200%2E45rem%200%2E7rem%3B%0Aborder%2Dradius%3A%20999px%3B%0Acolor%3A%20var%28%2D%2Dogm%2Dmuted%29%3B%0Afont%2Dsize%3A%200%2E88rem%3B%0Afont%2Dweight%3A%20700%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0A%2Esite%2Dnav%20nav%20a%3Ahover%2C%0A%2Esite%2Dnav%20nav%20a%3Afocus%2Dvisible%2C%0A%2Esite%2Dnav%20nav%20a%2Eactive%20%7B%20color%3A%20var%28%2D%2Dogm%2Dnavy%29%3B%20background%3A%20%23e5f3f2%3B%20%7D%0Ah1%2C%20h2%2C%20h3%20%7B%20color%3A%20var%28%2D%2Dogm%2Dnavy%29%3B%20line%2Dheight%3A%201%2E2%3B%20%7D%0Ah1%20%7B%20font%2Dsize%3A%20clamp%282%2E2rem%2C%206vw%2C%203%2E8rem%29%3B%20margin%2Dbottom%3A%200%2E15em%3B%20%7D%0Ah2%20%7B%20border%2Dtop%3A%201px%20solid%20var%28%2D%2Dogm%2Dborder%29%3B%20padding%2Dtop%3A%201%2E4em%3B%20margin%2Dtop%3A%202%2E4em%3B%20%7D%0Ah3%20%7B%20color%3A%20var%28%2D%2Dogm%2Dteal%29%3B%20margin%2Dtop%3A%201%2E8em%3B%20%7D%0Aa%20%7B%20color%3A%20var%28%2D%2Dogm%2Dteal%29%3B%20text%2Dunderline%2Doffset%3A%200%2E15em%3B%20%7D%0Aimg%20%7B%20display%3A%20block%3B%20max%2Dwidth%3A%20100%25%3B%20height%3A%20auto%3B%20margin%3A%201%2E75rem%20auto%3B%20%7D%0Ablockquote%20%7B%0Amargin%3A%201%2E5rem%200%3B%0Apadding%3A%200%2E8rem%201%2E2rem%3B%0Aborder%2Dleft%3A%205px%20solid%20var%28%2D%2Dogm%2Dgreen%29%3B%0Abackground%3A%20var%28%2D%2Dogm%2Dpale%29%3B%0A%7D%0Atable%20%7B%20width%3A%20100%25%3B%20border%2Dcollapse%3A%20collapse%3B%20margin%3A%201%2E3rem%200%202rem%3B%20font%2Dsize%3A%200%2E91rem%3B%20%7D%0Ath%20%7B%20background%3A%20var%28%2D%2Dogm%2Dnavy%29%3B%20color%3A%20white%3B%20text%2Dalign%3A%20left%3B%20%7D%0Ath%2C%20td%20%7B%20padding%3A%200%2E7rem%200%2E75rem%3B%20border%3A%201px%20solid%20var%28%2D%2Dogm%2Dborder%29%3B%20vertical%2Dalign%3A%20top%3B%20%7D%0Atbody%20tr%3Anth%2Dchild%28even%29%20%7B%20background%3A%20var%28%2D%2Dogm%2Dpale%29%3B%20%7D%0Acode%20%7B%20background%3A%20%23edf4f3%3B%20border%2Dradius%3A%204px%3B%20padding%3A%200%2E1em%200%2E28em%3B%20%7D%0Apre%20%7B%20overflow%2Dx%3A%20auto%3B%20padding%3A%201rem%3B%20color%3A%20%23eef8f7%3B%20background%3A%20var%28%2D%2Dogm%2Dnavy%29%3B%20border%2Dradius%3A%208px%3B%20%7D%0Apre%20code%20%7B%20background%3A%20transparent%3B%20padding%3A%200%3B%20%7D%0Astrong%20%7B%20color%3A%20var%28%2D%2Dogm%2Dnavy%29%3B%20%7D%0Ahr%20%7B%20border%3A%200%3B%20border%2Dtop%3A%201px%20solid%20var%28%2D%2Dogm%2Dborder%29%3B%20%7D%0A%2Esite%2Dfooter%20%7B%0Amargin%2Dtop%3A%204rem%3B%0Apadding%2Dtop%3A%201%2E5rem%3B%0Aborder%2Dtop%3A%201px%20solid%20var%28%2D%2Dogm%2Dborder%29%3B%0Acolor%3A%20var%28%2D%2Dogm%2Dmuted%29%3B%0Afont%2Dsize%3A%200%2E86rem%3B%0A%7D%0A%2Esite%2Dfooter%20p%20%7B%20margin%3A%200%2E25rem%200%3B%20%7D%0A%2Ehome%2Dpage%20h1%20%7B%20max%2Dwidth%3A%20900px%3B%20font%2Dsize%3A%20clamp%282%2E7rem%2C%207vw%2C%205%2E4rem%29%3B%20letter%2Dspacing%3A%20%2D0%2E04em%3B%20%7D%0A%2Ehome%2Dpage%20h2%20%7B%20margin%2Dtop%3A%203%2E5rem%3B%20%7D%0A%2Eeyebrow%20%7B%0Amargin%3A%200%200%200%2E8rem%3B%0Acolor%3A%20var%28%2D%2Dogm%2Dteal%29%3B%0Afont%2Dsize%3A%200%2E78rem%3B%0Afont%2Dweight%3A%20800%3B%0Aletter%2Dspacing%3A%200%2E12em%3B%0Atext%2Dtransform%3A%20uppercase%3B%0A%7D%0A%2Elede%20%7B%20max%2Dwidth%3A%20820px%3B%20color%3A%20var%28%2D%2Dogm%2Dmuted%29%3B%20font%2Dsize%3A%20clamp%281%2E12rem%2C%202%2E4vw%2C%201%2E42rem%29%3B%20%7D%0A%2Epublication%2Dmeta%20%7B%0Adisplay%3A%20flex%3B%0Aflex%2Dwrap%3A%20wrap%3B%0Agap%3A%200%2E45rem%201rem%3B%0Amax%2Dwidth%3A%20900px%3B%0Amargin%3A%201%2E15rem%200%200%3B%0Acolor%3A%20var%28%2D%2Dogm%2Dmuted%29%3B%0Afont%2Dsize%3A%200%2E9rem%3B%0A%7D%0A%2Epublication%2Dmeta%20%3E%20%2A%20%7B%20display%3A%20inline%2Dflex%3B%20align%2Ditems%3A%20center%3B%20%7D%0A%2Epublication%2Dmeta%20%3E%20%2A%3Anot%28%3Alast%2Dchild%29%3A%3Aafter%20%7B%0Acontent%3A%20%22%5C00b7%22%3B%0Amargin%2Dleft%3A%201rem%3B%0Acolor%3A%20var%28%2D%2Dogm%2Dgold%29%3B%0Afont%2Dweight%3A%20800%3B%0A%7D%0A%2Ehero%2Dactions%20%7B%20display%3A%20flex%3B%20flex%2Dwrap%3A%20wrap%3B%20gap%3A%200%2E75rem%3B%20margin%3A%201%2E8rem%200%202%2E5rem%3B%20%7D%0A%2Ebutton%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Apadding%3A%200%2E72rem%201rem%3B%0Aborder%3A%201px%20solid%20var%28%2D%2Dogm%2Dteal%29%3B%0Aborder%2Dradius%3A%208px%3B%0Acolor%3A%20var%28%2D%2Dogm%2Dteal%29%3B%0Afont%2Dweight%3A%20750%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0A%2Ebutton%2Eprimary%20%7B%20color%3A%20white%3B%20background%3A%20var%28%2D%2Dogm%2Dteal%29%3B%20%7D%0A%2Ebutton%3Ahover%2C%20%2Ebutton%3Afocus%2Dvisible%20%7B%20transform%3A%20translateY%28%2D1px%29%3B%20box%2Dshadow%3A%200%206px%2016px%20rgba%287%2C%2059%2C%2076%2C%200%2E12%29%3B%20%7D%0A%2Ehero%2Darchitecture%20%7B%0Awidth%3A%20100%25%3B%0Amargin%3A%202rem%200%3B%0Apadding%3A%201rem%3B%0Aborder%3A%201px%20solid%20var%28%2D%2Dogm%2Dborder%29%3B%0Aborder%2Dradius%3A%2018px%3B%0Abackground%3A%20var%28%2D%2Dogm%2Dpale%29%3B%0A%7D%0A%2Ecard%2Dgrid%20%7B%0Adisplay%3A%20grid%3B%0Agrid%2Dtemplate%2Dcolumns%3A%20repeat%282%2C%20minmax%280%2C%201fr%29%29%3B%0Agap%3A%201%2E25rem%3B%0Amargin%3A%201%2E5rem%200%3B%0A%7D%0A%2Edocument%2Dcard%20%7B%0Adisplay%3A%20flex%3B%0Aflex%2Ddirection%3A%20column%3B%0Amin%2Dheight%3A%20260px%3B%0Apadding%3A%201%2E4rem%3B%0Aborder%3A%201px%20solid%20var%28%2D%2Dogm%2Dborder%29%3B%0Aborder%2Dradius%3A%2014px%3B%0Abackground%3A%20var%28%2D%2Dogm%2Dpale%29%3B%0A%7D%0A%2Edocument%2Dcard%3Anth%2Dchild%282%29%20%7B%20background%3A%20%23e5f3f2%3B%20%7D%0A%2Edocument%2Dcard%20h3%20%7B%20margin%3A%200%2E4rem%200%200%2E7rem%3B%20font%2Dsize%3A%201%2E35rem%3B%20%7D%0A%2Edocument%2Dcard%20p%20%7B%20margin%2Dtop%3A%200%3B%20%7D%0A%2Edocument%2Dcard%20%2Ecard%2Dactions%20%7B%20display%3A%20flex%3B%20flex%2Dwrap%3A%20wrap%3B%20gap%3A%200%2E7rem%3B%20margin%2Dtop%3A%20auto%3B%20%7D%0A%2Edocument%2Dcard%20%2Ecard%2Dactions%20a%20%7B%20font%2Dweight%3A%20750%3B%20%7D%0A%2Eprinciples%20%7B%0Adisplay%3A%20grid%3B%0Agrid%2Dtemplate%2Dcolumns%3A%20repeat%283%2C%20minmax%280%2C%201fr%29%29%3B%0Agap%3A%201rem%3B%0Apadding%3A%200%3B%0Alist%2Dstyle%3A%20none%3B%0A%7D%0A%2Eprinciples%20li%20%7B%20padding%3A%201rem%3B%20border%2Dtop%3A%204px%20solid%20var%28%2D%2Dogm%2Dgreen%29%3B%20background%3A%20var%28%2D%2Dogm%2Dpale%29%3B%20%7D%0A%2Eprinciples%20strong%20%7B%20display%3A%20block%3B%20margin%2Dbottom%3A%200%2E35rem%3B%20%7D%0A%40media%20%28max%2Dwidth%3A%20720px%29%20%7B%0Ahtml%20%7B%20scroll%2Dpadding%2Dtop%3A%208rem%3B%20background%3A%20white%3B%20%7D%0Abody%20%7B%20margin%3A%200%3B%20padding%3A%201%2E2rem%3B%20box%2Dshadow%3A%20none%3B%20font%2Dsize%3A%2016px%3B%20%7D%0A%2Edraft%2Dbanner%20%7B%20margin%3A%20%2D1%2E2rem%200%201%2E5rem%20calc%2850%25%20%2D%2050vw%29%3B%20padding%3A%200%2E9rem%201%2E2rem%3B%20text%2Dalign%3A%20left%3B%20%7D%0Atable%20%7B%20display%3A%20block%3B%20overflow%2Dx%3A%20auto%3B%20%7D%0A%2Esite%2Dnav%20%7B%20align%2Ditems%3A%20flex%2Dstart%3B%20flex%2Ddirection%3A%20column%3B%20margin%2Dtop%3A%200%3B%20%7D%0A%2Epublication%2Dmeta%20%7B%20display%3A%20block%3B%20%7D%0A%2Epublication%2Dmeta%20%3E%20%2A%20%7B%20display%3A%20block%3B%20margin%3A%200%2E2rem%200%3B%20%7D%0A%2Epublication%2Dmeta%20%3E%20%2A%3Anot%28%3Alast%2Dchild%29%3A%3Aafter%20%7B%20content%3A%20none%3B%20%7D%0A%2Ecard%2Dgrid%2C%20%2Eprinciples%20%7B%20grid%2Dtemplate%2Dcolumns%3A%201fr%3B%20%7D%0A%7D%0A%40media%20print%20%7B%0A%40page%20%7B%20margin%3A%200%2E65in%3B%20%7D%0Ahtml%20%7B%20background%3A%20white%3B%20%7D%0Abody%20%7B%20max%2Dwidth%3A%20none%3B%20margin%3A%200%3B%20padding%3A%200%3B%20box%2Dshadow%3A%20none%3B%20font%2Dsize%3A%209%2E5pt%3B%20line%2Dheight%3A%201%2E35%3B%20%7D%0Ah1%20%7B%20font%2Dsize%3A%2026pt%3B%20%7D%0Ah2%20%7B%20break%2Dbefore%3A%20auto%3B%20break%2Dafter%3A%20avoid%3B%20margin%2Dtop%3A%201%2E5em%3B%20%7D%0Ah3%2C%20table%2C%20img%2C%20pre%20%7B%20break%2Dinside%3A%20avoid%3B%20%7D%0Aa%20%7B%20color%3A%20inherit%3B%20text%2Ddecoration%3A%20none%3B%20%7D%0A%2Esite%2Dnav%2C%20%2Eskip%2Dlink%2C%20%2Ehero%2Dactions%2C%20%2Esite%2Dfooter%20%7B%20display%3A%20none%3B%20%7D%0A%2Edraft%2Dbanner%20%7B%20position%3A%20static%3B%20width%3A%20auto%3B%20margin%3A%200%200%201rem%3B%20padding%3A%200%2E65rem%3B%20border%3A%202px%20solid%20%23000%3B%20color%3A%20%23000%3B%20background%3A%20%23fff%3B%20%7D%0A%2Edraft%2Dbanner%20strong%20%7B%20color%3A%20%23000%3B%20%7D%0A%7D%0A" rel="stylesheet">
   <meta name="description" content="A director-ready proposal for a low-cost, health-aware network of institutional OpenGeoMetadata API mirrors.">
-  <meta name="ogm-source-sha256" content="91d15879817620f9d3c8cefdf83a0d6f889eeace2bfca7becaf2b3df55acb95b">
+  <meta name="ogm-source-sha256" content="21ea775b22f8839e274ae5c1da16080be8bb43e7c1a79f7d9f22f9c7b5a8461f">
   <meta property="og:title" content="OpenGeoMetadata API Mirror Network - Executive Summary">
   <meta property="og:description" content="A director-ready proposal for a low-cost, health-aware network of institutional OpenGeoMetadata API mirrors.">
   <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJPcGVuR2VvTWV0YWRhdGEiPgogIDxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgcng9IjE0IiBmaWxsPSIjMDczYjRjIi8+CiAgPGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMTgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzdmZDFjOCIgc3Ryb2tlLXdpZHRoPSI4Ii8+CiAgPGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iNSIgZmlsbD0iI2Y2YzU2ZiIvPgo8L3N2Zz4K" type="image/svg+xml">
@@ -28,6 +28,78 @@
 <main id="main-content">
 <h1 id="opengeometadata-api-mirror-network">OpenGeoMetadata API Mirror Network</h1>
 <h2 id="shared-infrastructure-that-becomes-stronger-with-every-new-member">Shared infrastructure that becomes stronger with every new member</h2>
+<h3 id="document-control">Document control</h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Field</th>
+<th style="text-align: left;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Status</td>
+<td style="text-align: left;"><strong>Draft for Community Discussion</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Document ID</td>
+<td style="text-align: left;"><code>OGM-DISCUSSION-2026-01</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Version</td>
+<td style="text-align: left;"><code>0.1.0</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Proposal lead</td>
+<td style="text-align: left;">Eric Larson (<script type="text/javascript">
+<!--
+h='&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;';a='&#64;';n='&#x65;&#x77;&#108;&#x61;&#114;&#x73;&#x6f;&#110;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>ewlarson at gmail dot com</noscript>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">First published</td>
+<td style="text-align: left;">August 19, 2026</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Last updated</td>
+<td style="text-align: left;">August 19, 2026</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sponsoring group</td>
+<td style="text-align: left;">Seeking an OpenGeoMetadata community sponsor</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Review period</td>
+<td style="text-align: left;">Open; a closing date will be established by the sponsoring group</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Discussion</td>
+<td style="text-align: left;"><a href="https://github.com/OpenGeoMetadata/ogm-mirror-network/issues">GitHub issue tracker</a>; a dedicated review thread should be designated before formal review opens</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Decision authority</td>
+<td style="text-align: left;">To be designated by OGM governance before pilot authorization</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Canonical source</td>
+<td style="text-align: left;"><a href="https://github.com/OpenGeoMetadata/ogm-mirror-network">OpenGeoMetadata/ogm-mirror-network</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Supersedes</td>
+<td style="text-align: left;">None</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Approval record</td>
+<td style="text-align: left;">None; this document is not approved or normative</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Document license</td>
+<td style="text-align: left;">Proposed CC BY 4.0, subject to OGM community approval</td>
+</tr>
+</tbody>
+</table>
 <h3 id="executive-summary">Executive summary</h3>
 <p><strong>Companion document:</strong> <a href="opengeometadata-api-mirror-network-technical-implementation.html">Technical Implementation Guide</a><br> <strong>Download:</strong> <a href="../pdf/opengeometadata-mirror-network-executive-brief.pdf">Two-page Executive Brief (PDF)</a></p>
 <p>OpenGeoMetadata has already solved the hardest community problems: a shared discovery schema in OGM Aardvark, a distributed and transparent way to steward metadata in GitHub, a proven API platform for harvesting and serving those records, and the configurable OGM Discovery (<code>ogm-discovery</code>) frontend that can be branded for an institution and hosted as a static site on GitHub Pages.</p>
@@ -177,6 +249,74 @@
 </ul>
 <p>For a service-only adopter, the VM, firewall, SSH, operating-system, and backend support tasks disappear. The institution can participate without a local IT deployment; only optional campus policies such as a custom domain may call for local coordination.</p>
 <p>These are pilot targets to validate, not contractual service levels.</p>
+<h2 id="alternatives-considered">Alternatives considered</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Model</th>
+<th style="text-align: left;">Principal advantage</th>
+<th style="text-align: left;">Principal limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">One centrally hosted OGM API</td>
+<td style="text-align: left;">Simplest initial operations and accountability</td>
+<td style="text-align: left;">Concentrates cost, traffic, and service risk at one institution</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Independent institution-specific stacks</td>
+<td style="text-align: left;">Maximum local autonomy</td>
+<td style="text-align: left;">Repeats deployment and operations work and preserves a high barrier for small institutions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CDN and web application firewall in front of one origin</td>
+<td style="text-align: left;">Adds caching and bot protection</td>
+<td style="text-align: left;">Leaves one origin as the capacity ceiling and operational failure domain</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Federated OGM API mirror network <strong>(recommended)</strong></td>
+<td style="text-align: left;">Pools capacity, provides failover and maintenance freedom, and supports service-only adoption</td>
+<td style="text-align: left;">Requires common releases, readiness standards, shared operations, and governance</td>
+</tr>
+</tbody>
+</table>
+<p>The recommended model is the only option considered that simultaneously grows capacity with participation, preserves institutional hosting, and removes the backend infrastructure requirement for smaller adopters.</p>
+<h2 id="open-questions-for-community-review">Open questions for community review</h2>
+<p>The draft deliberately leaves policy choices open where community authority is required:</p>
+<ul>
+<li>Which OGM group will sponsor the proposal, and which body can authorize the pilot and any later production service?</li>
+<li>Who will fund and operate the global edge, DNS, shared monitoring, and incident coordination?</li>
+<li>What fair-use policy, capacity threshold, and onboarding criteria should apply to mirror hosts and service-only adopters?</li>
+<li>What service objectives, support boundaries, security expectations, and incident authority should the operating compact define?</li>
+<li>How should a mirror be retired, replaced, or temporarily removed from the network?</li>
+<li>Should the community adopt the proposed CC BY 4.0 document license?</li>
+</ul>
+<h2 id="draft-review-and-decision-process">Draft review and decision process</h2>
+<p>Comments should be recorded in the repository's <a href="https://github.com/OpenGeoMetadata/ogm-mirror-network/issues">GitHub issue tracker</a>. Before a formal review period begins, the sponsoring group should designate one issue or discussion as the canonical review thread, name the decision authority, and publish a closing date. The proposal lead will publish numbered <code>0.x</code> revisions and summarize material changes there. A pilot decision and its rationale should be recorded publicly in this repository.</p>
+<p>Proposed lifecycle:</p>
+<p><strong>Community Discussion Draft -&gt; Pilot Candidate -&gt; Approved Pilot -&gt; Production Proposal -&gt; Accepted, Rejected, Withdrawn, or Superseded</strong></p>
+<h3 id="revision-history">Revision history</h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Version</th>
+<th style="text-align: left;">Date</th>
+<th style="text-align: left;">Editor</th>
+<th style="text-align: left;">Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>0.1.0</code></td>
+<td style="text-align: left;">August 19, 2026</td>
+<td style="text-align: left;">Eric Larson</td>
+<td style="text-align: left;">Initial formally controlled community discussion draft</td>
+</tr>
+</tbody>
+</table>
+<h3 id="approval-record">Approval record</h3>
+<p>No approval has been recorded. Version <code>0.1.0</code> is a discussion document and does not establish an OGM roadmap, service commitment, or technical standard.</p>
 <h2 id="operating-safeguards">Operating safeguards</h2>
 <p>The network should launch with a short operating compact:</p>
 <ul>
