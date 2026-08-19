@@ -25,6 +25,8 @@ def main() -> None:
         replacements={
             'href="opengeometadata-api-mirror-network-technical-implementation.md"':
                 'href="opengeometadata-api-mirror-network-technical-implementation.html"',
+            'href="../output/pdf/opengeometadata-mirror-network-executive-brief.pdf"':
+                'href="../pdf/opengeometadata-mirror-network-executive-brief.pdf"',
         },
     )
     print(result)

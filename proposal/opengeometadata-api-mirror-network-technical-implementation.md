@@ -10,7 +10,8 @@ description: Proposed implementation for a health-aware network of institutional
 **Audience:** campus IT staff, geography librarians, OGM service operators, and
 technical governance groups<br>
 **Status:** proposed pilot architecture<br>
-**Companion document:** [Executive summary](opengeometadata-mirror-network-executive-summary.md)
+**Companion document:** [Executive summary](opengeometadata-mirror-network-executive-summary.md)<br>
+**Download:** [Two-page Executive Brief (PDF)](../output/pdf/opengeometadata-mirror-network-executive-brief.pdf)
 
 ### Contents
 
