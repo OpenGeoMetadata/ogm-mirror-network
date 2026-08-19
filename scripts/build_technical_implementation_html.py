@@ -32,6 +32,9 @@ def main() -> None:
     replacements[
         'href="opengeometadata-mirror-network-executive-summary.md"'
     ] = 'href="opengeometadata-mirror-network-executive-summary.html"'
+    replacements[
+        'href="../output/pdf/opengeometadata-mirror-network-executive-brief.pdf"'
+    ] = 'href="../pdf/opengeometadata-mirror-network-executive-brief.pdf"'
 
     result = build_document(
         source=SOURCE,

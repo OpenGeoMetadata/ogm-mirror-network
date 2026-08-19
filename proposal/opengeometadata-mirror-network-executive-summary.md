@@ -4,7 +4,8 @@
 
 ### Executive summary
 
-**Companion document:** [Technical Implementation Guide](opengeometadata-api-mirror-network-technical-implementation.md)
+**Companion document:** [Technical Implementation Guide](opengeometadata-api-mirror-network-technical-implementation.md)<br>
+**Download:** [Two-page Executive Brief (PDF)](../output/pdf/opengeometadata-mirror-network-executive-brief.pdf)
 
 OpenGeoMetadata has already solved the hardest community problems: a shared
 discovery schema in OGM Aardvark, a distributed and transparent way to steward

@@ -32,6 +32,12 @@ PALE_GREEN = HexColor("#E5F5EC")
 PALE_GOLD = HexColor("#FFF0D8")
 WHITE = HexColor("#FFFFFF")
 BORDER = HexColor("#D6E2E0")
+DRAFT_RED = HexColor("#7A271A")
+DRAFT_GOLD = HexColor("#F6C56F")
+DRAFT_NOTICE = (
+    "DRAFT FOR COMMUNITY DISCUSSION - This proposal is under consideration by the "
+    "OpenGeoMetadata community. It is not an approved OGM roadmap."
+)
 
 
 def style(size=10, leading=None, color=INK, font="Helvetica", alignment=TA_LEFT):
@@ -70,13 +76,18 @@ def rounded_card(c, x, y, w, h, fill, stroke=BORDER, radius=12):
 
 
 def page_header(c, section, page_number):
-    c.setFillColor(TEAL)
-    c.rect(0, PAGE_H - 8, PAGE_W, 8, fill=1, stroke=0)
+    c.setFillColor(DRAFT_RED)
+    c.rect(0, PAGE_H - 26, PAGE_W, 26, fill=1, stroke=0)
+    c.setFillColor(DRAFT_GOLD)
+    c.rect(0, PAGE_H - 28, PAGE_W, 2, fill=1, stroke=0)
+    c.setFillColor(WHITE)
+    c.setFont("Helvetica-Bold", 7.7)
+    c.drawCentredString(PAGE_W / 2, PAGE_H - 17, DRAFT_NOTICE)
     c.setFillColor(MUTED)
     c.setFont("Helvetica-Bold", 7.5)
-    c.drawString(36, PAGE_H - 29, section.upper())
+    c.drawString(36, PAGE_H - 43, section.upper())
     c.setFont("Helvetica", 7.5)
-    c.drawRightString(PAGE_W - 36, PAGE_H - 29, f"AUGUST 2026  |  {page_number} / 2")
+    c.drawRightString(PAGE_W - 36, PAGE_H - 43, f"AUGUST 2026  |  {page_number} / 2")
 
 
 def footer(c):
