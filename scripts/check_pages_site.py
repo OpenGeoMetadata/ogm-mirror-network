@@ -34,6 +34,9 @@ class PageParser(HTMLParser):
         self.h1_count = 0
         self.source_digest: str | None = None
         self.external_scripts: list[str] = []
+        self.draft_banner_count = 0
+        self.draft_banner_text: list[str] = []
+        self._inside_draft_banner = False
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = {key: value for key, value in attrs if value is not None}
@@ -45,9 +48,21 @@ class PageParser(HTMLParser):
             self.source_digest = values.get("content")
         if tag == "script" and (src := values.get("src")):
             self.external_scripts.append(src)
+        classes = set(values.get("class", "").split())
+        if tag == "div" and "draft-banner" in classes:
+            self.draft_banner_count += 1
+            self._inside_draft_banner = True
         for attribute in ("href", "src"):
             if reference := values.get(attribute):
                 self.references.append((attribute, reference))
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "div" and self._inside_draft_banner:
+            self._inside_draft_banner = False
+
+    def handle_data(self, data: str) -> None:
+        if self._inside_draft_banner:
+            self.draft_banner_text.append(data)
 
 
 def parse_page(path: Path) -> PageParser:
@@ -80,6 +95,15 @@ def main() -> None:
             errors.append(
                 f"{page.relative_to(ROOT)}: external scripts are not allowed: "
                 f"{', '.join(parser.external_scripts)}"
+            )
+        expected_notice = (
+            "DRAFT/DISCUSSION — This is an OpenGeoMetadata Community discussion topic "
+            "of interest. This is not a OGM approved roadmap."
+        )
+        actual_notice = " ".join("".join(parser.draft_banner_text).split())
+        if parser.draft_banner_count != 1 or actual_notice != expected_notice:
+            errors.append(
+                f"{page.relative_to(ROOT)}: missing or incorrect public draft banner"
             )
 
     for page, source in SOURCE_BY_PAGE.items():
