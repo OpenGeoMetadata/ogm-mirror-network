@@ -22,8 +22,8 @@ LEGACY_HTML5_SHIM = (
     '  <![endif]-->\n'
 )
 DRAFT_NOTICE = (
-    "DRAFT/DISCUSSION — This is an OpenGeoMetadata Community discussion topic of interest. "
-    "This is not a OGM approved roadmap."
+    "DRAFT FOR COMMUNITY DISCUSSION — This proposal is under consideration by the "
+    "OpenGeoMetadata community. It is not an approved OGM roadmap."
 )
 
 

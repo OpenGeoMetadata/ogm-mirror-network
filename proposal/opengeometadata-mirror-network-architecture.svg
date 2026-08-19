@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1040" viewBox="0 0 1600 1040" role="img" aria-labelledby="title desc">
   <title id="title">OpenGeoMetadata API Mirror Network architecture</title>
-  <desc id="desc">Customizable, institution-branded static discovery sites and direct API consumers call a protected global OpenGeoMetadata endpoint. The endpoint applies bot controls, rate limits, health checks, and weighted routing across API mirrors at BTAA, UT Austin, Nevada Reno, and future institutions. Every mirror independently synchronizes canonical Aardvark metadata from OpenGeoMetadata GitHub repositories and receives versioned deployments through shared OGM operations.</desc>
+  <desc id="desc">Customizable, institution-branded static discovery sites and direct API consumers call a protected global OpenGeoMetadata endpoint. The endpoint applies bot controls, rate limits, health checks, and weighted routing across the BTAA API mirror and additional institutional mirror hosts. Every mirror independently synchronizes canonical Aardvark metadata from OpenGeoMetadata GitHub repositories and receives versioned deployments through shared OGM operations.</desc>
   <defs>
     <linearGradient id="edge" x1="0" x2="1">
       <stop offset="0" stop-color="#073b4c"/>
@@ -36,13 +36,13 @@
   <rect width="1600" height="1040" fill="#f7faf9"/>
 
   <text class="title" x="80" y="74">OpenGeoMetadata API Mirror Network</text>
-  <text class="subtitle" x="80" y="113">One network endpoint. Many institutional mirrors. Every adopter adds resilience.</text>
+  <text class="subtitle" x="80" y="113">One network endpoint. Many institutional adopters. Pooled capacity serves everyone.</text>
 
   <rect x="82" y="155" width="590" height="142" rx="22" fill="#ffffff" filter="url(#shadow)"/>
   <circle cx="131" cy="207" r="27" fill="#e2f3f1"/>
   <path d="M119 207h24M131 195v24" stroke="#087f8c" stroke-width="4" stroke-linecap="round"/>
   <text class="card-title" x="176" y="199">Customizable institutional discovery</text>
-  <text class="card-copy" x="176" y="232">abcdefgeo frontend on GitHub Pages</text>
+  <text class="card-copy" x="176" y="232">OGM Discovery on GitHub Pages</text>
   <text class="card-copy" x="176" y="260">Static, configurable, and locally branded</text>
 
   <rect x="928" y="155" width="590" height="142" rx="22" fill="#ffffff" filter="url(#shadow)"/>
@@ -100,7 +100,7 @@
   <g transform="translate(452 568)">
     <rect width="336" height="171" rx="20" fill="#ffffff" filter="url(#shadow)"/>
     <rect width="336" height="13" rx="7" fill="#2a9d68"/>
-    <text class="node-title" x="28" y="56">UT Austin mirror</text>
+    <text class="node-title" x="28" y="56">Pilot mirror A</text>
     <text class="node-copy" x="28" y="91">Same API release and corpus</text>
     <text class="node-copy" x="28" y="119">institution-hosted, OGM-operated</text>
     <text class="small" x="28" y="151">WEIGHTED BY CAPACITY</text>
@@ -108,7 +108,7 @@
   <g transform="translate(822 568)">
     <rect width="336" height="171" rx="20" fill="#ffffff" filter="url(#shadow)"/>
     <rect width="336" height="13" rx="7" fill="#2a9d68"/>
-    <text class="node-title" x="28" y="56">Nevada Reno mirror</text>
+    <text class="node-title" x="28" y="56">Pilot mirror B</text>
     <text class="node-copy" x="28" y="91">Same API release and corpus</text>
     <text class="node-copy" x="28" y="119">independent failure domain</text>
     <text class="small" x="28" y="151">AUTOMATIC FAILOVER</text>
@@ -117,7 +117,7 @@
     <rect width="326" height="171" rx="20" fill="#ffffff" filter="url(#shadow)"/>
     <rect width="326" height="13" rx="7" fill="#d18b24"/>
     <text class="node-title" x="28" y="56">Future OGM mirrors</text>
-    <text class="node-copy" x="28" y="91">Each adopter adds a node</text>
+    <text class="node-copy" x="28" y="91">Each mirror host adds a node</text>
     <text class="node-copy" x="28" y="119">and expands shared capacity</text>
     <text class="small" x="28" y="151">GROWTH STRENGTHENS SERVICE</text>
   </g>
@@ -143,5 +143,5 @@
   <path d="M1410 794 C1410 770 1360 770 1360 741" fill="none" stroke="#d18b24" stroke-width="2.5" stroke-dasharray="5 8" opacity=".75" marker-end="url(#arrowGold)"/>
 
   <rect x="82" y="967" width="1436" height="52" rx="17" fill="#073b4c"/>
-  <text class="flywheel" x="800" y="1001" text-anchor="middle">NEW ADOPTER + ONE VM  ->  MORE CAPACITY + MORE RESILIENCE  ->  STRONGER SERVICE FOR EVERY MEMBER</text>
+  <text class="flywheel" x="800" y="1001" text-anchor="middle">MORE MIRROR HOSTS  ->  MORE SHARED CAPACITY  ->  MORE INSTITUTIONS SERVED  ->  STRONGER SERVICE</text>
 </svg>

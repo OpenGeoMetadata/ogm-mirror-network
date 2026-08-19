@@ -2,8 +2,8 @@
 
 This repository contains a foundational proposal for a federated network of
 OpenGeoMetadata API mirrors. The model pairs a shared, protected API endpoint
-with independently hosted institutional mirrors and configurable `abcdefgeo`
-frontends on GitHub Pages.
+with independently hosted institutional mirrors and configurable OGM
+Discovery (`ogm-discovery`) frontends on GitHub Pages.
 
 Open [the site landing page](index.html) to browse the complete proposal as a
 static website.
